@@ -1,0 +1,54 @@
+rateLimits:
+  - name: Per-Minute Request Rate Limit
+    description: >-
+      Maximum number of API requests allowed per minute. Applies across all endpoints within an account. Exceeding
+      the rate limit returns a 429 Too Many Requests response. Clients should implement exponential backoff and retry
+      logic to handle rate limit responses gracefully.
+    period: minute
+    scope: account
+    errorCode: 429
+    errorMessage: Too Many Requests
+    tiers:
+      - plan: Explorer
+        limit: 10
+        notes: 10 requests per minute. Suitable for personal projects and testing.
+      - plan: Essential
+        limit: 30
+        notes: 30 requests per minute. Suitable for small production applications.
+      - plan: Advanced
+        limit: 200
+        notes: 200 requests per minute. Suitable for high-volume commercial applications.
+
+  - name: Monthly Credit Allowance
+    description: >-
+      Total number of API credits available per billing cycle. Each successful API call consumes one or more credits
+      depending on the endpoint. Unused credits do not expire and carry over within the subscription period. Credits
+      are replenished on each monthly renewal up to the plan maximum.
+    period: monthly
+    scope: account
+    tiers:
+      - plan: Explorer
+        limit: 30000
+        notes: 30,000 credits per month standard. Doubled to 60,000 during the active promotional period
+          (purchases/renewals on or before December 31, 2026).
+      - plan: Essential
+        limit: 450000
+        notes: 450,000 credits per month standard. Doubled to 666,000 during the active promotional period.
+      - plan: Advanced
+        limit: 4050000
+        notes: 4,050,000 credits per month standard. Doubled to 8,100,000 during the active promotional period.
+
+authentication:
+  - type: Bearer Token
+    description: >-
+      All API requests require a Bearer token passed in the Authorization header. The Accept-Version header must also
+      be included with every request specifying the API version (v1).
+    location: header
+    headerName: Authorization
+    format: "Bearer <your_api_token>"
+    additionalHeaders:
+      - name: Accept-Version
+        value: v1
+        required: true
+    tokenSource: https://fr24api.flightradar24.com/
+    notes: API tokens are obtained through the Flightradar24 API portal after subscribing to a plan.

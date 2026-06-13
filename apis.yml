@@ -1,0 +1,218 @@
+aid: flightradar24
+url: https://raw.githubusercontent.com/api-evangelist/flightradar24/refs/heads/main/apis.yml
+name: Flightradar24
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+tags:
+  - Aviation
+  - Flight Tracking
+  - Real-Time
+  - Aircraft
+  - Airports
+  - Airlines
+  - ADS-B
+  - Historical Data
+description: >-
+  Flightradar24 is the world's most popular real-time flight tracking platform, monitoring over 250,000 daily flights
+  using data from a global network of ADS-B, MLAT, and radar receivers. The FR24 API provides developers with
+  programmatic access to live aircraft positions, historical flight data, flight summaries, and reference data for
+  airports and airlines. The credit-based subscription API uses Bearer token authentication and is available at
+  https://fr24api.flightradar24.com/api with three tiers — Explorer, Essential, and Advanced — covering hobby projects
+  through high-volume commercial applications.
+created: '2026-06-13'
+modified: '2026-06-13'
+specificationVersion: '0.19'
+apis:
+  - aid: flightradar24:live-flights-light
+    name: Live Flights Light
+    description: >-
+      Returns a lightweight snapshot of real-time aircraft positions worldwide, including latitude, longitude, altitude,
+      speed, heading, callsign, and aircraft registration. Optimised for mapping use cases that require low-latency
+      positional data without the full set of flight metadata. Supports filtering by geographic bounding box, callsign,
+      registration, airline, airport pair, aircraft type, and altitude range.
+    humanURL: https://fr24api.flightradar24.com/docs/endpoints
+    baseURL: https://fr24api.flightradar24.com/api
+    tags:
+      - Flights
+      - Live
+      - Real-Time
+      - Aircraft Positions
+    properties:
+      - type: Documentation
+        url: https://fr24api.flightradar24.com/docs/endpoints
+      - type: Authentication
+        url: https://fr24api.flightradar24.com/docs/authentication
+
+  - aid: flightradar24:live-flights-full
+    name: Live Flights Full
+    description: >-
+      Returns complete real-time aircraft flight movement records including latitude, longitude, speed, altitude, and
+      heading alongside enriched flight information such as origin and destination airports, callsign, aircraft
+      registration, aircraft type, operator, and flight number. Supports the same geographic and identifier-based
+      filters as the Light endpoint and is suited for applications requiring full flight context alongside positional
+      data.
+    humanURL: https://fr24api.flightradar24.com/docs/endpoints
+    baseURL: https://fr24api.flightradar24.com/api
+    tags:
+      - Flights
+      - Live
+      - Real-Time
+      - Aircraft Positions
+      - Flight Details
+
+    properties:
+      - type: Documentation
+        url: https://fr24api.flightradar24.com/docs/endpoints
+      - type: Authentication
+        url: https://fr24api.flightradar24.com/docs/authentication
+
+  - aid: flightradar24:historical-flights-light
+    name: Historical Flights Light
+    description: >-
+      Provides historical aircraft positional data using Unix timestamp ranges. Returns lightweight position records
+      (latitude, longitude, altitude, speed, heading, callsign, registration) for past flights. Historical data coverage
+      extends back to May 11, 2016, with availability depending on the subscription plan. Useful for replay, audit,
+      and analytics use cases.
+    humanURL: https://fr24api.flightradar24.com/docs/endpoints
+    baseURL: https://fr24api.flightradar24.com/api
+    tags:
+      - Flights
+      - Historical
+      - Aircraft Positions
+    properties:
+      - type: Documentation
+        url: https://fr24api.flightradar24.com/docs/endpoints
+      - type: Authentication
+        url: https://fr24api.flightradar24.com/docs/authentication
+
+  - aid: flightradar24:historical-flights-full
+    name: Historical Flights Full
+    description: >-
+      Returns full historical aircraft flight movement records for a given time window, combining positional data with
+      enriched flight metadata including origin, destination, callsign, registration, aircraft type, and operator. Data
+      is accessible back to May 11, 2016 depending on the subscription tier. Available on Essential and Advanced plans.
+    humanURL: https://fr24api.flightradar24.com/docs/endpoints
+    baseURL: https://fr24api.flightradar24.com/api
+    tags:
+      - Flights
+      - Historical
+      - Aircraft Positions
+      - Flight Details
+    properties:
+      - type: Documentation
+        url: https://fr24api.flightradar24.com/docs/endpoints
+      - type: Authentication
+        url: https://fr24api.flightradar24.com/docs/authentication
+
+  - aid: flightradar24:flight-summaries
+    name: Flight Summaries
+    description: >-
+      Returns synopses of individual flights including key event timings and locations such as actual takeoff and
+      landing times, departure and arrival airports, and primary flight, aircraft, and operator identifiers. Available
+      in both near-real-time and historical modes. Useful for operations dashboards, delay analytics, and flight
+      history lookups. Queryable by date range, flight number, callsign, registration, or airport pair.
+    humanURL: https://fr24api.flightradar24.com/docs/endpoints
+    baseURL: https://fr24api.flightradar24.com/api
+    tags:
+      - Flights
+      - Summaries
+      - Departures
+      - Arrivals
+      - Historical
+    properties:
+      - type: Documentation
+        url: https://fr24api.flightradar24.com/docs/endpoints
+      - type: Authentication
+        url: https://fr24api.flightradar24.com/docs/authentication
+
+  - aid: flightradar24:flight-tracks
+    name: Flight Tracks
+    description: >-
+      Returns the full positional track of a specific flight identified by its FR24 flight ID. Provides a time-ordered
+      sequence of latitude, longitude, altitude, speed, and heading records spanning the entire flight from departure
+      to arrival. Useful for route visualisation, fuel burn estimation, and incident investigation.
+    humanURL: https://fr24api.flightradar24.com/docs/endpoints
+    baseURL: https://fr24api.flightradar24.com/api
+    tags:
+      - Flights
+      - Tracks
+      - Route
+      - Historical
+    properties:
+      - type: Documentation
+        url: https://fr24api.flightradar24.com/docs/endpoints
+      - type: Authentication
+        url: https://fr24api.flightradar24.com/docs/authentication
+
+  - aid: flightradar24:airports
+    name: Airports
+    description: >-
+      Returns detailed reference data for airports worldwide, including full airport name, IATA and ICAO codes,
+      geographic coordinates, elevation, country, city, state, and timezone. Supports lookup by IATA or ICAO code.
+      Useful for enriching flight data with human-readable location information and for building airport directory
+      features.
+    humanURL: https://fr24api.flightradar24.com/docs/endpoints
+    baseURL: https://fr24api.flightradar24.com/api
+    tags:
+      - Airports
+      - Reference Data
+      - IATA
+      - ICAO
+    properties:
+      - type: Documentation
+        url: https://fr24api.flightradar24.com/docs/endpoints
+      - type: Authentication
+        url: https://fr24api.flightradar24.com/docs/authentication
+
+  - aid: flightradar24:airlines
+    name: Airlines
+    description: >-
+      Returns reference data for airlines including airline name, IATA code, and ICAO code. Supports lookup by
+      identifier. Useful for resolving callsign prefixes and operator codes present in flight data into human-readable
+      airline names for display and reporting purposes.
+    humanURL: https://fr24api.flightradar24.com/docs/endpoints
+    baseURL: https://fr24api.flightradar24.com/api
+    tags:
+      - Airlines
+      - Reference Data
+      - IATA
+      - ICAO
+    properties:
+      - type: Documentation
+        url: https://fr24api.flightradar24.com/docs/endpoints
+      - type: Authentication
+        url: https://fr24api.flightradar24.com/docs/authentication
+
+common:
+  - type: Portal
+    url: https://fr24api.flightradar24.com/
+  - type: Documentation
+    url: https://fr24api.flightradar24.com/docs/endpoints
+  - type: GettingStarted
+    url: https://fr24api.flightradar24.com/docs/getting-started
+  - type: Authentication
+    url: https://fr24api.flightradar24.com/docs/authentication
+  - type: Sandbox
+    url: https://fr24api.flightradar24.com/docs/sandbox-environment
+  - type: Pricing
+    url: https://fr24api.flightradar24.com/subscriptions-and-credits
+  - type: FAQ
+    url: https://fr24api.flightradar24.com/docs/faq
+  - type: UseCases
+    url: https://fr24api.flightradar24.com/docs/examples-and-use-cases
+  - type: Blog
+    url: https://www.flightradar24.com/blog/b2b/
+  - type: Support
+    url: https://support.fr24.com/support/solutions/folders/3000022922
+  - type: GitHubOrganization
+    url: https://github.com/Flightradar24
+  - type: SDKPython
+    url: https://fr24api.flightradar24.com/docs/sdk/python
+  - type: SDKJavaScript
+    url: https://github.com/Flightradar24/fr24api-sdk-js
+  - type: MCPServer
+    url: https://github.com/Flightradar24/fr24api-mcp
+
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

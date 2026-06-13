@@ -1,0 +1,53 @@
+finops:
+  provider: Flightradar24 AB
+  pricingUrl: https://fr24api.flightradar24.com/subscriptions-and-credits
+  pricingModel: credit-based subscription
+  billingCycle: monthly
+  currency: USD
+  notes: >-
+    Flightradar24 uses a credit-based pricing model. Each API call consumes a credit from the monthly allowance.
+    Credits unused in a billing cycle carry over within the subscription. If the monthly credit limit is exhausted,
+    additional credits must be purchased or the account must wait for the next billing cycle renewal. An active
+    promotional deal (through December 31, 2026) doubles monthly credits for all billing cycles starting on or
+    before that date.
+
+  plans:
+    - name: Explorer
+      monthlyCost: 9.00
+      creditAllowance: 30000
+      promotionalCreditAllowance: 60000
+      costPerCredit: 0.0003
+      notes: >-
+        Effective cost of $0.0003 per credit at standard allowance. Best for personal projects, hobby use,
+        and initial integration development. No historical data access.
+
+    - name: Essential
+      monthlyCost: 99.00
+      creditAllowance: 450000
+      promotionalCreditAllowance: 666000
+      costPerCredit: 0.00022
+      notes: >-
+        Effective cost of ~$0.00022 per credit at standard allowance, approximately 27% cheaper per credit
+        than Explorer. Adds historical flight data and flight summaries. Suited for small to mid-size production apps.
+
+    - name: Advanced
+      monthlyCost: 900.00
+      creditAllowance: 4050000
+      promotionalCreditAllowance: 8100000
+      costPerCredit: 0.000222
+      notes: >-
+        Effective cost of ~$0.000222 per credit at standard allowance. Best value for high-volume commercial
+        applications and enterprise deployments. Full access to all endpoints including deep historical data
+        back to May 11, 2016.
+
+  costOptimizationTips:
+    - Use the Light endpoints (Live Flights Light, Historical Flights Light) instead of Full endpoints when full
+      flight metadata is not required — Light endpoints consume fewer credits per call.
+    - Use the Sandbox environment for development and testing to avoid consuming production credits.
+    - Implement client-side caching for reference data (airports, airlines) as this data changes infrequently.
+    - Apply geographic bounding box and identifier filters to narrow results and avoid pulling unnecessary data.
+    - Monitor credit consumption via the Usage Metrics dashboard in the FR24 API account portal.
+    - Take advantage of the promotional credit doubling deal (valid through December 31, 2026) by subscribing or
+      renewing before that date to maximise monthly credit allowance at no additional cost.
+    - Consider upgrading to Essential or Advanced if consistently approaching the Explorer monthly credit limit,
+      as the cost-per-credit drops significantly at higher tiers.

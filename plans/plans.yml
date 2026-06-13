@@ -1,0 +1,71 @@
+plans:
+  - name: Explorer
+    description: >-
+      Entry-level plan for hobbyists, developers, and individuals building personal projects. Provides 30,000 credits
+      per month (doubled to 60,000 during the active promotional period). Rate limited to 10 requests per minute.
+      Access to core live flight and reference endpoints. No historical flight data access.
+    url: https://fr24api.flightradar24.com/subscriptions-and-credits
+    price: 9.00
+    currency: USD
+    billingCycle: monthly
+    rateLimit:
+      requests: 10
+      period: minute
+      notes: 30,000 credits per month (60,000 during promotion). Credits are consumed per API call on a pay-per-use
+        basis within the monthly allowance.
+    features:
+      - 30,000 monthly credits (60,000 during promotional period)
+      - Live flight positions (light and full)
+      - Airport and airline reference data
+      - Sandbox environment access
+      - Bearer token authentication
+      - 10 requests per minute rate limit
+
+  - name: Essential
+    description: >-
+      Mid-tier plan designed for regular use, small businesses, and startups. Provides 450,000 credits per month
+      (doubled to 666,000 during the active promotional period). Rate limited to 30 requests per minute. Adds access
+      to historical flight data and flight summaries.
+    url: https://fr24api.flightradar24.com/subscriptions-and-credits
+    price: 99.00
+    currency: USD
+    billingCycle: monthly
+    rateLimit:
+      requests: 30
+      period: minute
+      notes: 450,000 credits per month (666,000 during promotion). Credits consumed per API call.
+    features:
+      - 450,000 monthly credits (666,000 during promotional period)
+      - Live flight positions (light and full)
+      - Historical flight data (light and full)
+      - Flight summaries (historical and near real-time)
+      - Flight tracks
+      - Airport and airline reference data
+      - Sandbox environment access
+      - Bearer token authentication
+      - 30 requests per minute rate limit
+
+  - name: Advanced
+    description: >-
+      High-volume plan for scaling applications and enterprise use cases. Provides 4,050,000 credits per month
+      (doubled to 8,100,000 during the active promotional period). Rate limited to 200 requests per minute. Full
+      access to all endpoints including deep historical data.
+    url: https://fr24api.flightradar24.com/subscriptions-and-credits
+    price: 900.00
+    currency: USD
+    billingCycle: monthly
+    rateLimit:
+      requests: 200
+      period: minute
+      notes: 4,050,000 credits per month (8,100,000 during promotion). Credits consumed per API call.
+    features:
+      - 4,050,000 monthly credits (8,100,000 during promotional period)
+      - Live flight positions (light and full)
+      - Historical flight data (light and full) back to May 11, 2016
+      - Flight summaries (historical and near real-time)
+      - Flight tracks
+      - Airport and airline reference data
+      - Sandbox environment access
+      - Bearer token authentication
+      - 200 requests per minute rate limit
+      - Priority support
