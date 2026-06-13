@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/flightradar24/main/json-schema/flight-position-light.json",
+  "title": "FlightPositionLight",
+  "description": "Lightweight real-time or historical aircraft position data point from the Flightradar24 API.",
+  "type": "object",
+  "required": ["fr24_id", "lat", "lon", "track", "alt", "gspeed", "vspeed", "squawk", "timestamp", "source"],
+  "properties": {
+    "fr24_id": {
+      "type": "string",
+      "description": "Flightradar24 unique flight identifier (hexadecimal).",
+      "example": "34242a02"
+    },
+    "lat": {
+      "type": "number",
+      "minimum": -90,
+      "maximum": 90,
+      "description": "Latitude in decimal degrees.",
+      "example": 51.4706
+    },
+    "lon": {
+      "type": "number",
+      "minimum": -180,
+      "maximum": 180,
+      "description": "Longitude in decimal degrees.",
+      "example": -0.4619
+    },
+    "track": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 360,
+      "description": "True heading in degrees.",
+      "example": 270
+    },
+    "alt": {
+      "type": "integer",
+      "description": "Altitude in feet.",
+      "example": 35000
+    },
+    "gspeed": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Ground speed in knots.",
+      "example": 450
+    },
+    "vspeed": {
+      "type": "integer",
+      "description": "Vertical speed in feet per minute (negative = descent).",
+      "example": 0
+    },
+    "squawk": {
+      "type": "string",
+      "pattern": "^[0-7]{4}$",
+      "description": "Transponder squawk code (4-digit octal).",
+      "example": "7700"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 date-time of the position fix.",
+      "example": "2024-01-15T10:30:00Z"
+    },
+    "source": {
+      "type": "string",
+      "description": "Data source type.",
+      "enum": ["ADSB", "MLAT", "RADAR", "FLARM", "ESTIMATED"],
+      "example": "ADSB"
+    },
+    "hex": {
+      "type": ["string", "null"],
+      "pattern": "^[0-9A-Fa-f]{6}$",
+      "description": "ICAO 24-bit Mode S transponder address in hexadecimal.",
+      "example": "400A10"
+    },
+    "callsign": {
+      "type": ["string", "null"],
+      "maxLength": 8,
+      "description": "ATC callsign.",
+      "example": "BAW123"
+    }
+  },
+  "additionalProperties": false
+}

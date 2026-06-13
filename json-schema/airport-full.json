@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/flightradar24/main/json-schema/airport-full.json",
+  "title": "AirportFull",
+  "description": "Detailed airport reference data from the Flightradar24 API.",
+  "type": "object",
+  "required": ["name", "lat", "lon", "elevation", "country", "city", "timezone"],
+  "properties": {
+    "name": { "type": "string", "description": "Airport full name.", "example": "London Heathrow Airport" },
+    "lat": { "type": "number", "minimum": -90, "maximum": 90, "description": "Latitude in decimal degrees.", "example": 51.4706 },
+    "lon": { "type": "number", "minimum": -180, "maximum": 180, "description": "Longitude in decimal degrees.", "example": -0.4619 },
+    "elevation": { "type": "number", "description": "Airport elevation in feet.", "example": 83.0 },
+    "country": {
+      "type": "object",
+      "required": ["code", "name"],
+      "properties": {
+        "code": { "type": "string", "minLength": 2, "maxLength": 2, "description": "ISO 3166-1 alpha-2 country code.", "example": "GB" },
+        "name": { "type": "string", "description": "Country name.", "example": "United Kingdom" }
+      }
+    },
+    "city": { "type": "string", "description": "City served by the airport.", "example": "London" },
+    "timezone": {
+      "type": "object",
+      "required": ["name", "offset"],
+      "properties": {
+        "name": { "type": "string", "description": "IANA timezone name.", "example": "Europe/London" },
+        "offset": { "type": "integer", "description": "UTC offset in seconds.", "example": 0 }
+      }
+    },
+    "iata": { "type": ["string", "null"], "minLength": 3, "maxLength": 3, "description": "Airport IATA code.", "example": "LHR" },
+    "icao": { "type": ["string", "null"], "minLength": 4, "maxLength": 4, "description": "Airport ICAO code.", "example": "EGLL" },
+    "state": { "type": ["string", "null"], "description": "State or region.", "example": "England" },
+    "runways": {
+      "type": ["array", "null"],
+      "description": "List of runways at the airport.",
+      "items": {
+        "type": "object",
+        "required": ["designator", "heading", "length", "width", "elevation", "thr_coordinates", "surface"],
+        "properties": {
+          "designator": { "type": "string", "description": "Runway designator.", "example": "27L/09R" },
+          "heading": { "type": "integer", "minimum": 0, "maximum": 360, "description": "Magnetic heading in degrees.", "example": 270 },
+          "length": { "type": "integer", "minimum": 0, "description": "Runway length in metres.", "example": 3901 },
+          "width": { "type": "integer", "minimum": 0, "description": "Runway width in metres.", "example": 60 },
+          "elevation": { "type": "integer", "description": "Runway elevation in feet.", "example": 83 },
+          "thr_coordinates": {
+            "type": "array",
+            "items": { "type": "number" },
+            "minItems": 2,
+            "maxItems": 2,
+            "description": "Threshold coordinates [latitude, longitude].",
+            "example": [51.4706, -0.4619]
+          },
+          "surface": {
+            "type": "object",
+            "required": ["type", "description"],
+            "properties": {
+              "type": { "type": "string", "description": "Surface type code.", "example": "ASPH" },
+              "description": { "type": "string", "description": "Surface description.", "example": "Asphalt" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

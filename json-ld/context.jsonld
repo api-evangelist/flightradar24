@@ -1,0 +1,94 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "fr24": "https://fr24api.flightradar24.com/vocab#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+    "fr24_id": "fr24:flightId",
+    "lat": "geo:lat",
+    "lon": "geo:long",
+    "track": "fr24:heading",
+    "alt": "fr24:altitude",
+    "gspeed": "fr24:groundSpeed",
+    "vspeed": "fr24:verticalSpeed",
+    "squawk": "fr24:squawk",
+    "timestamp": {
+      "@id": "schema:dateModified",
+      "@type": "xsd:dateTime"
+    },
+    "source": "fr24:dataSource",
+    "hex": "fr24:modeS",
+    "callsign": "fr24:callsign",
+    "flight": "fr24:flightNumber",
+    "reg": "fr24:registration",
+    "type": "fr24:aircraftType",
+    "painted_as": "fr24:liveryCarrier",
+    "operating_as": "fr24:operatingCarrier",
+    "orig_iata": "fr24:originIata",
+    "orig_icao": "fr24:originIcao",
+    "dest_iata": "fr24:destinationIata",
+    "dest_icao": "fr24:destinationIcao",
+    "dest_icao_actual": "fr24:actualDestinationIcao",
+    "dest_iata_actual": "fr24:actualDestinationIata",
+    "eta": {
+      "@id": "fr24:estimatedArrival",
+      "@type": "xsd:dateTime"
+    },
+    "datetime_takeoff": {
+      "@id": "fr24:takeoffTime",
+      "@type": "xsd:dateTime"
+    },
+    "datetime_landed": {
+      "@id": "fr24:landingTime",
+      "@type": "xsd:dateTime"
+    },
+    "runway_takeoff": "fr24:departureRunway",
+    "runway_landed": "fr24:arrivalRunway",
+    "flight_time": "fr24:flightDuration",
+    "actual_distance": "fr24:actualDistanceKm",
+    "circle_distance": "fr24:greatCircleDistanceKm",
+    "flight_ended": "fr24:flightEnded",
+    "first_seen": {
+      "@id": "fr24:firstSeen",
+      "@type": "xsd:dateTime"
+    },
+    "last_seen": {
+      "@id": "fr24:lastSeen",
+      "@type": "xsd:dateTime"
+    },
+    "record_count": "fr24:recordCount",
+    "tracks": "fr24:positionTrack",
+    "events": "fr24:flightEvents",
+    "event_types": "fr24:eventTypes",
+    "data": "fr24:results",
+    "name": "schema:name",
+    "iata": "fr24:iataCode",
+    "icao": "fr24:icaoCode",
+    "country": "schema:addressCountry",
+    "city": "schema:addressLocality",
+    "state": "schema:addressRegion",
+    "elevation": "fr24:elevation",
+    "timezone": "schema:timeZone",
+    "offset": "fr24:utcOffset",
+    "runways": "fr24:runways",
+    "designator": "fr24:runwayDesignator",
+    "heading": "fr24:magneticHeading",
+    "length": "fr24:runwayLength",
+    "width": "fr24:runwayWidth",
+    "surface": "fr24:runwaySurface",
+    "endpoint": "schema:url",
+    "request_count": "fr24:requestCount",
+    "credits": "fr24:creditsConsumed",
+    "period": "fr24:reportingPeriod",
+    "FlightPositionsLight": "fr24:LiveFlightPositionLight",
+    "FlightPositionsFull": "fr24:LiveFlightPositionFull",
+    "FlightSummaryLight": "fr24:FlightSummaryLight",
+    "FlightSummaryFull": "fr24:FlightSummaryFull",
+    "FlightTracks": "fr24:FlightTrack",
+    "FlightTrackPoint": "fr24:TrackPoint",
+    "FlightEvent": "fr24:FlightEvent",
+    "AirportLight": "fr24:AirportLight",
+    "AirportFull": "fr24:Airport",
+    "AirlineLight": "fr24:Airline"
+  }
+}

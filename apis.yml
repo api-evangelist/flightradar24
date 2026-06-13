@@ -212,6 +212,16 @@ common:
     url: https://github.com/Flightradar24/fr24api-sdk-js
   - type: MCPServer
     url: https://github.com/Flightradar24/fr24api-mcp
+  - type: OpenAPI
+    url: https://raw.githubusercontent.com/api-evangelist/flightradar24/main/openapi/openapi.yml
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/flightradar24/main/json-schema/flight-position-light.json
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/flightradar24/main/json-schema/flight-summary-full.json
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/flightradar24/main/json-schema/airport-full.json
+  - type: JSONLDContext
+    url: https://raw.githubusercontent.com/api-evangelist/flightradar24/main/json-ld/context.jsonld
 
 maintainers:
   - FN: Kin Lane

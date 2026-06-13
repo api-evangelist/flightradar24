@@ -1,0 +1,57 @@
+{
+  "data": [
+    {
+      "fr24_id": "34242a02",
+      "tracks": [
+        {
+          "timestamp": "2024-01-15T08:00:00Z",
+          "lat": 51.4706,
+          "lon": -0.4619,
+          "alt": 0,
+          "gspeed": 0,
+          "vspeed": 0,
+          "track": 270,
+          "squawk": "2000",
+          "callsign": "BAW123",
+          "source": "ADSB"
+        },
+        {
+          "timestamp": "2024-01-15T08:05:00Z",
+          "lat": 51.4800,
+          "lon": -0.3500,
+          "alt": 2500,
+          "gspeed": 220,
+          "vspeed": 1800,
+          "track": 280,
+          "squawk": "2000",
+          "callsign": "BAW123",
+          "source": "ADSB"
+        },
+        {
+          "timestamp": "2024-01-15T08:15:00Z",
+          "lat": 51.5074,
+          "lon": -0.1278,
+          "alt": 15000,
+          "gspeed": 380,
+          "vspeed": 1500,
+          "track": 270,
+          "squawk": "2000",
+          "callsign": "BAW123",
+          "source": "ADSB"
+        },
+        {
+          "timestamp": "2024-01-15T09:00:00Z",
+          "lat": 52.3676,
+          "lon": 4.9041,
+          "alt": 37000,
+          "gspeed": 480,
+          "vspeed": 0,
+          "track": 055,
+          "squawk": "2000",
+          "callsign": "BAW123",
+          "source": "ADSB"
+        }
+      ]
+    }
+  ]
+}

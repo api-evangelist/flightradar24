@@ -1,0 +1,31 @@
+{
+  "data": [
+    {
+      "fr24_id": "391fdd79",
+      "flight": "BA456",
+      "callsign": "BAW456",
+      "operating_as": "BAW",
+      "painted_as": "BAW",
+      "type": "A320",
+      "reg": "G-EUUU",
+      "orig_icao": "EGLL",
+      "orig_iata": "LHR",
+      "datetime_takeoff": "2024-01-15T08:30:00",
+      "runway_takeoff": "27L",
+      "dest_icao": "EDDF",
+      "dest_iata": "FRA",
+      "dest_icao_actual": "EDDF",
+      "dest_iata_actual": "FRA",
+      "datetime_landed": "2024-01-15T10:45:00",
+      "runway_landed": "25R",
+      "flight_time": 8100.0,
+      "actual_distance": 638.5,
+      "circle_distance": 630.2,
+      "category": "P",
+      "hex": "400A20",
+      "first_seen": "2024-01-15T08:25:00",
+      "last_seen": "2024-01-15T10:50:00",
+      "flight_ended": true
+    }
+  ]
+}

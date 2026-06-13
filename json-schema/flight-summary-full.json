@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/flightradar24/main/json-schema/flight-summary-full.json",
+  "title": "FlightSummaryFull",
+  "description": "Detailed flight summary from the Flightradar24 API including runway, distance, and timing data.",
+  "type": "object",
+  "required": ["fr24_id"],
+  "properties": {
+    "fr24_id": {
+      "type": "string",
+      "description": "Flightradar24 unique flight identifier.",
+      "example": "391fdd79"
+    },
+    "flight": { "type": ["string", "null"], "description": "Flight number.", "example": "BA456" },
+    "callsign": { "type": ["string", "null"], "description": "ATC callsign.", "example": "BAW456" },
+    "operating_as": { "type": ["string", "null"], "description": "Operating airline ICAO code.", "example": "BAW" },
+    "painted_as": { "type": ["string", "null"], "description": "Livery airline ICAO code.", "example": "BAW" },
+    "type": { "type": ["string", "null"], "description": "ICAO aircraft type code.", "example": "A320" },
+    "reg": { "type": ["string", "null"], "description": "Aircraft registration.", "example": "G-EUUU" },
+    "orig_icao": { "type": ["string", "null"], "description": "Departure airport ICAO code.", "example": "EGLL" },
+    "orig_iata": { "type": ["string", "null"], "description": "Departure airport IATA code.", "example": "LHR" },
+    "datetime_takeoff": { "type": ["string", "null"], "description": "Actual takeoff datetime (YYYY-MM-DDTHH:MM:SS).", "example": "2024-01-15T08:30:00" },
+    "runway_takeoff": { "type": ["string", "null"], "description": "Departure runway designator.", "example": "27L" },
+    "dest_icao": { "type": ["string", "null"], "description": "Planned destination ICAO.", "example": "EDDF" },
+    "dest_iata": { "type": ["string", "null"], "description": "Planned destination IATA.", "example": "FRA" },
+    "dest_icao_actual": { "type": ["string", "null"], "description": "Actual destination ICAO.", "example": "EDDF" },
+    "dest_iata_actual": { "type": ["string", "null"], "description": "Actual destination IATA.", "example": "FRA" },
+    "datetime_landed": { "type": ["string", "null"], "description": "Actual landing datetime.", "example": "2024-01-15T10:45:00" },
+    "runway_landed": { "type": ["string", "null"], "description": "Arrival runway designator.", "example": "25R" },
+    "flight_time": { "type": ["number", "null"], "description": "Flight duration in seconds.", "example": 8100.0 },
+    "actual_distance": { "type": ["number", "null"], "description": "Actual distance flown in kilometres.", "example": 638.5 },
+    "circle_distance": { "type": ["number", "null"], "description": "Great-circle distance in kilometres.", "example": 630.0 },
+    "category": {
+      "type": ["string", "null"],
+      "enum": ["P", "C", "M", "J", "T", "H", "B", "G", "D", "V", "O", "N", null],
+      "description": "Aircraft category code.",
+      "example": "P"
+    },
+    "hex": { "type": ["string", "null"], "description": "ICAO Mode S hex address.", "example": "400A20" },
+    "first_seen": { "type": ["string", "null"], "description": "First radar detection datetime.", "example": "2024-01-15T08:25:00" },
+    "last_seen": { "type": ["string", "null"], "description": "Last radar detection datetime.", "example": "2024-01-15T10:50:00" },
+    "flight_ended": { "type": ["boolean", "null"], "description": "Whether the flight has completed.", "example": true }
+  }
+}
