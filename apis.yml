@@ -184,6 +184,10 @@ apis:
         url: https://fr24api.flightradar24.com/docs/authentication
 
 common:
+  - type: DomainSecurity
+    url: security/flightradar24-domain-security.yml
+  - type: Authentication
+    url: authentication/flightradar24-authentication.yml
   - type: Portal
     url: https://fr24api.flightradar24.com/
   - type: Documentation
