@@ -1,0 +1,174 @@
+generated: '2026-07-15'
+method: generated
+source: openapi/openapi.yml
+description: Recommended x-agentic-access execution contracts, classified heuristically from
+  the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
+  audience per deployment. See research/curity/agentic-governance/.
+summary:
+  operations: 16
+  by_action_class:
+    connected: 16
+  by_consequence:
+    read: 16
+  human_in_the_loop_required: 0
+operations:
+- path: /live/flight-positions/light
+  method: get
+  operationId: getLiveFlightPositionsLight
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /live/flight-positions/full
+  method: get
+  operationId: getLiveFlightPositionsFull
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /live/flight-positions/count
+  method: get
+  operationId: getLiveFlightPositionsCount
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /historic/flight-positions/light
+  method: get
+  operationId: getHistoricFlightPositionsLight
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /historic/flight-positions/full
+  method: get
+  operationId: getHistoricFlightPositionsFull
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /historic/flight-positions/count
+  method: get
+  operationId: getHistoricFlightPositionsCount
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /historic/flight-events/light
+  method: get
+  operationId: getHistoricFlightEventsLight
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /historic/flight-events/full
+  method: get
+  operationId: getHistoricFlightEventsFull
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /flight-summary/light
+  method: get
+  operationId: getFlightSummaryLight
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /flight-summary/full
+  method: get
+  operationId: getFlightSummaryFull
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /flight-summary/count
+  method: get
+  operationId: getFlightSummaryCount
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /flight-tracks
+  method: get
+  operationId: getFlightTracks
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /static/airports/{code}/light
+  method: get
+  operationId: getAirportLight
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /static/airports/{code}/full
+  method: get
+  operationId: getAirportFull
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /static/airlines/{icao}/light
+  method: get
+  operationId: getAirlineLight
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /usage
+  method: get
+  operationId: getUsage
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
