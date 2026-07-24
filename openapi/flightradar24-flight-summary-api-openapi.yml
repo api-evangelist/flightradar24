@@ -1,0 +1,529 @@
+openapi: 3.1.0
+info:
+  title: Flightradar24 Airlines Flight Summary API
+  description: Flightradar24 is the world's most popular real-time flight tracking platform, monitoring over 250,000 daily flights using data from a global network of ADS-B, MLAT, and radar receivers. The FR24 API provides developers with programmatic access to live aircraft positions, historical flight data, flight summaries, and reference data for airports and airlines. The credit-based subscription API uses Bearer token authentication and is available at https://fr24api.flightradar24.com/api with three tiers — Explorer, Essential, and Advanced — covering hobby projects through high-volume commercial applications.
+  version: 1.0.0
+  contact:
+    url: https://support.fr24.com/support/solutions/folders/3000022922
+  license:
+    name: Proprietary
+    url: https://fr24api.flightradar24.com/docs/getting-started
+servers:
+- url: https://fr24api.flightradar24.com/api
+  description: Flightradar24 API
+security:
+- bearerAuth: []
+tags:
+- name: Flight Summary
+  description: Synopses of individual flights including event timings and key identifiers
+paths:
+  /flight-summary/light:
+    get:
+      operationId: getFlightSummaryLight
+      summary: Get flight summaries (light)
+      description: Returns lightweight synopses of individual flights including key event timings and locations such as actual takeoff and landing times, departure and arrival airports, and primary flight, aircraft, and operator identifiers. Available in both near-real-time and historical modes. Either flight_ids or a time range (flight_datetime_from + flight_datetime_to) must be provided.
+      tags:
+      - Flight Summary
+      parameters:
+      - $ref: '#/components/parameters/flight_ids'
+      - $ref: '#/components/parameters/flight_datetime_from'
+      - $ref: '#/components/parameters/flight_datetime_to'
+      - $ref: '#/components/parameters/flights'
+      - $ref: '#/components/parameters/callsigns'
+      - $ref: '#/components/parameters/registrations'
+      - $ref: '#/components/parameters/painted_as'
+      - $ref: '#/components/parameters/operating_as'
+      - $ref: '#/components/parameters/airports'
+      - $ref: '#/components/parameters/routes'
+      - $ref: '#/components/parameters/aircraft_list'
+      - $ref: '#/components/parameters/categories'
+      - $ref: '#/components/parameters/sort'
+      - $ref: '#/components/parameters/limit_20000'
+      responses:
+        '200':
+          description: Successful response with light flight summary data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlightSummaryLightResponse'
+              example:
+                data:
+                - fr24_id: 391fdd79
+                  flight: BA456
+                  callsign: BAW456
+                  operating_as: BAW
+                  painted_as: BAW
+                  type: A320
+                  reg: G-EUUU
+                  orig_icao: EGLL
+                  datetime_takeoff: '2024-01-15T08:30:00'
+                  dest_icao: EDDF
+                  dest_icao_actual: EDDF
+                  datetime_landed: '2024-01-15T10:45:00'
+                  hex: 400A20
+                  first_seen: '2024-01-15T08:25:00'
+                  last_seen: '2024-01-15T10:50:00'
+                  flight_ended: true
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /flight-summary/full:
+    get:
+      operationId: getFlightSummaryFull
+      summary: Get flight summaries (full)
+      description: Returns full synopses of individual flights combining positional event data with enriched metadata including runway designators, flight time, actual distances, and complete airport codes (IATA and ICAO). Either flight_ids or a time range must be provided.
+      tags:
+      - Flight Summary
+      parameters:
+      - $ref: '#/components/parameters/flight_ids'
+      - $ref: '#/components/parameters/flight_datetime_from'
+      - $ref: '#/components/parameters/flight_datetime_to'
+      - $ref: '#/components/parameters/flights'
+      - $ref: '#/components/parameters/callsigns'
+      - $ref: '#/components/parameters/registrations'
+      - $ref: '#/components/parameters/painted_as'
+      - $ref: '#/components/parameters/operating_as'
+      - $ref: '#/components/parameters/airports'
+      - $ref: '#/components/parameters/routes'
+      - $ref: '#/components/parameters/aircraft_list'
+      - $ref: '#/components/parameters/categories'
+      - $ref: '#/components/parameters/sort'
+      - $ref: '#/components/parameters/limit_20000'
+      responses:
+        '200':
+          description: Successful response with full flight summary data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlightSummaryFullResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /flight-summary/count:
+    get:
+      operationId: getFlightSummaryCount
+      summary: Count flight summaries
+      description: Returns the number of flight summary records matching the given filters. Either flight_ids or a time range must be provided.
+      tags:
+      - Flight Summary
+      parameters:
+      - $ref: '#/components/parameters/flight_ids'
+      - $ref: '#/components/parameters/flight_datetime_from'
+      - $ref: '#/components/parameters/flight_datetime_to'
+      - $ref: '#/components/parameters/flights'
+      - $ref: '#/components/parameters/callsigns'
+      - $ref: '#/components/parameters/registrations'
+      - $ref: '#/components/parameters/painted_as'
+      - $ref: '#/components/parameters/operating_as'
+      - $ref: '#/components/parameters/airports'
+      - $ref: '#/components/parameters/routes'
+      - $ref: '#/components/parameters/aircraft_list'
+      - $ref: '#/components/parameters/categories'
+      responses:
+        '200':
+          description: Successful response with count of matching flight summaries
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CountResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+components:
+  parameters:
+    operating_as:
+      name: operating_as
+      in: query
+      required: false
+      description: Comma-separated list of airline ICAO codes for the operating carrier. Maximum 15 values.
+      schema:
+        type: string
+      example: BAW,DLH
+    airports:
+      name: airports
+      in: query
+      required: false
+      description: Comma-separated list of airport IATA or ICAO codes. Matches flights departing or arriving at these airports. Maximum 15 values.
+      schema:
+        type: string
+      example: LHR,EDDF
+    flights:
+      name: flights
+      in: query
+      required: false
+      description: Comma-separated list of flight numbers (e.g., "BA123,LH456"). Maximum 15 values.
+      schema:
+        type: string
+      example: BA123,LH456
+    limit_20000:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of records to return (1-20000).
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 20000
+      example: 1000
+    sort:
+      name: sort
+      in: query
+      required: false
+      description: Sort order for results. Use field name for ascending, prefix with "-" for descending (e.g., "datetime_takeoff" or "-datetime_takeoff").
+      schema:
+        type: string
+      example: -datetime_takeoff
+    categories:
+      name: categories
+      in: query
+      required: false
+      description: Comma-separated list of aircraft/vehicle category codes. Maximum 15 values. P=Passenger, C=Cargo, M=Military and Government, J=Business Jets, T=General Aviation, H=Helicopters, B=Lighter than Air, G=Gliders, D=Drones, V=Ground Vehicles, O=Other, N=Non-Categorized.
+      schema:
+        type: string
+        enum:
+        - P
+        - C
+        - M
+        - J
+        - T
+        - H
+        - B
+        - G
+        - D
+        - V
+        - O
+        - N
+      example: P,C
+    routes:
+      name: routes
+      in: query
+      required: false
+      description: Comma-separated list of routes in origin-destination format (e.g., "LHR-JFK"). Maximum 15 values.
+      schema:
+        type: string
+      example: LHR-JFK,CDG-LAX
+    registrations:
+      name: registrations
+      in: query
+      required: false
+      description: Comma-separated list of aircraft registration codes (e.g., "G-STBK,D-ABCD"). Maximum 15 values.
+      schema:
+        type: string
+      example: G-STBK,D-ABCD
+    flight_datetime_from:
+      name: flight_datetime_from
+      in: query
+      required: false
+      description: Start of the date-time range for filtering flights (ISO 8601 format, e.g., "2024-01-15T00:00:00"). Either flight_ids or a date range is required.
+      schema:
+        type: string
+        format: date-time
+      example: '2024-01-15T00:00:00'
+    flight_datetime_to:
+      name: flight_datetime_to
+      in: query
+      required: false
+      description: End of the date-time range for filtering flights (ISO 8601 format, e.g., "2024-01-15T23:59:59").
+      schema:
+        type: string
+        format: date-time
+      example: '2024-01-15T23:59:59'
+    callsigns:
+      name: callsigns
+      in: query
+      required: false
+      description: Comma-separated list of ATC callsigns (e.g., "BAW123,DLH456"). Maximum 15 values.
+      schema:
+        type: string
+      example: BAW123,DLH456
+    flight_ids:
+      name: flight_ids
+      in: query
+      required: false
+      description: Comma-separated FR24 flight IDs (hexadecimal format). Maximum 15 IDs.
+      schema:
+        type: string
+      example: 391fdd79,35f2ffd9
+    aircraft_list:
+      name: aircraft
+      in: query
+      required: false
+      description: Comma-separated list of ICAO aircraft type codes (e.g., "B77W,A320"). Maximum 15 values.
+      schema:
+        type: string
+      example: B77W,A320
+    painted_as:
+      name: painted_as
+      in: query
+      required: false
+      description: Comma-separated list of airline ICAO codes for the livery carrier (e.g., "BAW,DLH"). Maximum 15 values.
+      schema:
+        type: string
+      example: BAW,DLH
+  responses:
+    BadRequest:
+      description: Bad request — invalid or missing parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Too many requests — rate limit or credit limit exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized — missing or invalid Bearer token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    CountResponse:
+      type: object
+      description: Generic count response.
+      required:
+      - record_count
+      properties:
+        record_count:
+          type: integer
+          description: Number of records matching the query filters.
+          example: 1247
+    FlightSummaryLightResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/FlightSummaryLight'
+    FlightSummaryFull:
+      type: object
+      description: Detailed flight summary record with runway, distance, and timing data.
+      required:
+      - fr24_id
+      properties:
+        fr24_id:
+          type: string
+          description: Flightradar24 unique identifier for the flight.
+          example: 391fdd79
+        flight:
+          type: string
+          nullable: true
+          example: BA456
+        callsign:
+          type: string
+          nullable: true
+          example: BAW456
+        operating_as:
+          type: string
+          nullable: true
+          example: BAW
+        painted_as:
+          type: string
+          nullable: true
+          example: BAW
+        type:
+          type: string
+          nullable: true
+          example: A320
+        reg:
+          type: string
+          nullable: true
+          example: G-EUUU
+        orig_icao:
+          type: string
+          nullable: true
+          example: EGLL
+        orig_iata:
+          type: string
+          nullable: true
+          example: LHR
+        datetime_takeoff:
+          type: string
+          nullable: true
+          example: '2024-01-15T08:30:00'
+        runway_takeoff:
+          type: string
+          nullable: true
+          description: Departure runway designator.
+          example: 27L
+        dest_icao:
+          type: string
+          nullable: true
+          example: EDDF
+        dest_iata:
+          type: string
+          nullable: true
+          example: FRA
+        dest_icao_actual:
+          type: string
+          nullable: true
+          example: EDDF
+        dest_iata_actual:
+          type: string
+          nullable: true
+          example: FRA
+        datetime_landed:
+          type: string
+          nullable: true
+          example: '2024-01-15T10:45:00'
+        runway_landed:
+          type: string
+          nullable: true
+          description: Arrival runway designator.
+          example: 25R
+        flight_time:
+          type: number
+          format: float
+          nullable: true
+          description: Flight duration in seconds.
+          example: 8100.0
+        actual_distance:
+          type: number
+          format: float
+          nullable: true
+          description: Actual distance flown in kilometres.
+          example: 638.5
+        circle_distance:
+          type: number
+          format: float
+          nullable: true
+          description: Great-circle (direct) distance in kilometres.
+          example: 630.0
+        category:
+          type: string
+          nullable: true
+          description: Flight category code.
+          example: P
+        hex:
+          type: string
+          nullable: true
+          example: 400A20
+        first_seen:
+          type: string
+          nullable: true
+          example: '2024-01-15T08:25:00'
+        last_seen:
+          type: string
+          nullable: true
+          example: '2024-01-15T10:50:00'
+        flight_ended:
+          type: boolean
+          nullable: true
+          example: true
+    FlightSummaryFullResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/FlightSummaryFull'
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human-readable error description.
+        code:
+          type: string
+          description: Machine-readable error code.
+    FlightSummaryLight:
+      type: object
+      description: Lightweight flight summary record.
+      required:
+      - fr24_id
+      properties:
+        fr24_id:
+          type: string
+          description: Flightradar24 unique identifier for the flight.
+          example: 391fdd79
+        flight:
+          type: string
+          nullable: true
+          description: Flight number.
+          example: BA456
+        callsign:
+          type: string
+          nullable: true
+          description: ATC callsign.
+          example: BAW456
+        operating_as:
+          type: string
+          nullable: true
+          description: Airline ICAO code for the operating carrier.
+          example: BAW
+        painted_as:
+          type: string
+          nullable: true
+          description: Airline ICAO code for the livery carrier.
+          example: BAW
+        type:
+          type: string
+          nullable: true
+          description: ICAO aircraft type code.
+          example: A320
+        reg:
+          type: string
+          nullable: true
+          description: Aircraft registration.
+          example: G-EUUU
+        orig_icao:
+          type: string
+          nullable: true
+          description: Departure airport ICAO code.
+          example: EGLL
+        datetime_takeoff:
+          type: string
+          nullable: true
+          description: Actual takeoff date-time (YYYY-MM-DDTHH:MM:SS).
+          example: '2024-01-15T08:30:00'
+        dest_icao:
+          type: string
+          nullable: true
+          description: Planned destination airport ICAO code.
+          example: EDDF
+        dest_icao_actual:
+          type: string
+          nullable: true
+          description: Actual destination airport ICAO code (may differ if diverted).
+          example: EDDF
+        datetime_landed:
+          type: string
+          nullable: true
+          description: Actual landing date-time (YYYY-MM-DDTHH:MM:SS).
+          example: '2024-01-15T10:45:00'
+        hex:
+          type: string
+          nullable: true
+          description: ICAO 24-bit aircraft address in hexadecimal.
+          example: 400A20
+        first_seen:
+          type: string
+          nullable: true
+          description: Date-time when the flight first appeared on radar.
+          example: '2024-01-15T08:25:00'
+        last_seen:
+          type: string
+          nullable: true
+          description: Date-time when the flight last appeared on radar.
+          example: '2024-01-15T10:50:00'
+        flight_ended:
+          type: boolean
+          nullable: true
+          description: Whether the flight has completed.
+          example: true
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Bearer token authentication. Obtain your API token from the Flightradar24 developer portal at https://fr24api.flightradar24.com/.

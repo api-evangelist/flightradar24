@@ -1,0 +1,525 @@
+openapi: 3.1.0
+info:
+  title: Flightradar24 Airlines Historic Positions API
+  description: Flightradar24 is the world's most popular real-time flight tracking platform, monitoring over 250,000 daily flights using data from a global network of ADS-B, MLAT, and radar receivers. The FR24 API provides developers with programmatic access to live aircraft positions, historical flight data, flight summaries, and reference data for airports and airlines. The credit-based subscription API uses Bearer token authentication and is available at https://fr24api.flightradar24.com/api with three tiers — Explorer, Essential, and Advanced — covering hobby projects through high-volume commercial applications.
+  version: 1.0.0
+  contact:
+    url: https://support.fr24.com/support/solutions/folders/3000022922
+  license:
+    name: Proprietary
+    url: https://fr24api.flightradar24.com/docs/getting-started
+servers:
+- url: https://fr24api.flightradar24.com/api
+  description: Flightradar24 API
+security:
+- bearerAuth: []
+tags:
+- name: Historic Positions
+  description: Historical aircraft position data (back to May 11, 2016)
+paths:
+  /historic/flight-positions/light:
+    get:
+      operationId: getHistoricFlightPositionsLight
+      summary: Get historical flight positions (light)
+      description: Provides historical aircraft positional data using Unix timestamp. Returns lightweight position records (latitude, longitude, altitude, speed, heading, callsign, registration) for past flights. Historical data coverage extends back to May 11, 2016, with availability depending on the subscription plan. A timestamp and at least one additional filter parameter are required.
+      tags:
+      - Historic Positions
+      parameters:
+      - $ref: '#/components/parameters/timestamp_required'
+      - $ref: '#/components/parameters/bounds'
+      - $ref: '#/components/parameters/flights'
+      - $ref: '#/components/parameters/callsigns'
+      - $ref: '#/components/parameters/registrations'
+      - $ref: '#/components/parameters/painted_as'
+      - $ref: '#/components/parameters/operating_as'
+      - $ref: '#/components/parameters/airports'
+      - $ref: '#/components/parameters/routes'
+      - $ref: '#/components/parameters/aircraft'
+      - $ref: '#/components/parameters/altitude_ranges'
+      - $ref: '#/components/parameters/squawks'
+      - $ref: '#/components/parameters/categories'
+      - $ref: '#/components/parameters/data_sources'
+      - $ref: '#/components/parameters/gspeed'
+      - $ref: '#/components/parameters/limit_30000'
+      responses:
+        '200':
+          description: Successful response with historical light flight position data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlightPositionsLightResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /historic/flight-positions/full:
+    get:
+      operationId: getHistoricFlightPositionsFull
+      summary: Get historical flight positions (full)
+      description: Returns full historical aircraft flight movement records for a given time window, combining positional data with enriched flight metadata including origin, destination, callsign, registration, aircraft type, and operator. Data is accessible back to May 11, 2016 depending on the subscription tier. Available on Essential and Advanced plans. A timestamp and at least one additional filter parameter are required.
+      tags:
+      - Historic Positions
+      parameters:
+      - $ref: '#/components/parameters/timestamp_required'
+      - $ref: '#/components/parameters/bounds'
+      - $ref: '#/components/parameters/flights'
+      - $ref: '#/components/parameters/callsigns'
+      - $ref: '#/components/parameters/registrations'
+      - $ref: '#/components/parameters/painted_as'
+      - $ref: '#/components/parameters/operating_as'
+      - $ref: '#/components/parameters/airports'
+      - $ref: '#/components/parameters/routes'
+      - $ref: '#/components/parameters/aircraft'
+      - $ref: '#/components/parameters/altitude_ranges'
+      - $ref: '#/components/parameters/squawks'
+      - $ref: '#/components/parameters/categories'
+      - $ref: '#/components/parameters/data_sources'
+      - $ref: '#/components/parameters/gspeed'
+      - $ref: '#/components/parameters/limit_30000'
+      responses:
+        '200':
+          description: Successful response with historical full flight position data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlightPositionsFullResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /historic/flight-positions/count:
+    get:
+      operationId: getHistoricFlightPositionsCount
+      summary: Count historical flight positions
+      description: Returns the number of historical aircraft positions that match the given filters. A timestamp and at least one additional filter parameter are required.
+      tags:
+      - Historic Positions
+      parameters:
+      - $ref: '#/components/parameters/timestamp_required'
+      - $ref: '#/components/parameters/bounds'
+      - $ref: '#/components/parameters/flights'
+      - $ref: '#/components/parameters/callsigns'
+      - $ref: '#/components/parameters/registrations'
+      - $ref: '#/components/parameters/painted_as'
+      - $ref: '#/components/parameters/operating_as'
+      - $ref: '#/components/parameters/airports'
+      - $ref: '#/components/parameters/routes'
+      - $ref: '#/components/parameters/aircraft'
+      - $ref: '#/components/parameters/altitude_ranges'
+      - $ref: '#/components/parameters/squawks'
+      - $ref: '#/components/parameters/categories'
+      - $ref: '#/components/parameters/data_sources'
+      - $ref: '#/components/parameters/gspeed'
+      responses:
+        '200':
+          description: Successful response with count of matching historical records
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CountResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+components:
+  schemas:
+    FlightPositionsLight:
+      type: object
+      description: Lightweight real-time or historical aircraft position data point.
+      required:
+      - fr24_id
+      - lat
+      - lon
+      - track
+      - alt
+      - gspeed
+      - vspeed
+      - squawk
+      - timestamp
+      - source
+      properties:
+        fr24_id:
+          type: string
+          description: Flightradar24 unique identifier for the flight (hexadecimal).
+          example: 34242a02
+        lat:
+          type: number
+          format: float
+          description: Latitude in decimal degrees.
+          example: 51.4706
+        lon:
+          type: number
+          format: float
+          description: Longitude in decimal degrees.
+          example: -0.4619
+        track:
+          type: integer
+          description: True heading in degrees (0-360).
+          example: 270
+        alt:
+          type: integer
+          description: Altitude in feet.
+          example: 35000
+        gspeed:
+          type: integer
+          description: Ground speed in knots.
+          example: 450
+        vspeed:
+          type: integer
+          description: Vertical speed in feet per minute.
+          example: 0
+        squawk:
+          type: string
+          description: Transponder squawk code (4-digit octal).
+          example: '7700'
+        timestamp:
+          type: string
+          format: date-time
+          description: ISO 8601 date-time of the position fix.
+          example: '2024-01-15T10:30:00Z'
+        source:
+          type: string
+          description: Data source (e.g., ADSB, MLAT, RADAR).
+          example: ADSB
+        hex:
+          type: string
+          description: ICAO 24-bit aircraft address in hexadecimal (Mode S hex code).
+          nullable: true
+          example: 400A10
+        callsign:
+          type: string
+          description: ATC callsign.
+          nullable: true
+          example: BAW123
+    CountResponse:
+      type: object
+      description: Generic count response.
+      required:
+      - record_count
+      properties:
+        record_count:
+          type: integer
+          description: Number of records matching the query filters.
+          example: 1247
+    FlightPositionsLightResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/FlightPositionsLight'
+    FlightPositionsFullResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/FlightPositionsFull'
+    FlightPositionsFull:
+      type: object
+      description: Detailed real-time or historical aircraft position data point with full flight metadata.
+      required:
+      - fr24_id
+      - lat
+      - lon
+      - track
+      - alt
+      - gspeed
+      - vspeed
+      - squawk
+      - timestamp
+      - source
+      properties:
+        fr24_id:
+          type: string
+          description: Flightradar24 unique identifier for the flight (hexadecimal).
+          example: 34242a02
+        lat:
+          type: number
+          format: float
+          description: Latitude in decimal degrees.
+          example: 51.4706
+        lon:
+          type: number
+          format: float
+          description: Longitude in decimal degrees.
+          example: -0.4619
+        track:
+          type: integer
+          description: True heading in degrees (0-360).
+          example: 270
+        alt:
+          type: integer
+          description: Altitude in feet.
+          example: 35000
+        gspeed:
+          type: integer
+          description: Ground speed in knots.
+          example: 450
+        vspeed:
+          type: integer
+          description: Vertical speed in feet per minute.
+          example: 0
+        squawk:
+          type: string
+          description: Transponder squawk code (4-digit octal).
+          example: '7700'
+        timestamp:
+          type: string
+          format: date-time
+          description: ISO 8601 date-time of the position fix.
+          example: '2024-01-15T10:30:00Z'
+        source:
+          type: string
+          description: Data source (e.g., ADSB, MLAT, RADAR).
+          example: ADSB
+        flight:
+          type: string
+          description: Flight number (e.g., "BA123").
+          nullable: true
+          example: BA123
+        callsign:
+          type: string
+          description: ATC callsign.
+          nullable: true
+          example: BAW123
+        hex:
+          type: string
+          description: ICAO 24-bit aircraft address in hexadecimal.
+          nullable: true
+          example: 400A10
+        type:
+          type: string
+          description: ICAO aircraft type code (e.g., "B77W", "A320").
+          nullable: true
+          example: B77W
+        reg:
+          type: string
+          description: Aircraft registration number.
+          nullable: true
+          example: G-STBK
+        painted_as:
+          type: string
+          description: Airline ICAO code for the livery carrier.
+          nullable: true
+          example: BAW
+        operating_as:
+          type: string
+          description: Airline ICAO code for the operating carrier.
+          nullable: true
+          example: BAW
+        orig_iata:
+          type: string
+          description: Origin airport IATA code.
+          nullable: true
+          example: LHR
+        orig_icao:
+          type: string
+          description: Origin airport ICAO code.
+          nullable: true
+          example: EGLL
+        dest_iata:
+          type: string
+          description: Destination airport IATA code.
+          nullable: true
+          example: JFK
+        dest_icao:
+          type: string
+          description: Destination airport ICAO code.
+          nullable: true
+          example: KJFK
+        eta:
+          type: string
+          format: date-time
+          description: Estimated time of arrival (ISO 8601).
+          nullable: true
+          example: '2024-01-15T15:45:00Z'
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human-readable error description.
+        code:
+          type: string
+          description: Machine-readable error code.
+  parameters:
+    operating_as:
+      name: operating_as
+      in: query
+      required: false
+      description: Comma-separated list of airline ICAO codes for the operating carrier. Maximum 15 values.
+      schema:
+        type: string
+      example: BAW,DLH
+    airports:
+      name: airports
+      in: query
+      required: false
+      description: Comma-separated list of airport IATA or ICAO codes. Matches flights departing or arriving at these airports. Maximum 15 values.
+      schema:
+        type: string
+      example: LHR,EDDF
+    flights:
+      name: flights
+      in: query
+      required: false
+      description: Comma-separated list of flight numbers (e.g., "BA123,LH456"). Maximum 15 values.
+      schema:
+        type: string
+      example: BA123,LH456
+    limit_30000:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of records to return (1-30000).
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 30000
+      example: 1000
+    categories:
+      name: categories
+      in: query
+      required: false
+      description: Comma-separated list of aircraft/vehicle category codes. Maximum 15 values. P=Passenger, C=Cargo, M=Military and Government, J=Business Jets, T=General Aviation, H=Helicopters, B=Lighter than Air, G=Gliders, D=Drones, V=Ground Vehicles, O=Other, N=Non-Categorized.
+      schema:
+        type: string
+        enum:
+        - P
+        - C
+        - M
+        - J
+        - T
+        - H
+        - B
+        - G
+        - D
+        - V
+        - O
+        - N
+      example: P,C
+    routes:
+      name: routes
+      in: query
+      required: false
+      description: Comma-separated list of routes in origin-destination format (e.g., "LHR-JFK"). Maximum 15 values.
+      schema:
+        type: string
+      example: LHR-JFK,CDG-LAX
+    registrations:
+      name: registrations
+      in: query
+      required: false
+      description: Comma-separated list of aircraft registration codes (e.g., "G-STBK,D-ABCD"). Maximum 15 values.
+      schema:
+        type: string
+      example: G-STBK,D-ABCD
+    timestamp_required:
+      name: timestamp
+      in: query
+      required: true
+      description: Unix timestamp (seconds since epoch) for the historical snapshot. Must be after 2016-05-11T00:00:00Z (Unix timestamp 1462924800).
+      schema:
+        type: integer
+        minimum: 1462924800
+      example: 1705312200
+    squawks:
+      name: squawks
+      in: query
+      required: false
+      description: Comma-separated list of transponder squawk codes (4-digit octal, e.g., "7700,7600"). Maximum 15 values.
+      schema:
+        type: string
+      example: 7700,7600
+    callsigns:
+      name: callsigns
+      in: query
+      required: false
+      description: Comma-separated list of ATC callsigns (e.g., "BAW123,DLH456"). Maximum 15 values.
+      schema:
+        type: string
+      example: BAW123,DLH456
+    altitude_ranges:
+      name: altitude_ranges
+      in: query
+      required: false
+      description: Comma-separated altitude ranges in feet using "min-max" format (e.g., "0-5000,35000-45000"). Minimum altitude is -2000 ft. Maximum 15 ranges.
+      schema:
+        type: string
+      example: 0-5000,35000-45000
+    aircraft:
+      name: aircraft
+      in: query
+      required: false
+      description: ICAO aircraft type code (e.g., "B77W", "A320").
+      schema:
+        type: string
+      example: B77W
+    bounds:
+      name: bounds
+      in: query
+      required: false
+      description: Geographic bounding box in the format "north,south,west,east" (e.g., "51.5,51.0,-0.5,0.5"). Latitudes range -90 to 90; longitudes -180 to 180. North must be greater than south.
+      schema:
+        type: string
+        pattern: ^-?\d+(\.\d+)?,-?\d+(\.\d+)?,-?\d+(\.\d+)?,-?\d+(\.\d+)?$
+      example: 51.5,51.0,-0.5,0.5
+    gspeed:
+      name: gspeed
+      in: query
+      required: false
+      description: Ground speed filter in knots (0-5000), or a range string (e.g., "200-400").
+      schema:
+        oneOf:
+        - type: integer
+          minimum: 0
+          maximum: 5000
+        - type: string
+      example: 200-400
+    painted_as:
+      name: painted_as
+      in: query
+      required: false
+      description: Comma-separated list of airline ICAO codes for the livery carrier (e.g., "BAW,DLH"). Maximum 15 values.
+      schema:
+        type: string
+      example: BAW,DLH
+    data_sources:
+      name: data_sources
+      in: query
+      required: false
+      description: Comma-separated list of data source types (e.g., "ADSB,MLAT"). Maximum 15 values.
+      schema:
+        type: string
+      example: ADSB,MLAT
+  responses:
+    BadRequest:
+      description: Bad request — invalid or missing parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Too many requests — rate limit or credit limit exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized — missing or invalid Bearer token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Bearer token authentication. Obtain your API token from the Flightradar24 developer portal at https://fr24api.flightradar24.com/.

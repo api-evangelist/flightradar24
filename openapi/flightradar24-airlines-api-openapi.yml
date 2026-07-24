@@ -1,0 +1,107 @@
+openapi: 3.1.0
+info:
+  title: Flightradar24 Airlines API
+  description: Flightradar24 is the world's most popular real-time flight tracking platform, monitoring over 250,000 daily flights using data from a global network of ADS-B, MLAT, and radar receivers. The FR24 API provides developers with programmatic access to live aircraft positions, historical flight data, flight summaries, and reference data for airports and airlines. The credit-based subscription API uses Bearer token authentication and is available at https://fr24api.flightradar24.com/api with three tiers — Explorer, Essential, and Advanced — covering hobby projects through high-volume commercial applications.
+  version: 1.0.0
+  contact:
+    url: https://support.fr24.com/support/solutions/folders/3000022922
+  license:
+    name: Proprietary
+    url: https://fr24api.flightradar24.com/docs/getting-started
+servers:
+- url: https://fr24api.flightradar24.com/api
+  description: Flightradar24 API
+security:
+- bearerAuth: []
+tags:
+- name: Airlines
+  description: Reference data for airlines
+paths:
+  /static/airlines/{icao}/light:
+    get:
+      operationId: getAirlineLight
+      summary: Get airline (light)
+      description: Returns basic reference data for an airline by ICAO code, including airline name, IATA code, and ICAO code. Useful for resolving callsign prefixes and operator codes present in flight data into human-readable airline names.
+      tags:
+      - Airlines
+      parameters:
+      - name: icao
+        in: path
+        required: true
+        description: Airline ICAO code (3-letter), e.g., "SAS", "DLH", "BAW".
+        schema:
+          type: string
+          pattern: ^[A-Z]{3}$
+        example: BAW
+      responses:
+        '200':
+          description: Successful response with basic airline data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AirlineLight'
+              example:
+                name: British Airways
+                icao: BAW
+                iata: BA
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+components:
+  responses:
+    NotFound:
+      description: Not found — the requested resource does not exist.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized — missing or invalid Bearer token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Too many requests — rate limit or credit limit exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    AirlineLight:
+      type: object
+      description: Basic airline reference data.
+      required:
+      - name
+      - icao
+      properties:
+        name:
+          type: string
+          description: Airline full name.
+          example: British Airways
+        icao:
+          type: string
+          description: Airline ICAO code.
+          example: BAW
+        iata:
+          type: string
+          nullable: true
+          description: Airline IATA code.
+          example: BA
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human-readable error description.
+        code:
+          type: string
+          description: Machine-readable error code.
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Bearer token authentication. Obtain your API token from the Flightradar24 developer portal at https://fr24api.flightradar24.com/.

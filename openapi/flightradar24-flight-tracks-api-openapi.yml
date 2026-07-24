@@ -1,0 +1,195 @@
+openapi: 3.1.0
+info:
+  title: Flightradar24 Airlines Flight Tracks API
+  description: Flightradar24 is the world's most popular real-time flight tracking platform, monitoring over 250,000 daily flights using data from a global network of ADS-B, MLAT, and radar receivers. The FR24 API provides developers with programmatic access to live aircraft positions, historical flight data, flight summaries, and reference data for airports and airlines. The credit-based subscription API uses Bearer token authentication and is available at https://fr24api.flightradar24.com/api with three tiers — Explorer, Essential, and Advanced — covering hobby projects through high-volume commercial applications.
+  version: 1.0.0
+  contact:
+    url: https://support.fr24.com/support/solutions/folders/3000022922
+  license:
+    name: Proprietary
+    url: https://fr24api.flightradar24.com/docs/getting-started
+servers:
+- url: https://fr24api.flightradar24.com/api
+  description: Flightradar24 API
+security:
+- bearerAuth: []
+tags:
+- name: Flight Tracks
+  description: Full positional track of a specific flight by FR24 flight ID
+paths:
+  /flight-tracks:
+    get:
+      operationId: getFlightTracks
+      summary: Get flight tracks
+      description: Returns the full positional track of a specific flight identified by its FR24 flight ID. Provides a time-ordered sequence of latitude, longitude, altitude, speed, and heading records spanning the entire flight from departure to arrival.
+      tags:
+      - Flight Tracks
+      parameters:
+      - name: flight_id
+        in: query
+        required: true
+        description: Flightradar24 ID of the flight in hexadecimal format (e.g., "34242a02").
+        schema:
+          type: string
+          pattern: ^[0-9a-f]{8}$
+        example: 34242a02
+      responses:
+        '200':
+          description: Successful response with flight track data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlightTracksResponse'
+              example:
+                data:
+                - fr24_id: 34242a02
+                  tracks:
+                  - timestamp: '2024-01-15T08:00:00Z'
+                    lat: 51.4706
+                    lon: -0.4619
+                    alt: 0
+                    gspeed: 0
+                    vspeed: 0
+                    track: 270
+                    squawk: '2000'
+                    callsign: BAW123
+                    source: ADSB
+                  - timestamp: '2024-01-15T08:15:00Z'
+                    lat: 51.5074
+                    lon: -0.1278
+                    alt: 15000
+                    gspeed: 350
+                    vspeed: 1800
+                    track: 270
+                    squawk: '2000'
+                    callsign: BAW123
+                    source: ADSB
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+components:
+  responses:
+    NotFound:
+      description: Not found — the requested resource does not exist.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Bad request — invalid or missing parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized — missing or invalid Bearer token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Too many requests — rate limit or credit limit exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human-readable error description.
+        code:
+          type: string
+          description: Machine-readable error code.
+    FlightTrackPoint:
+      type: object
+      description: A single positional point in a flight track.
+      required:
+      - timestamp
+      - lat
+      - lon
+      - alt
+      - gspeed
+      - vspeed
+      - track
+      - squawk
+      - source
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+          description: ISO 8601 date-time of the position fix.
+          example: '2024-01-15T08:15:00Z'
+        lat:
+          type: number
+          format: float
+          description: Latitude in decimal degrees.
+          example: 51.5074
+        lon:
+          type: number
+          format: float
+          description: Longitude in decimal degrees.
+          example: -0.1278
+        alt:
+          type: integer
+          description: Altitude in feet.
+          example: 15000
+        gspeed:
+          type: integer
+          description: Ground speed in knots.
+          example: 350
+        vspeed:
+          type: integer
+          description: Vertical speed in feet per minute.
+          example: 1800
+        track:
+          type: integer
+          description: True heading in degrees (0-360).
+          example: 270
+        squawk:
+          type: string
+          description: Transponder squawk code.
+          example: '2000'
+        callsign:
+          type: string
+          nullable: true
+          description: ATC callsign.
+          example: BAW123
+        source:
+          type: string
+          description: Data source (e.g., ADSB, MLAT, RADAR).
+          example: ADSB
+    FlightTracksResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/FlightTracks'
+    FlightTracks:
+      type: object
+      description: Complete positional track for a single flight.
+      required:
+      - fr24_id
+      properties:
+        fr24_id:
+          type: string
+          description: Flightradar24 unique identifier for the flight.
+          example: 34242a02
+        tracks:
+          type: array
+          description: Time-ordered list of positional track points.
+          items:
+            $ref: '#/components/schemas/FlightTrackPoint'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Bearer token authentication. Obtain your API token from the Flightradar24 developer portal at https://fr24api.flightradar24.com/.

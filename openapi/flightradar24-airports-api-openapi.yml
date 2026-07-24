@@ -1,0 +1,308 @@
+openapi: 3.1.0
+info:
+  title: Flightradar24 Airlines Airports API
+  description: Flightradar24 is the world's most popular real-time flight tracking platform, monitoring over 250,000 daily flights using data from a global network of ADS-B, MLAT, and radar receivers. The FR24 API provides developers with programmatic access to live aircraft positions, historical flight data, flight summaries, and reference data for airports and airlines. The credit-based subscription API uses Bearer token authentication and is available at https://fr24api.flightradar24.com/api with three tiers — Explorer, Essential, and Advanced — covering hobby projects through high-volume commercial applications.
+  version: 1.0.0
+  contact:
+    url: https://support.fr24.com/support/solutions/folders/3000022922
+  license:
+    name: Proprietary
+    url: https://fr24api.flightradar24.com/docs/getting-started
+servers:
+- url: https://fr24api.flightradar24.com/api
+  description: Flightradar24 API
+security:
+- bearerAuth: []
+tags:
+- name: Airports
+  description: Reference data for airports worldwide
+paths:
+  /static/airports/{code}/light:
+    get:
+      operationId: getAirportLight
+      summary: Get airport (light)
+      description: Returns basic reference data for an airport by IATA or ICAO code, including the airport name, IATA code, and ICAO code.
+      tags:
+      - Airports
+      parameters:
+      - name: code
+        in: path
+        required: true
+        description: Airport IATA (3-letter) or ICAO (4-letter) code.
+        schema:
+          type: string
+          pattern: ^([A-Z]{3}|[A-Z]{4})$
+        example: LHR
+      responses:
+        '200':
+          description: Successful response with basic airport data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AirportLight'
+              example:
+                icao: EGLL
+                iata: LHR
+                name: London Heathrow Airport
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /static/airports/{code}/full:
+    get:
+      operationId: getAirportFull
+      summary: Get airport (full)
+      description: Returns detailed reference data for an airport by IATA or ICAO code, including full airport name, geographic coordinates, elevation, country, city, state, timezone, and runway information.
+      tags:
+      - Airports
+      parameters:
+      - name: code
+        in: path
+        required: true
+        description: Airport IATA (3-letter) or ICAO (4-letter) code.
+        schema:
+          type: string
+          pattern: ^([A-Z]{3}|[A-Z]{4})$
+        example: WAW
+      responses:
+        '200':
+          description: Successful response with detailed airport data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AirportFull'
+              example:
+                name: Warsaw Chopin Airport
+                lat: 52.1657
+                lon: 20.9671
+                elevation: 110.5
+                country:
+                  code: PL
+                  name: Poland
+                city: Warsaw
+                state: Masovian Voivodeship
+                timezone:
+                  name: Europe/Warsaw
+                  offset: 3600
+                iata: WAW
+                icao: EPWA
+                runways:
+                - designator: 15/33
+                  heading: 150
+                  length: 3690
+                  width: 60
+                  elevation: 110
+                  thr_coordinates:
+                  - 52.1657
+                  - 20.9671
+                  surface:
+                    type: ASPH
+                    description: Asphalt
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+components:
+  responses:
+    NotFound:
+      description: Not found — the requested resource does not exist.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized — missing or invalid Bearer token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Too many requests — rate limit or credit limit exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Timezone:
+      type: object
+      required:
+      - name
+      - offset
+      properties:
+        name:
+          type: string
+          description: IANA timezone name.
+          example: Europe/London
+        offset:
+          type: integer
+          description: UTC offset in seconds.
+          example: 0
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human-readable error description.
+        code:
+          type: string
+          description: Machine-readable error code.
+    Country:
+      type: object
+      required:
+      - code
+      - name
+      properties:
+        code:
+          type: string
+          description: ISO 3166-1 alpha-2 country code.
+          example: GB
+        name:
+          type: string
+          description: Country name.
+          example: United Kingdom
+    AirportFull:
+      type: object
+      description: Detailed airport reference data including runways and geographic information.
+      required:
+      - name
+      - lat
+      - lon
+      - elevation
+      - country
+      - city
+      - timezone
+      properties:
+        name:
+          type: string
+          description: Airport full name.
+          example: London Heathrow Airport
+        lat:
+          type: number
+          format: float
+          description: Airport latitude in decimal degrees.
+          example: 51.4706
+        lon:
+          type: number
+          format: float
+          description: Airport longitude in decimal degrees.
+          example: -0.4619
+        elevation:
+          type: number
+          format: float
+          description: Airport elevation in feet.
+          example: 83.0
+        country:
+          $ref: '#/components/schemas/Country'
+        city:
+          type: string
+          description: City served by the airport.
+          example: London
+        timezone:
+          $ref: '#/components/schemas/Timezone'
+        iata:
+          type: string
+          nullable: true
+          description: Airport IATA code.
+          example: LHR
+        icao:
+          type: string
+          nullable: true
+          description: Airport ICAO code.
+          example: EGLL
+        state:
+          type: string
+          nullable: true
+          description: State or region.
+          example: England
+        runways:
+          type: array
+          nullable: true
+          description: List of runways at the airport.
+          items:
+            $ref: '#/components/schemas/Runway'
+    AirportLight:
+      type: object
+      description: Basic airport reference data.
+      required:
+      - icao
+      properties:
+        icao:
+          type: string
+          description: Airport ICAO code.
+          example: EGLL
+        iata:
+          type: string
+          nullable: true
+          description: Airport IATA code.
+          example: LHR
+        name:
+          type: string
+          nullable: true
+          description: Airport full name.
+          example: London Heathrow Airport
+    Surface:
+      type: object
+      required:
+      - type
+      - description
+      properties:
+        type:
+          type: string
+          description: Surface type code (e.g., ASPH, CONC, GRVL).
+          example: ASPH
+        description:
+          type: string
+          description: Human-readable surface description.
+          example: Asphalt
+    Runway:
+      type: object
+      required:
+      - designator
+      - heading
+      - length
+      - width
+      - elevation
+      - thr_coordinates
+      - surface
+      properties:
+        designator:
+          type: string
+          description: Runway designator (e.g., "27L/09R").
+          example: 27L/09R
+        heading:
+          type: integer
+          description: Magnetic heading in degrees.
+          example: 270
+        length:
+          type: integer
+          description: Runway length in metres.
+          example: 3901
+        width:
+          type: integer
+          description: Runway width in metres.
+          example: 60
+        elevation:
+          type: integer
+          description: Runway elevation in feet.
+          example: 83
+        thr_coordinates:
+          type: array
+          description: Threshold coordinates [latitude, longitude].
+          items:
+            type: number
+          minItems: 2
+          maxItems: 2
+          example:
+          - 51.4706
+          - -0.4619
+        surface:
+          $ref: '#/components/schemas/Surface'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Bearer token authentication. Obtain your API token from the Flightradar24 developer portal at https://fr24api.flightradar24.com/.
