@@ -1,0 +1,28 @@
+{
+  "provider": "flightradar24",
+  "sources": [
+    "flightradar24-airlines-api-openapi.yml",
+    "flightradar24-airports-api-openapi.yml",
+    "flightradar24-flight-summary-api-openapi.yml",
+    "flightradar24-flight-tracks-api-openapi.yml",
+    "flightradar24-historic-events-api-openapi.yml",
+    "flightradar24-historic-positions-api-openapi.yml",
+    "flightradar24-live-positions-api-openapi.yml",
+    "flightradar24-usage-api-openapi.yml"
+  ],
+  "outputs": [
+    "flightradar24-airlines-api-openapi.yml",
+    "flightradar24-airports-api-openapi.yml",
+    "flightradar24-flight-summary-api-openapi.yml",
+    "flightradar24-flight-tracks-api-openapi.yml",
+    "flightradar24-historic-events-api-openapi.yml",
+    "flightradar24-historic-positions-api-openapi.yml",
+    "flightradar24-live-positions-api-openapi.yml",
+    "flightradar24-usage-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
