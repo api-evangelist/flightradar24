@@ -1,0 +1,43 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Flightradar24 Airlines Usage API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Usage",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get API usage",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://fr24api.flightradar24.com/api/usage",
+            "params": [
+              {
+                "name": "period",
+                "value": "24h",
+                "type": "query",
+                "description": "Time period for the usage summary."
+              }
+            ]
+          },
+          "docs": "Returns a summary of API account usage and credit consumption broken down by endpoint for the specified time period."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

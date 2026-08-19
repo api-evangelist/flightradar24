@@ -1,0 +1,74 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Flightradar24 Airlines Historic Events API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Historic Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get historical flight events (light)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://fr24api.flightradar24.com/api/historic/flight-events/light",
+            "params": [
+              {
+                "name": "flight_ids",
+                "value": "391fdd79,35f2ffd9",
+                "type": "query",
+                "description": "Comma-separated FR24 flight IDs (hexadecimal). Maximum 15 IDs. Example: \"391fdd79,35f2ffd9\""
+              },
+              {
+                "name": "event_types",
+                "value": "gate_departure,takeoff,landed",
+                "type": "query",
+                "description": "Comma-separated event types to filter by. Use \"all\" to return all event types."
+              }
+            ]
+          },
+          "docs": "Returns comprehensive historical information on flight events including takeoff, landing, gate movements, and airspace transitions. Lightweight version includes fr24_id, callsign, hex, and events list."
+        },
+        {
+          "info": {
+            "name": "Get historical flight events (full)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://fr24api.flightradar24.com/api/historic/flight-events/full",
+            "params": [
+              {
+                "name": "flight_ids",
+                "value": "391fdd79,35f2ffd9",
+                "type": "query",
+                "description": "Comma-separated FR24 flight IDs (hexadecimal). Maximum 15 IDs."
+              },
+              {
+                "name": "event_types",
+                "value": "all",
+                "type": "query",
+                "description": "Comma-separated event types to filter by. Use \"all\" to return all event types."
+              }
+            ]
+          },
+          "docs": "Returns comprehensive historical information on flight events including takeoff, landing, gate movements, and airspace transitions, with additional flight and aircraft details such as origin, destination, and aircraft type."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

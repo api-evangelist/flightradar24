@@ -1,0 +1,565 @@
+{
+  "item": [
+    {
+      "id": "d52a109e-bf1f-4dd6-bc97-db9519936003",
+      "name": "Airports",
+      "description": {
+        "content": "Reference data for airports worldwide",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1ec96f03-55cd-4eb5-a624-8909c409fd7f",
+          "name": "Get airport (light)",
+          "request": {
+            "name": "Get airport (light)",
+            "description": {
+              "content": "Returns basic reference data for an airport by IATA or ICAO code, including the airport name, IATA code, and ICAO code.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "static",
+                "airports",
+                ":code",
+                "light"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "code",
+                  "description": "(Required) Airport IATA (3-letter) or ICAO (4-letter) code."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ff1d427a-d716-4739-900a-1d77760b2f99",
+              "name": "Successful response with basic airport data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "static",
+                    "airports",
+                    ":code",
+                    "light"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "code",
+                      "description": "(Required) Airport IATA (3-letter) or ICAO (4-letter) code."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"icao\": \"EGLL\",\n  \"iata\": \"LHR\",\n  \"name\": \"London Heathrow Airport\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7989909f-7bb2-4d36-a477-133968956e88",
+              "name": "Unauthorized — missing or invalid Bearer token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "static",
+                    "airports",
+                    ":code",
+                    "light"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "code",
+                      "description": "(Required) Airport IATA (3-letter) or ICAO (4-letter) code."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a37d2b58-1e3f-4166-bd54-2fcd6f17540d",
+              "name": "Not found — the requested resource does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "static",
+                    "airports",
+                    ":code",
+                    "light"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "code",
+                      "description": "(Required) Airport IATA (3-letter) or ICAO (4-letter) code."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "52e8966c-a0f8-4c52-804b-7159014ff6df",
+              "name": "Too many requests — rate limit or credit limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "static",
+                    "airports",
+                    ":code",
+                    "light"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "code",
+                      "description": "(Required) Airport IATA (3-letter) or ICAO (4-letter) code."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "31312125-bbac-4756-9f1a-f0e9bdd15a6e",
+          "name": "Get airport (full)",
+          "request": {
+            "name": "Get airport (full)",
+            "description": {
+              "content": "Returns detailed reference data for an airport by IATA or ICAO code, including full airport name, geographic coordinates, elevation, country, city, state, timezone, and runway information.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "static",
+                "airports",
+                ":code",
+                "full"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "code",
+                  "description": "(Required) Airport IATA (3-letter) or ICAO (4-letter) code."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "88b39085-e519-42eb-af6e-344bf6fba57b",
+              "name": "Successful response with detailed airport data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "static",
+                    "airports",
+                    ":code",
+                    "full"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "code",
+                      "description": "(Required) Airport IATA (3-letter) or ICAO (4-letter) code."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"Warsaw Chopin Airport\",\n  \"lat\": 52.1657,\n  \"lon\": 20.9671,\n  \"elevation\": 110.5,\n  \"country\": {\n    \"code\": \"PL\",\n    \"name\": \"Poland\"\n  },\n  \"city\": \"Warsaw\",\n  \"state\": \"Masovian Voivodeship\",\n  \"timezone\": {\n    \"name\": \"Europe/Warsaw\",\n    \"offset\": 3600\n  },\n  \"iata\": \"WAW\",\n  \"icao\": \"EPWA\",\n  \"runways\": [\n    {\n      \"designator\": \"15/33\",\n      \"heading\": 150,\n      \"length\": 3690,\n      \"width\": 60,\n      \"elevation\": 110,\n      \"thr_coordinates\": [\n        52.1657,\n        20.9671\n      ],\n      \"surface\": {\n        \"type\": \"ASPH\",\n        \"description\": \"Asphalt\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ae2d8b85-0ff7-4b98-98cc-79df9463bb42",
+              "name": "Unauthorized — missing or invalid Bearer token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "static",
+                    "airports",
+                    ":code",
+                    "full"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "code",
+                      "description": "(Required) Airport IATA (3-letter) or ICAO (4-letter) code."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d75dc4d3-0650-495a-89e2-238be8d14fba",
+              "name": "Not found — the requested resource does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "static",
+                    "airports",
+                    ":code",
+                    "full"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "code",
+                      "description": "(Required) Airport IATA (3-letter) or ICAO (4-letter) code."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e5585859-bb03-4edf-89c2-ec1c5fca07d5",
+              "name": "Too many requests — rate limit or credit limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "static",
+                    "airports",
+                    ":code",
+                    "full"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "code",
+                      "description": "(Required) Airport IATA (3-letter) or ICAO (4-letter) code."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://fr24api.flightradar24.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "cb74a6ae-f22d-4449-b73a-da683acbef27",
+    "name": "Flightradar24 Airlines Airports API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Flightradar24 is the world's most popular real-time flight tracking platform, monitoring over 250,000 daily flights using data from a global network of ADS-B, MLAT, and radar receivers. The FR24 API provides developers with programmatic access to live aircraft positions, historical flight data, flight summaries, and reference data for airports and airlines. The credit-based subscription API uses Bearer token authentication and is available at https://fr24api.flightradar24.com/api with three tiers — Explorer, Essential, and Advanced — covering hobby projects through high-volume commercial applications.",
+      "type": "text/plain"
+    }
+  }
+}

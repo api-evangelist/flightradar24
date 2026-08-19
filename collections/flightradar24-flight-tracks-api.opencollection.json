@@ -1,0 +1,43 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Flightradar24 Airlines Flight Tracks API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Flight Tracks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get flight tracks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://fr24api.flightradar24.com/api/flight-tracks",
+            "params": [
+              {
+                "name": "flight_id",
+                "value": "34242a02",
+                "type": "query",
+                "description": "Flightradar24 ID of the flight in hexadecimal format (e.g., \"34242a02\")."
+              }
+            ]
+          },
+          "docs": "Returns the full positional track of a specific flight identified by its FR24 flight ID. Provides a time-ordered sequence of latitude, longitude, altitude, speed, and heading records spanning the entire flight from departure to arrival."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

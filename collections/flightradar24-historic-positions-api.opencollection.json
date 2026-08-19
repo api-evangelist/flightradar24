@@ -1,0 +1,345 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Flightradar24 Airlines Historic Positions API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Historic Positions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get historical flight positions (light)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://fr24api.flightradar24.com/api/historic/flight-positions/light",
+            "params": [
+              {
+                "name": "timestamp",
+                "value": "1705312200",
+                "type": "query",
+                "description": "Unix timestamp (seconds since epoch) for the historical snapshot. Must be after 2016-05-11T00:00:00Z (Unix timestamp 1462924800)."
+              },
+              {
+                "name": "bounds",
+                "value": "51.5,51.0,-0.5,0.5",
+                "type": "query",
+                "description": "Geographic bounding box in the format \"north,south,west,east\" (e.g., \"51.5,51.0,-0.5,0.5\"). Latitudes range -90 to 90; longitudes -180 to 180. North must be greater than south."
+              },
+              {
+                "name": "flights",
+                "value": "BA123,LH456",
+                "type": "query",
+                "description": "Comma-separated list of flight numbers (e.g., \"BA123,LH456\"). Maximum 15 values."
+              },
+              {
+                "name": "callsigns",
+                "value": "BAW123,DLH456",
+                "type": "query",
+                "description": "Comma-separated list of ATC callsigns (e.g., \"BAW123,DLH456\"). Maximum 15 values."
+              },
+              {
+                "name": "registrations",
+                "value": "G-STBK,D-ABCD",
+                "type": "query",
+                "description": "Comma-separated list of aircraft registration codes (e.g., \"G-STBK,D-ABCD\"). Maximum 15 values."
+              },
+              {
+                "name": "painted_as",
+                "value": "BAW,DLH",
+                "type": "query",
+                "description": "Comma-separated list of airline ICAO codes for the livery carrier (e.g., \"BAW,DLH\"). Maximum 15 values."
+              },
+              {
+                "name": "operating_as",
+                "value": "BAW,DLH",
+                "type": "query",
+                "description": "Comma-separated list of airline ICAO codes for the operating carrier. Maximum 15 values."
+              },
+              {
+                "name": "airports",
+                "value": "LHR,EDDF",
+                "type": "query",
+                "description": "Comma-separated list of airport IATA or ICAO codes. Matches flights departing or arriving at these airports. Maximum 15 values."
+              },
+              {
+                "name": "routes",
+                "value": "LHR-JFK,CDG-LAX",
+                "type": "query",
+                "description": "Comma-separated list of routes in origin-destination format (e.g., \"LHR-JFK\"). Maximum 15 values."
+              },
+              {
+                "name": "aircraft",
+                "value": "B77W",
+                "type": "query",
+                "description": "ICAO aircraft type code (e.g., \"B77W\", \"A320\")."
+              },
+              {
+                "name": "altitude_ranges",
+                "value": "0-5000,35000-45000",
+                "type": "query",
+                "description": "Comma-separated altitude ranges in feet using \"min-max\" format (e.g., \"0-5000,35000-45000\"). Minimum altitude is -2000 ft. Maximum 15 ranges."
+              },
+              {
+                "name": "squawks",
+                "value": "7700,7600",
+                "type": "query",
+                "description": "Comma-separated list of transponder squawk codes (4-digit octal, e.g., \"7700,7600\"). Maximum 15 values."
+              },
+              {
+                "name": "categories",
+                "value": "P,C",
+                "type": "query",
+                "description": "Comma-separated list of aircraft/vehicle category codes. Maximum 15 values. P=Passenger, C=Cargo, M=Military and Government, J=Business Jets, T=General Aviation, H=Helicopters, B=Lighter than Air, G=Gliders, D=Drones, V=Ground Vehicles, O=Other, N=Non-Categorized."
+              },
+              {
+                "name": "data_sources",
+                "value": "ADSB,MLAT",
+                "type": "query",
+                "description": "Comma-separated list of data source types (e.g., \"ADSB,MLAT\"). Maximum 15 values."
+              },
+              {
+                "name": "gspeed",
+                "value": "200-400",
+                "type": "query",
+                "description": "Ground speed filter in knots (0-5000), or a range string (e.g., \"200-400\")."
+              },
+              {
+                "name": "limit",
+                "value": "1000",
+                "type": "query",
+                "description": "Maximum number of records to return (1-30000)."
+              }
+            ]
+          },
+          "docs": "Provides historical aircraft positional data using Unix timestamp. Returns lightweight position records (latitude, longitude, altitude, speed, heading, callsign, registration) for past flights. Historical data coverage extends back to May 11, 2016, with availability depending on the subscription plan. A timestamp and at least one additional filter parameter are required."
+        },
+        {
+          "info": {
+            "name": "Get historical flight positions (full)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://fr24api.flightradar24.com/api/historic/flight-positions/full",
+            "params": [
+              {
+                "name": "timestamp",
+                "value": "1705312200",
+                "type": "query",
+                "description": "Unix timestamp (seconds since epoch) for the historical snapshot. Must be after 2016-05-11T00:00:00Z (Unix timestamp 1462924800)."
+              },
+              {
+                "name": "bounds",
+                "value": "51.5,51.0,-0.5,0.5",
+                "type": "query",
+                "description": "Geographic bounding box in the format \"north,south,west,east\" (e.g., \"51.5,51.0,-0.5,0.5\"). Latitudes range -90 to 90; longitudes -180 to 180. North must be greater than south."
+              },
+              {
+                "name": "flights",
+                "value": "BA123,LH456",
+                "type": "query",
+                "description": "Comma-separated list of flight numbers (e.g., \"BA123,LH456\"). Maximum 15 values."
+              },
+              {
+                "name": "callsigns",
+                "value": "BAW123,DLH456",
+                "type": "query",
+                "description": "Comma-separated list of ATC callsigns (e.g., \"BAW123,DLH456\"). Maximum 15 values."
+              },
+              {
+                "name": "registrations",
+                "value": "G-STBK,D-ABCD",
+                "type": "query",
+                "description": "Comma-separated list of aircraft registration codes (e.g., \"G-STBK,D-ABCD\"). Maximum 15 values."
+              },
+              {
+                "name": "painted_as",
+                "value": "BAW,DLH",
+                "type": "query",
+                "description": "Comma-separated list of airline ICAO codes for the livery carrier (e.g., \"BAW,DLH\"). Maximum 15 values."
+              },
+              {
+                "name": "operating_as",
+                "value": "BAW,DLH",
+                "type": "query",
+                "description": "Comma-separated list of airline ICAO codes for the operating carrier. Maximum 15 values."
+              },
+              {
+                "name": "airports",
+                "value": "LHR,EDDF",
+                "type": "query",
+                "description": "Comma-separated list of airport IATA or ICAO codes. Matches flights departing or arriving at these airports. Maximum 15 values."
+              },
+              {
+                "name": "routes",
+                "value": "LHR-JFK,CDG-LAX",
+                "type": "query",
+                "description": "Comma-separated list of routes in origin-destination format (e.g., \"LHR-JFK\"). Maximum 15 values."
+              },
+              {
+                "name": "aircraft",
+                "value": "B77W",
+                "type": "query",
+                "description": "ICAO aircraft type code (e.g., \"B77W\", \"A320\")."
+              },
+              {
+                "name": "altitude_ranges",
+                "value": "0-5000,35000-45000",
+                "type": "query",
+                "description": "Comma-separated altitude ranges in feet using \"min-max\" format (e.g., \"0-5000,35000-45000\"). Minimum altitude is -2000 ft. Maximum 15 ranges."
+              },
+              {
+                "name": "squawks",
+                "value": "7700,7600",
+                "type": "query",
+                "description": "Comma-separated list of transponder squawk codes (4-digit octal, e.g., \"7700,7600\"). Maximum 15 values."
+              },
+              {
+                "name": "categories",
+                "value": "P,C",
+                "type": "query",
+                "description": "Comma-separated list of aircraft/vehicle category codes. Maximum 15 values. P=Passenger, C=Cargo, M=Military and Government, J=Business Jets, T=General Aviation, H=Helicopters, B=Lighter than Air, G=Gliders, D=Drones, V=Ground Vehicles, O=Other, N=Non-Categorized."
+              },
+              {
+                "name": "data_sources",
+                "value": "ADSB,MLAT",
+                "type": "query",
+                "description": "Comma-separated list of data source types (e.g., \"ADSB,MLAT\"). Maximum 15 values."
+              },
+              {
+                "name": "gspeed",
+                "value": "200-400",
+                "type": "query",
+                "description": "Ground speed filter in knots (0-5000), or a range string (e.g., \"200-400\")."
+              },
+              {
+                "name": "limit",
+                "value": "1000",
+                "type": "query",
+                "description": "Maximum number of records to return (1-30000)."
+              }
+            ]
+          },
+          "docs": "Returns full historical aircraft flight movement records for a given time window, combining positional data with enriched flight metadata including origin, destination, callsign, registration, aircraft type, and operator. Data is accessible back to May 11, 2016 depending on the subscription tier. Available on Essential and Advanced plans. A timestamp and at least one additional filter parameter are required."
+        },
+        {
+          "info": {
+            "name": "Count historical flight positions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://fr24api.flightradar24.com/api/historic/flight-positions/count",
+            "params": [
+              {
+                "name": "timestamp",
+                "value": "1705312200",
+                "type": "query",
+                "description": "Unix timestamp (seconds since epoch) for the historical snapshot. Must be after 2016-05-11T00:00:00Z (Unix timestamp 1462924800)."
+              },
+              {
+                "name": "bounds",
+                "value": "51.5,51.0,-0.5,0.5",
+                "type": "query",
+                "description": "Geographic bounding box in the format \"north,south,west,east\" (e.g., \"51.5,51.0,-0.5,0.5\"). Latitudes range -90 to 90; longitudes -180 to 180. North must be greater than south."
+              },
+              {
+                "name": "flights",
+                "value": "BA123,LH456",
+                "type": "query",
+                "description": "Comma-separated list of flight numbers (e.g., \"BA123,LH456\"). Maximum 15 values."
+              },
+              {
+                "name": "callsigns",
+                "value": "BAW123,DLH456",
+                "type": "query",
+                "description": "Comma-separated list of ATC callsigns (e.g., \"BAW123,DLH456\"). Maximum 15 values."
+              },
+              {
+                "name": "registrations",
+                "value": "G-STBK,D-ABCD",
+                "type": "query",
+                "description": "Comma-separated list of aircraft registration codes (e.g., \"G-STBK,D-ABCD\"). Maximum 15 values."
+              },
+              {
+                "name": "painted_as",
+                "value": "BAW,DLH",
+                "type": "query",
+                "description": "Comma-separated list of airline ICAO codes for the livery carrier (e.g., \"BAW,DLH\"). Maximum 15 values."
+              },
+              {
+                "name": "operating_as",
+                "value": "BAW,DLH",
+                "type": "query",
+                "description": "Comma-separated list of airline ICAO codes for the operating carrier. Maximum 15 values."
+              },
+              {
+                "name": "airports",
+                "value": "LHR,EDDF",
+                "type": "query",
+                "description": "Comma-separated list of airport IATA or ICAO codes. Matches flights departing or arriving at these airports. Maximum 15 values."
+              },
+              {
+                "name": "routes",
+                "value": "LHR-JFK,CDG-LAX",
+                "type": "query",
+                "description": "Comma-separated list of routes in origin-destination format (e.g., \"LHR-JFK\"). Maximum 15 values."
+              },
+              {
+                "name": "aircraft",
+                "value": "B77W",
+                "type": "query",
+                "description": "ICAO aircraft type code (e.g., \"B77W\", \"A320\")."
+              },
+              {
+                "name": "altitude_ranges",
+                "value": "0-5000,35000-45000",
+                "type": "query",
+                "description": "Comma-separated altitude ranges in feet using \"min-max\" format (e.g., \"0-5000,35000-45000\"). Minimum altitude is -2000 ft. Maximum 15 ranges."
+              },
+              {
+                "name": "squawks",
+                "value": "7700,7600",
+                "type": "query",
+                "description": "Comma-separated list of transponder squawk codes (4-digit octal, e.g., \"7700,7600\"). Maximum 15 values."
+              },
+              {
+                "name": "categories",
+                "value": "P,C",
+                "type": "query",
+                "description": "Comma-separated list of aircraft/vehicle category codes. Maximum 15 values. P=Passenger, C=Cargo, M=Military and Government, J=Business Jets, T=General Aviation, H=Helicopters, B=Lighter than Air, G=Gliders, D=Drones, V=Ground Vehicles, O=Other, N=Non-Categorized."
+              },
+              {
+                "name": "data_sources",
+                "value": "ADSB,MLAT",
+                "type": "query",
+                "description": "Comma-separated list of data source types (e.g., \"ADSB,MLAT\"). Maximum 15 values."
+              },
+              {
+                "name": "gspeed",
+                "value": "200-400",
+                "type": "query",
+                "description": "Ground speed filter in knots (0-5000), or a range string (e.g., \"200-400\")."
+              }
+            ]
+          },
+          "docs": "Returns the number of historical aircraft positions that match the given filters. A timestamp and at least one additional filter parameter are required."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

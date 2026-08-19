@@ -1,0 +1,323 @@
+{
+  "item": [
+    {
+      "id": "ce9d7b04-2803-4933-8a49-c4bb99c13060",
+      "name": "Flight Tracks",
+      "description": {
+        "content": "Full positional track of a specific flight by FR24 flight ID",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "53fc9a75-d4e8-4456-9c67-c15cc5b24c09",
+          "name": "Get flight tracks",
+          "request": {
+            "name": "Get flight tracks",
+            "description": {
+              "content": "Returns the full positional track of a specific flight identified by its FR24 flight ID. Provides a time-ordered sequence of latitude, longitude, altitude, speed, and heading records spanning the entire flight from departure to arrival.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "flight-tracks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "flight_id",
+                  "value": "<string>",
+                  "description": "(Required) Flightradar24 ID of the flight in hexadecimal format (e.g., \"34242a02\")."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4f4c9119-6c61-4094-818a-6b2b1bce25b1",
+              "name": "Successful response with flight track data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "flight-tracks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "flight_id",
+                      "value": "34242a02"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"fr24_id\": \"34242a02\",\n      \"tracks\": [\n        {\n          \"timestamp\": \"2024-01-15T08:00:00Z\",\n          \"lat\": 51.4706,\n          \"lon\": -0.4619,\n          \"alt\": 0,\n          \"gspeed\": 0,\n          \"vspeed\": 0,\n          \"track\": 270,\n          \"squawk\": \"2000\",\n          \"callsign\": \"BAW123\",\n          \"source\": \"ADSB\"\n        },\n        {\n          \"timestamp\": \"2024-01-15T08:15:00Z\",\n          \"lat\": 51.5074,\n          \"lon\": -0.1278,\n          \"alt\": 15000,\n          \"gspeed\": 350,\n          \"vspeed\": 1800,\n          \"track\": 270,\n          \"squawk\": \"2000\",\n          \"callsign\": \"BAW123\",\n          \"source\": \"ADSB\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "38ca47b8-2af8-4df6-b5ba-3560d4d1a02a",
+              "name": "Bad request — invalid or missing parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "flight-tracks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "flight_id",
+                      "value": "34242a02"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "335878e9-0adb-40c4-8f09-138c9d7e5cbe",
+              "name": "Unauthorized — missing or invalid Bearer token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "flight-tracks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "flight_id",
+                      "value": "34242a02"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bc33c649-c9b1-4dd7-8410-f41da3e724a2",
+              "name": "Not found — the requested resource does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "flight-tracks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "flight_id",
+                      "value": "34242a02"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e9ee22ce-c46d-4b4a-8a38-cf1aa6a628b6",
+              "name": "Too many requests — rate limit or credit limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "flight-tracks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "flight_id",
+                      "value": "34242a02"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://fr24api.flightradar24.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "aa2bc026-d5f5-4dc6-b400-fe6b7b2f4be2",
+    "name": "Flightradar24 Airlines Flight Tracks API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Flightradar24 is the world's most popular real-time flight tracking platform, monitoring over 250,000 daily flights using data from a global network of ADS-B, MLAT, and radar receivers. The FR24 API provides developers with programmatic access to live aircraft positions, historical flight data, flight summaries, and reference data for airports and airlines. The credit-based subscription API uses Bearer token authentication and is available at https://fr24api.flightradar24.com/api with three tiers — Explorer, Essential, and Advanced — covering hobby projects through high-volume commercial applications.",
+      "type": "text/plain"
+    }
+  }
+}

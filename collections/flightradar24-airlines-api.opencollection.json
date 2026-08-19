@@ -1,0 +1,43 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Flightradar24 Airlines API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Airlines",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get airline (light)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://fr24api.flightradar24.com/api/static/airlines/:icao/light",
+            "params": [
+              {
+                "name": "icao",
+                "value": "BAW",
+                "type": "path",
+                "description": "Airline ICAO code (3-letter), e.g., \"SAS\", \"DLH\", \"BAW\"."
+              }
+            ]
+          },
+          "docs": "Returns basic reference data for an airline by ICAO code, including airline name, IATA code, and ICAO code. Useful for resolving callsign prefixes and operator codes present in flight data into human-readable airline names."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

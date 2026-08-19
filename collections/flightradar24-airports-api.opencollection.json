@@ -1,0 +1,62 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Flightradar24 Airlines Airports API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Airports",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get airport (light)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://fr24api.flightradar24.com/api/static/airports/:code/light",
+            "params": [
+              {
+                "name": "code",
+                "value": "LHR",
+                "type": "path",
+                "description": "Airport IATA (3-letter) or ICAO (4-letter) code."
+              }
+            ]
+          },
+          "docs": "Returns basic reference data for an airport by IATA or ICAO code, including the airport name, IATA code, and ICAO code."
+        },
+        {
+          "info": {
+            "name": "Get airport (full)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://fr24api.flightradar24.com/api/static/airports/:code/full",
+            "params": [
+              {
+                "name": "code",
+                "value": "WAW",
+                "type": "path",
+                "description": "Airport IATA (3-letter) or ICAO (4-letter) code."
+              }
+            ]
+          },
+          "docs": "Returns detailed reference data for an airport by IATA or ICAO code, including full airport name, geographic coordinates, elevation, country, city, state, timezone, and runway information."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
