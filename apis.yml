@@ -126,6 +126,12 @@ apis:
   baseURL: https://fr24api.flightradar24.com/api
   tags:
   - Flights
+  - Summary
+  - Departures
+  - Arrivals
+  - Historical
+  tags_raw:
+  - Flights
   - Summaries
   - Departures
   - Arrivals
