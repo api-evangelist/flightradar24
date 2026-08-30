@@ -290,6 +290,9 @@ apis:
   - type: OpenAPI
     url: openapi/flightradar24-usage-api-openapi.yml
 common:
+  - type: CapabilityMap
+    url: capabilities/flightradar24-capability-edges.yml
+    name: Flightradar24 Business Capability Map
   - type: AgenticAccess
     url: agentic-access/flightradar24-agentic-access.yml
   - type: DomainSecurity

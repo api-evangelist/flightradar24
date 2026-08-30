@@ -1,0 +1,53 @@
+slug: flightradar24
+provider: Flightradar24
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Air Traffic Control
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 4
+edges:
+- tag: Live Positions
+  spec_file: flightradar24-live-positions-api-openapi.yml
+  capability_id: BC-1240.40
+  capability_id_l1: BC-1240
+  capability_name: Surveillance Systems Management
+  confidence: 0.75
+  evidence: GET /live/flight-positions/full  getLiveFlightPositionsFull  Get live flight positions (full)
+  reason: Real-time aircraft position feed from ADS-B/MLAT/radar receivers is the clearest instance of
+    surveillance data services; no other candidate capability describes live aircraft surveillance.
+- tag: Flight Tracks
+  spec_file: flightradar24-flight-tracks-api-openapi.yml
+  capability_id: BC-1240.40
+  capability_id_l1: BC-1240
+  capability_name: Surveillance Systems Management
+  confidence: 0.7
+  evidence: 'GET /flight-tracks  getFlightTracks  Get flight tracks — schemas: FlightTrackPoint, FlightTracks'
+  reason: Delivers aircraft track point data sourced from 'ADS-B, MLAT, and radar receivers', which is
+    precisely the surveillance data domain (ADS-B, multilateration, radar) of BC-1240.40.
+- tag: Historic Positions
+  spec_file: flightradar24-historic-positions-api-openapi.yml
+  capability_id: BC-1240.40
+  capability_id_l1: BC-1240
+  capability_name: Surveillance Systems Management
+  confidence: 0.7
+  evidence: GET /historic/flight-positions/full  getHistoricFlightPositionsFull  Get historical flight
+    positions (full)
+  reason: Aircraft position data captured by a 'global network of ADS-B, MLAT, and radar receivers' —
+    surveillance data provision, matching Surveillance Systems Management (ADS-B, multilateration).
+- tag: Usage
+  spec_file: flightradar24-usage-api-openapi.yml
+  capability_id: BC-4270.50
+  capability_id_l1: BC-4270
+  capability_name: API Consumption Governance
+  confidence: 0.7
+  evidence: 'GET /usage  getUsage  Get API usage — schemas: UsageLogSummaryResponse, UsageLogSummary;
+    ''credit-based subscription API ... three tiers — Explorer, Essential, and Advanced'''
+  reason: Exposes consumption logs for a credit-based, tiered API subscription, which is API consumption
+    governance (usage analytics mapped to plan tiers) rather than any aviation capability.
