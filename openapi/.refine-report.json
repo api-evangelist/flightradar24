@@ -1,14 +1,7 @@
 {
   "provider": "flightradar24",
   "sources": [
-    "flightradar24-airlines-api-openapi.yml",
-    "flightradar24-airports-api-openapi.yml",
-    "flightradar24-flight-summary-api-openapi.yml",
-    "flightradar24-flight-tracks-api-openapi.yml",
-    "flightradar24-historic-events-api-openapi.yml",
-    "flightradar24-historic-positions-api-openapi.yml",
-    "flightradar24-live-positions-api-openapi.yml",
-    "flightradar24-usage-api-openapi.yml"
+    "_original/openapi.yml"
   ],
   "outputs": [
     "flightradar24-airlines-api-openapi.yml",
@@ -23,6 +16,19 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "flightradar24-airlines-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "flightradar24-airports-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "flightradar24-flight-summary-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "flightradar24-flight-tracks-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "flightradar24-historic-events-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "flightradar24-historic-positions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "flightradar24-live-positions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "flightradar24-usage-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

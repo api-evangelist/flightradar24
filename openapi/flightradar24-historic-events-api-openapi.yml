@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Flightradar24 Airlines Historic Events API
-  description: Flightradar24 is the world's most popular real-time flight tracking platform, monitoring over 250,000 daily flights using data from a global network of ADS-B, MLAT, and radar receivers. The FR24 API provides developers with programmatic access to live aircraft positions, historical flight data, flight summaries, and reference data for airports and airlines. The credit-based subscription API uses Bearer token authentication and is available at https://fr24api.flightradar24.com/api with three tiers — Explorer, Essential, and Advanced — covering hobby projects through high-volume commercial applications.
+  title: Flightradar24 Historic Events API
+  description: Flightradar24 is the world's most popular real-time flight tracking platform, monitoring over 250,000 daily flights using data from a global network of ADS-B, MLAT, and radar receivers.
   version: 1.0.0
   contact:
     url: https://support.fr24.com/support/solutions/folders/3000022922
@@ -100,20 +100,25 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
 components:
   schemas:
-    FlightEventsFullResponse:
+    GateDetails:
       type: object
+      description: Details for gate departure or arrival events.
       properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/FlightEventsFull'
-    FlightEventsLightResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/FlightEventsLight'
+        gate_ident:
+          type: string
+          nullable: true
+          description: Gate identifier.
+          example: B42
+        gate_lat:
+          type: number
+          format: float
+          nullable: true
+          description: Gate latitude.
+        gate_lon:
+          type: number
+          format: float
+          nullable: true
+          description: Gate longitude.
     Error:
       type: object
       properties:
@@ -123,38 +128,27 @@ components:
         code:
           type: string
           description: Machine-readable error code.
-    FlightEventsLight:
+    FlightEventsFullResponse:
       type: object
-      description: Lightweight historical flight events for a single flight.
-      required:
-      - fr24_id
       properties:
-        fr24_id:
-          type: string
-          description: Flightradar24 unique identifier for the flight.
-          example: 391fdd79
-        callsign:
-          type: string
-          nullable: true
-          example: BAW456
-        hex:
-          type: string
-          nullable: true
-          description: ICAO 24-bit aircraft address in hexadecimal.
-          example: 400A20
-        events:
+        data:
           type: array
           items:
-            $ref: '#/components/schemas/FlightEvent'
-    TakeoffDetails:
+            $ref: '#/components/schemas/FlightEventsFull'
+    LandingDetails:
       type: object
-      description: Details for takeoff events.
+      description: Details for landing events.
       properties:
-        takeoff_runway:
+        landed_icao:
           type: string
           nullable: true
-          description: Takeoff runway designator.
-          example: 27L
+          description: ICAO code of the airport where the aircraft landed.
+          example: EGLL
+        landed_runway:
+          type: string
+          nullable: true
+          description: Landing runway designator.
+          example: 27R
     FlightEvent:
       type: object
       description: A single flight event with position and event-specific details.
@@ -206,25 +200,38 @@ components:
           - $ref: '#/components/schemas/TakeoffDetails'
           - $ref: '#/components/schemas/LandingDetails'
           - $ref: '#/components/schemas/AirspaceDetails'
-    GateDetails:
+    FlightEventsLight:
       type: object
-      description: Details for gate departure or arrival events.
+      description: Lightweight historical flight events for a single flight.
+      required:
+      - fr24_id
       properties:
-        gate_ident:
+        fr24_id:
+          type: string
+          description: Flightradar24 unique identifier for the flight.
+          example: 391fdd79
+        callsign:
           type: string
           nullable: true
-          description: Gate identifier.
-          example: B42
-        gate_lat:
-          type: number
-          format: float
+          example: BAW456
+        hex:
+          type: string
           nullable: true
-          description: Gate latitude.
-        gate_lon:
-          type: number
-          format: float
+          description: ICAO 24-bit aircraft address in hexadecimal.
+          example: 400A20
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/FlightEvent'
+    TakeoffDetails:
+      type: object
+      description: Details for takeoff events.
+      properties:
+        takeoff_runway:
+          type: string
           nullable: true
-          description: Gate longitude.
+          description: Takeoff runway designator.
+          example: 27L
     FlightEventsFull:
       type: object
       description: Detailed historical flight events with full flight metadata.
@@ -277,20 +284,13 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/FlightEvent'
-    LandingDetails:
+    FlightEventsLightResponse:
       type: object
-      description: Details for landing events.
       properties:
-        landed_icao:
-          type: string
-          nullable: true
-          description: ICAO code of the airport where the aircraft landed.
-          example: EGLL
-        landed_runway:
-          type: string
-          nullable: true
-          description: Landing runway designator.
-          example: 27R
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/FlightEventsLight'
     AirspaceDetails:
       type: object
       description: Details for airspace transition events.
@@ -314,14 +314,14 @@ components:
           nullable: true
           description: ID of the airspace entered.
   responses:
-    BadRequest:
-      description: Bad request — invalid or missing parameters.
+    Unauthorized:
+      description: Unauthorized — missing or invalid Bearer token.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Unauthorized — missing or invalid Bearer token.
+    BadRequest:
+      description: Bad request — invalid or missing parameters.
       content:
         application/json:
           schema:
