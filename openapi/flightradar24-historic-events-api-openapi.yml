@@ -99,42 +99,110 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
+  responses:
+    TooManyRequests:
+      description: Too many requests — rate limit or credit limit exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized — missing or invalid Bearer token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Bad request — invalid or missing parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    GateDetails:
+    FlightEventsFull:
       type: object
-      description: Details for gate departure or arrival events.
+      description: Detailed historical flight events with full flight metadata.
+      required:
+      - fr24_id
       properties:
-        gate_ident:
+        fr24_id:
+          type: string
+          description: Flightradar24 unique identifier for the flight.
+          example: 391fdd79
+        callsign:
           type: string
           nullable: true
-          description: Gate identifier.
-          example: B42
-        gate_lat:
-          type: number
-          format: float
-          nullable: true
-          description: Gate latitude.
-        gate_lon:
-          type: number
-          format: float
-          nullable: true
-          description: Gate longitude.
-    Error:
-      type: object
-      properties:
-        message:
+          example: BAW456
+        hex:
           type: string
-          description: Human-readable error description.
-        code:
+          nullable: true
+          example: 400A20
+        operating_as:
           type: string
-          description: Machine-readable error code.
-    FlightEventsFullResponse:
-      type: object
-      properties:
-        data:
+          nullable: true
+          description: Airline ICAO code for the operating carrier.
+          example: BAW
+        painted_as:
+          type: string
+          nullable: true
+          description: Airline ICAO code for the livery carrier.
+          example: BAW
+        orig_iata:
+          type: string
+          nullable: true
+          description: Origin airport IATA code.
+          example: LHR
+        orig_icao:
+          type: string
+          nullable: true
+          description: Origin airport ICAO code.
+          example: EGLL
+        dest_iata:
+          type: string
+          nullable: true
+          description: Destination airport IATA code.
+          example: JFK
+        dest_icao:
+          type: string
+          nullable: true
+          description: Destination airport ICAO code.
+          example: KJFK
+        events:
           type: array
           items:
-            $ref: '#/components/schemas/FlightEventsFull'
+            $ref: '#/components/schemas/FlightEvent'
+    TakeoffDetails:
+      type: object
+      description: Details for takeoff events.
+      properties:
+        takeoff_runway:
+          type: string
+          nullable: true
+          description: Takeoff runway designator.
+          example: 27L
+    FlightEventsLight:
+      type: object
+      description: Lightweight historical flight events for a single flight.
+      required:
+      - fr24_id
+      properties:
+        fr24_id:
+          type: string
+          description: Flightradar24 unique identifier for the flight.
+          example: 391fdd79
+        callsign:
+          type: string
+          nullable: true
+          example: BAW456
+        hex:
+          type: string
+          nullable: true
+          description: ICAO 24-bit aircraft address in hexadecimal.
+          example: 400A20
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/FlightEvent'
     LandingDetails:
       type: object
       description: Details for landing events.
@@ -200,90 +268,13 @@ components:
           - $ref: '#/components/schemas/TakeoffDetails'
           - $ref: '#/components/schemas/LandingDetails'
           - $ref: '#/components/schemas/AirspaceDetails'
-    FlightEventsLight:
+    FlightEventsFullResponse:
       type: object
-      description: Lightweight historical flight events for a single flight.
-      required:
-      - fr24_id
       properties:
-        fr24_id:
-          type: string
-          description: Flightradar24 unique identifier for the flight.
-          example: 391fdd79
-        callsign:
-          type: string
-          nullable: true
-          example: BAW456
-        hex:
-          type: string
-          nullable: true
-          description: ICAO 24-bit aircraft address in hexadecimal.
-          example: 400A20
-        events:
+        data:
           type: array
           items:
-            $ref: '#/components/schemas/FlightEvent'
-    TakeoffDetails:
-      type: object
-      description: Details for takeoff events.
-      properties:
-        takeoff_runway:
-          type: string
-          nullable: true
-          description: Takeoff runway designator.
-          example: 27L
-    FlightEventsFull:
-      type: object
-      description: Detailed historical flight events with full flight metadata.
-      required:
-      - fr24_id
-      properties:
-        fr24_id:
-          type: string
-          description: Flightradar24 unique identifier for the flight.
-          example: 391fdd79
-        callsign:
-          type: string
-          nullable: true
-          example: BAW456
-        hex:
-          type: string
-          nullable: true
-          example: 400A20
-        operating_as:
-          type: string
-          nullable: true
-          description: Airline ICAO code for the operating carrier.
-          example: BAW
-        painted_as:
-          type: string
-          nullable: true
-          description: Airline ICAO code for the livery carrier.
-          example: BAW
-        orig_iata:
-          type: string
-          nullable: true
-          description: Origin airport IATA code.
-          example: LHR
-        orig_icao:
-          type: string
-          nullable: true
-          description: Origin airport ICAO code.
-          example: EGLL
-        dest_iata:
-          type: string
-          nullable: true
-          description: Destination airport IATA code.
-          example: JFK
-        dest_icao:
-          type: string
-          nullable: true
-          description: Destination airport ICAO code.
-          example: KJFK
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/FlightEvent'
+            $ref: '#/components/schemas/FlightEventsFull'
     FlightEventsLightResponse:
       type: object
       properties:
@@ -313,25 +304,34 @@ components:
           type: string
           nullable: true
           description: ID of the airspace entered.
-  responses:
-    Unauthorized:
-      description: Unauthorized — missing or invalid Bearer token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Bad request — invalid or missing parameters.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    TooManyRequests:
-      description: Too many requests — rate limit or credit limit exceeded.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human-readable error description.
+        code:
+          type: string
+          description: Machine-readable error code.
+    GateDetails:
+      type: object
+      description: Details for gate departure or arrival events.
+      properties:
+        gate_ident:
+          type: string
+          nullable: true
+          description: Gate identifier.
+          example: B42
+        gate_lat:
+          type: number
+          format: float
+          nullable: true
+          description: Gate latitude.
+        gate_lon:
+          type: number
+          format: float
+          nullable: true
+          description: Gate longitude.
   securitySchemes:
     bearerAuth:
       type: http

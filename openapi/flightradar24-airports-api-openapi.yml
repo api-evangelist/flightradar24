@@ -107,16 +107,26 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
+  responses:
+    TooManyRequests:
+      description: Too many requests — rate limit or credit limit exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized — missing or invalid Bearer token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Not found — the requested resource does not exist.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-          description: Human-readable error description.
-        code:
-          type: string
-          description: Machine-readable error code.
     AirportFull:
       type: object
       description: Detailed airport reference data including runways and geographic information.
@@ -177,26 +187,20 @@ components:
           description: List of runways at the airport.
           items:
             $ref: '#/components/schemas/Runway'
-    AirportLight:
+    Surface:
       type: object
-      description: Basic airport reference data.
       required:
-      - icao
+      - type
+      - description
       properties:
-        icao:
+        type:
           type: string
-          description: Airport ICAO code.
-          example: EGLL
-        iata:
+          description: Surface type code (e.g., ASPH, CONC, GRVL).
+          example: ASPH
+        description:
           type: string
-          nullable: true
-          description: Airport IATA code.
-          example: LHR
-        name:
-          type: string
-          nullable: true
-          description: Airport full name.
-          example: London Heathrow Airport
+          description: Human-readable surface description.
+          example: Asphalt
     Timezone:
       type: object
       required:
@@ -254,20 +258,15 @@ components:
           - -0.4619
         surface:
           $ref: '#/components/schemas/Surface'
-    Surface:
+    Error:
       type: object
-      required:
-      - type
-      - description
       properties:
-        type:
+        message:
           type: string
-          description: Surface type code (e.g., ASPH, CONC, GRVL).
-          example: ASPH
-        description:
+          description: Human-readable error description.
+        code:
           type: string
-          description: Human-readable surface description.
-          example: Asphalt
+          description: Machine-readable error code.
     Country:
       type: object
       required:
@@ -282,25 +281,26 @@ components:
           type: string
           description: Country name.
           example: United Kingdom
-  responses:
-    Unauthorized:
-      description: Unauthorized — missing or invalid Bearer token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    TooManyRequests:
-      description: Too many requests — rate limit or credit limit exceeded.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Not found — the requested resource does not exist.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+    AirportLight:
+      type: object
+      description: Basic airport reference data.
+      required:
+      - icao
+      properties:
+        icao:
+          type: string
+          description: Airport ICAO code.
+          example: EGLL
+        iata:
+          type: string
+          nullable: true
+          description: Airport IATA code.
+          example: LHR
+        name:
+          type: string
+          nullable: true
+          description: Airport full name.
+          example: London Heathrow Airport
   securitySchemes:
     bearerAuth:
       type: http

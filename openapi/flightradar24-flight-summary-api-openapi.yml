@@ -139,7 +139,34 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
+  responses:
+    TooManyRequests:
+      description: Too many requests — rate limit or credit limit exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Bad request — invalid or missing parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized — missing or invalid Bearer token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
+    operating_as:
+      name: operating_as
+      in: query
+      required: false
+      description: Comma-separated list of airline ICAO codes for the operating carrier. Maximum 15 values.
+      schema:
+        type: string
+      example: BAW,DLH
     flights:
       name: flights
       in: query
@@ -148,39 +175,16 @@ components:
       schema:
         type: string
       example: BA123,LH456
-    callsigns:
-      name: callsigns
+    limit_20000:
+      name: limit
       in: query
       required: false
-      description: Comma-separated list of ATC callsigns (e.g., "BAW123,DLH456"). Maximum 15 values.
+      description: Maximum number of records to return (1-20000).
       schema:
-        type: string
-      example: BAW123,DLH456
-    aircraft_list:
-      name: aircraft
-      in: query
-      required: false
-      description: Comma-separated list of ICAO aircraft type codes (e.g., "B77W,A320"). Maximum 15 values.
-      schema:
-        type: string
-      example: B77W,A320
-    flight_datetime_from:
-      name: flight_datetime_from
-      in: query
-      required: false
-      description: Start of the date-time range for filtering flights (ISO 8601 format, e.g., "2024-01-15T00:00:00"). Either flight_ids or a date range is required.
-      schema:
-        type: string
-        format: date-time
-      example: '2024-01-15T00:00:00'
-    routes:
-      name: routes
-      in: query
-      required: false
-      description: Comma-separated list of routes in origin-destination format (e.g., "LHR-JFK"). Maximum 15 values.
-      schema:
-        type: string
-      example: LHR-JFK,CDG-LAX
+        type: integer
+        minimum: 1
+        maximum: 20000
+      example: 1000
     categories:
       name: categories
       in: query
@@ -202,6 +206,40 @@ components:
         - O
         - N
       example: P,C
+    callsigns:
+      name: callsigns
+      in: query
+      required: false
+      description: Comma-separated list of ATC callsigns (e.g., "BAW123,DLH456"). Maximum 15 values.
+      schema:
+        type: string
+      example: BAW123,DLH456
+    flight_datetime_to:
+      name: flight_datetime_to
+      in: query
+      required: false
+      description: End of the date-time range for filtering flights (ISO 8601 format, e.g., "2024-01-15T23:59:59").
+      schema:
+        type: string
+        format: date-time
+      example: '2024-01-15T23:59:59'
+    registrations:
+      name: registrations
+      in: query
+      required: false
+      description: Comma-separated list of aircraft registration codes (e.g., "G-STBK,D-ABCD"). Maximum 15 values.
+      schema:
+        type: string
+      example: G-STBK,D-ABCD
+    flight_datetime_from:
+      name: flight_datetime_from
+      in: query
+      required: false
+      description: Start of the date-time range for filtering flights (ISO 8601 format, e.g., "2024-01-15T00:00:00"). Either flight_ids or a date range is required.
+      schema:
+        type: string
+        format: date-time
+      example: '2024-01-15T00:00:00'
     painted_as:
       name: painted_as
       in: query
@@ -218,41 +256,22 @@ components:
       schema:
         type: string
       example: -datetime_takeoff
-    registrations:
-      name: registrations
+    routes:
+      name: routes
       in: query
       required: false
-      description: Comma-separated list of aircraft registration codes (e.g., "G-STBK,D-ABCD"). Maximum 15 values.
+      description: Comma-separated list of routes in origin-destination format (e.g., "LHR-JFK"). Maximum 15 values.
       schema:
         type: string
-      example: G-STBK,D-ABCD
-    limit_20000:
-      name: limit
+      example: LHR-JFK,CDG-LAX
+    aircraft_list:
+      name: aircraft
       in: query
       required: false
-      description: Maximum number of records to return (1-20000).
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 20000
-      example: 1000
-    flight_ids:
-      name: flight_ids
-      in: query
-      required: false
-      description: Comma-separated FR24 flight IDs (hexadecimal format). Maximum 15 IDs.
+      description: Comma-separated list of ICAO aircraft type codes (e.g., "B77W,A320"). Maximum 15 values.
       schema:
         type: string
-      example: 391fdd79,35f2ffd9
-    flight_datetime_to:
-      name: flight_datetime_to
-      in: query
-      required: false
-      description: End of the date-time range for filtering flights (ISO 8601 format, e.g., "2024-01-15T23:59:59").
-      schema:
-        type: string
-        format: date-time
-      example: '2024-01-15T23:59:59'
+      example: B77W,A320
     airports:
       name: airports
       in: query
@@ -261,110 +280,31 @@ components:
       schema:
         type: string
       example: LHR,EDDF
-    operating_as:
-      name: operating_as
+    flight_ids:
+      name: flight_ids
       in: query
       required: false
-      description: Comma-separated list of airline ICAO codes for the operating carrier. Maximum 15 values.
+      description: Comma-separated FR24 flight IDs (hexadecimal format). Maximum 15 IDs.
       schema:
         type: string
-      example: BAW,DLH
+      example: 391fdd79,35f2ffd9
   schemas:
-    CountResponse:
+    FlightSummaryLightResponse:
       type: object
-      description: Generic count response.
-      required:
-      - record_count
       properties:
-        record_count:
-          type: integer
-          description: Number of records matching the query filters.
-          example: 1247
-    FlightSummaryLight:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/FlightSummaryLight'
+    Error:
       type: object
-      description: Lightweight flight summary record.
-      required:
-      - fr24_id
       properties:
-        fr24_id:
+        message:
           type: string
-          description: Flightradar24 unique identifier for the flight.
-          example: 391fdd79
-        flight:
+          description: Human-readable error description.
+        code:
           type: string
-          nullable: true
-          description: Flight number.
-          example: BA456
-        callsign:
-          type: string
-          nullable: true
-          description: ATC callsign.
-          example: BAW456
-        operating_as:
-          type: string
-          nullable: true
-          description: Airline ICAO code for the operating carrier.
-          example: BAW
-        painted_as:
-          type: string
-          nullable: true
-          description: Airline ICAO code for the livery carrier.
-          example: BAW
-        type:
-          type: string
-          nullable: true
-          description: ICAO aircraft type code.
-          example: A320
-        reg:
-          type: string
-          nullable: true
-          description: Aircraft registration.
-          example: G-EUUU
-        orig_icao:
-          type: string
-          nullable: true
-          description: Departure airport ICAO code.
-          example: EGLL
-        datetime_takeoff:
-          type: string
-          nullable: true
-          description: Actual takeoff date-time (YYYY-MM-DDTHH:MM:SS).
-          example: '2024-01-15T08:30:00'
-        dest_icao:
-          type: string
-          nullable: true
-          description: Planned destination airport ICAO code.
-          example: EDDF
-        dest_icao_actual:
-          type: string
-          nullable: true
-          description: Actual destination airport ICAO code (may differ if diverted).
-          example: EDDF
-        datetime_landed:
-          type: string
-          nullable: true
-          description: Actual landing date-time (YYYY-MM-DDTHH:MM:SS).
-          example: '2024-01-15T10:45:00'
-        hex:
-          type: string
-          nullable: true
-          description: ICAO 24-bit aircraft address in hexadecimal.
-          example: 400A20
-        first_seen:
-          type: string
-          nullable: true
-          description: Date-time when the flight first appeared on radar.
-          example: '2024-01-15T08:25:00'
-        last_seen:
-          type: string
-          nullable: true
-          description: Date-time when the flight last appeared on radar.
-          example: '2024-01-15T10:50:00'
-        flight_ended:
-          type: boolean
-          nullable: true
-          description: Whether the flight has completed.
-          example: true
+          description: Machine-readable error code.
     FlightSummaryFullResponse:
       type: object
       properties:
@@ -487,41 +427,101 @@ components:
           type: boolean
           nullable: true
           example: true
-    Error:
+    CountResponse:
       type: object
+      description: Generic count response.
+      required:
+      - record_count
       properties:
-        message:
-          type: string
-          description: Human-readable error description.
-        code:
-          type: string
-          description: Machine-readable error code.
-    FlightSummaryLightResponse:
+        record_count:
+          type: integer
+          description: Number of records matching the query filters.
+          example: 1247
+    FlightSummaryLight:
       type: object
+      description: Lightweight flight summary record.
+      required:
+      - fr24_id
       properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/FlightSummaryLight'
-  responses:
-    Unauthorized:
-      description: Unauthorized — missing or invalid Bearer token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Bad request — invalid or missing parameters.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    TooManyRequests:
-      description: Too many requests — rate limit or credit limit exceeded.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+        fr24_id:
+          type: string
+          description: Flightradar24 unique identifier for the flight.
+          example: 391fdd79
+        flight:
+          type: string
+          nullable: true
+          description: Flight number.
+          example: BA456
+        callsign:
+          type: string
+          nullable: true
+          description: ATC callsign.
+          example: BAW456
+        operating_as:
+          type: string
+          nullable: true
+          description: Airline ICAO code for the operating carrier.
+          example: BAW
+        painted_as:
+          type: string
+          nullable: true
+          description: Airline ICAO code for the livery carrier.
+          example: BAW
+        type:
+          type: string
+          nullable: true
+          description: ICAO aircraft type code.
+          example: A320
+        reg:
+          type: string
+          nullable: true
+          description: Aircraft registration.
+          example: G-EUUU
+        orig_icao:
+          type: string
+          nullable: true
+          description: Departure airport ICAO code.
+          example: EGLL
+        datetime_takeoff:
+          type: string
+          nullable: true
+          description: Actual takeoff date-time (YYYY-MM-DDTHH:MM:SS).
+          example: '2024-01-15T08:30:00'
+        dest_icao:
+          type: string
+          nullable: true
+          description: Planned destination airport ICAO code.
+          example: EDDF
+        dest_icao_actual:
+          type: string
+          nullable: true
+          description: Actual destination airport ICAO code (may differ if diverted).
+          example: EDDF
+        datetime_landed:
+          type: string
+          nullable: true
+          description: Actual landing date-time (YYYY-MM-DDTHH:MM:SS).
+          example: '2024-01-15T10:45:00'
+        hex:
+          type: string
+          nullable: true
+          description: ICAO 24-bit aircraft address in hexadecimal.
+          example: 400A20
+        first_seen:
+          type: string
+          nullable: true
+          description: Date-time when the flight first appeared on radar.
+          example: '2024-01-15T08:25:00'
+        last_seen:
+          type: string
+          nullable: true
+          description: Date-time when the flight last appeared on radar.
+          example: '2024-01-15T10:50:00'
+        flight_ended:
+          type: boolean
+          nullable: true
+          description: Whether the flight has completed.
+          example: true
   securitySchemes:
     bearerAuth:
       type: http
