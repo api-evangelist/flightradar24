@@ -99,25 +99,6 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
-  responses:
-    TooManyRequests:
-      description: Too many requests — rate limit or credit limit exceeded.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Unauthorized — missing or invalid Bearer token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Bad request — invalid or missing parameters.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
     FlightEventsFull:
       type: object
@@ -171,52 +152,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/FlightEvent'
-    TakeoffDetails:
-      type: object
-      description: Details for takeoff events.
-      properties:
-        takeoff_runway:
-          type: string
-          nullable: true
-          description: Takeoff runway designator.
-          example: 27L
-    FlightEventsLight:
-      type: object
-      description: Lightweight historical flight events for a single flight.
-      required:
-      - fr24_id
-      properties:
-        fr24_id:
-          type: string
-          description: Flightradar24 unique identifier for the flight.
-          example: 391fdd79
-        callsign:
-          type: string
-          nullable: true
-          example: BAW456
-        hex:
-          type: string
-          nullable: true
-          description: ICAO 24-bit aircraft address in hexadecimal.
-          example: 400A20
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/FlightEvent'
-    LandingDetails:
-      type: object
-      description: Details for landing events.
-      properties:
-        landed_icao:
-          type: string
-          nullable: true
-          description: ICAO code of the airport where the aircraft landed.
-          example: EGLL
-        landed_runway:
-          type: string
-          nullable: true
-          description: Landing runway designator.
-          example: 27R
     FlightEvent:
       type: object
       description: A single flight event with position and event-specific details.
@@ -268,42 +203,29 @@ components:
           - $ref: '#/components/schemas/TakeoffDetails'
           - $ref: '#/components/schemas/LandingDetails'
           - $ref: '#/components/schemas/AirspaceDetails'
-    FlightEventsFullResponse:
+    FlightEventsLight:
       type: object
+      description: Lightweight historical flight events for a single flight.
+      required:
+      - fr24_id
       properties:
-        data:
+        fr24_id:
+          type: string
+          description: Flightradar24 unique identifier for the flight.
+          example: 391fdd79
+        callsign:
+          type: string
+          nullable: true
+          example: BAW456
+        hex:
+          type: string
+          nullable: true
+          description: ICAO 24-bit aircraft address in hexadecimal.
+          example: 400A20
+        events:
           type: array
           items:
-            $ref: '#/components/schemas/FlightEventsFull'
-    FlightEventsLightResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/FlightEventsLight'
-    AirspaceDetails:
-      type: object
-      description: Details for airspace transition events.
-      properties:
-        exited_airspace:
-          type: string
-          nullable: true
-          description: Name of the airspace exited.
-          example: EGTT
-        exited_airspace_id:
-          type: string
-          nullable: true
-          description: ID of the airspace exited.
-        entered_airspace:
-          type: string
-          nullable: true
-          description: Name of the airspace entered.
-          example: EGPX
-        entered_airspace_id:
-          type: string
-          nullable: true
-          description: ID of the airspace entered.
+            $ref: '#/components/schemas/FlightEvent'
     Error:
       type: object
       properties:
@@ -332,6 +254,84 @@ components:
           format: float
           nullable: true
           description: Gate longitude.
+    FlightEventsLightResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/FlightEventsLight'
+    LandingDetails:
+      type: object
+      description: Details for landing events.
+      properties:
+        landed_icao:
+          type: string
+          nullable: true
+          description: ICAO code of the airport where the aircraft landed.
+          example: EGLL
+        landed_runway:
+          type: string
+          nullable: true
+          description: Landing runway designator.
+          example: 27R
+    FlightEventsFullResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/FlightEventsFull'
+    AirspaceDetails:
+      type: object
+      description: Details for airspace transition events.
+      properties:
+        exited_airspace:
+          type: string
+          nullable: true
+          description: Name of the airspace exited.
+          example: EGTT
+        exited_airspace_id:
+          type: string
+          nullable: true
+          description: ID of the airspace exited.
+        entered_airspace:
+          type: string
+          nullable: true
+          description: Name of the airspace entered.
+          example: EGPX
+        entered_airspace_id:
+          type: string
+          nullable: true
+          description: ID of the airspace entered.
+    TakeoffDetails:
+      type: object
+      description: Details for takeoff events.
+      properties:
+        takeoff_runway:
+          type: string
+          nullable: true
+          description: Takeoff runway designator.
+          example: 27L
+  responses:
+    Unauthorized:
+      description: Unauthorized — missing or invalid Bearer token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Bad request — invalid or missing parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Too many requests — rate limit or credit limit exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

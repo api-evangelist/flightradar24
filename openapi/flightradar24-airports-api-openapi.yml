@@ -108,12 +108,6 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
 components:
   responses:
-    TooManyRequests:
-      description: Too many requests — rate limit or credit limit exceeded.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     Unauthorized:
       description: Unauthorized — missing or invalid Bearer token.
       content:
@@ -126,7 +120,56 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Too many requests — rate limit or credit limit exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
+    AirportLight:
+      type: object
+      description: Basic airport reference data.
+      required:
+      - icao
+      properties:
+        icao:
+          type: string
+          description: Airport ICAO code.
+          example: EGLL
+        iata:
+          type: string
+          nullable: true
+          description: Airport IATA code.
+          example: LHR
+        name:
+          type: string
+          nullable: true
+          description: Airport full name.
+          example: London Heathrow Airport
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human-readable error description.
+        code:
+          type: string
+          description: Machine-readable error code.
+    Country:
+      type: object
+      required:
+      - code
+      - name
+      properties:
+        code:
+          type: string
+          description: ISO 3166-1 alpha-2 country code.
+          example: GB
+        name:
+          type: string
+          description: Country name.
+          example: United Kingdom
     AirportFull:
       type: object
       description: Detailed airport reference data including runways and geographic information.
@@ -187,34 +230,6 @@ components:
           description: List of runways at the airport.
           items:
             $ref: '#/components/schemas/Runway'
-    Surface:
-      type: object
-      required:
-      - type
-      - description
-      properties:
-        type:
-          type: string
-          description: Surface type code (e.g., ASPH, CONC, GRVL).
-          example: ASPH
-        description:
-          type: string
-          description: Human-readable surface description.
-          example: Asphalt
-    Timezone:
-      type: object
-      required:
-      - name
-      - offset
-      properties:
-        name:
-          type: string
-          description: IANA timezone name.
-          example: Europe/London
-        offset:
-          type: integer
-          description: UTC offset in seconds.
-          example: 0
     Runway:
       type: object
       required:
@@ -258,49 +273,34 @@ components:
           - -0.4619
         surface:
           $ref: '#/components/schemas/Surface'
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-          description: Human-readable error description.
-        code:
-          type: string
-          description: Machine-readable error code.
-    Country:
+    Surface:
       type: object
       required:
-      - code
+      - type
+      - description
+      properties:
+        type:
+          type: string
+          description: Surface type code (e.g., ASPH, CONC, GRVL).
+          example: ASPH
+        description:
+          type: string
+          description: Human-readable surface description.
+          example: Asphalt
+    Timezone:
+      type: object
+      required:
       - name
+      - offset
       properties:
-        code:
-          type: string
-          description: ISO 3166-1 alpha-2 country code.
-          example: GB
         name:
           type: string
-          description: Country name.
-          example: United Kingdom
-    AirportLight:
-      type: object
-      description: Basic airport reference data.
-      required:
-      - icao
-      properties:
-        icao:
-          type: string
-          description: Airport ICAO code.
-          example: EGLL
-        iata:
-          type: string
-          nullable: true
-          description: Airport IATA code.
-          example: LHR
-        name:
-          type: string
-          nullable: true
-          description: Airport full name.
-          example: London Heathrow Airport
+          description: IANA timezone name.
+          example: Europe/London
+        offset:
+          type: integer
+          description: UTC offset in seconds.
+          example: 0
   securitySchemes:
     bearerAuth:
       type: http
