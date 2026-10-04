@@ -73,63 +73,7 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
-  responses:
-    Unauthorized:
-      description: Unauthorized — missing or invalid Bearer token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Bad request — invalid or missing parameters.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Not found — the requested resource does not exist.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    TooManyRequests:
-      description: Too many requests — rate limit or credit limit exceeded.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    FlightTracks:
-      type: object
-      description: Complete positional track for a single flight.
-      required:
-      - fr24_id
-      properties:
-        fr24_id:
-          type: string
-          description: Flightradar24 unique identifier for the flight.
-          example: 34242a02
-        tracks:
-          type: array
-          description: Time-ordered list of positional track points.
-          items:
-            $ref: '#/components/schemas/FlightTrackPoint'
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-          description: Human-readable error description.
-        code:
-          type: string
-          description: Machine-readable error code.
-    FlightTracksResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/FlightTracks'
     FlightTrackPoint:
       type: object
       description: A single positional point in a flight track.
@@ -188,6 +132,62 @@ components:
           type: string
           description: Data source (e.g., ADSB, MLAT, RADAR).
           example: ADSB
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human-readable error description.
+        code:
+          type: string
+          description: Machine-readable error code.
+    FlightTracks:
+      type: object
+      description: Complete positional track for a single flight.
+      required:
+      - fr24_id
+      properties:
+        fr24_id:
+          type: string
+          description: Flightradar24 unique identifier for the flight.
+          example: 34242a02
+        tracks:
+          type: array
+          description: Time-ordered list of positional track points.
+          items:
+            $ref: '#/components/schemas/FlightTrackPoint'
+    FlightTracksResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/FlightTracks'
+  responses:
+    NotFound:
+      description: Not found — the requested resource does not exist.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Bad request — invalid or missing parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Too many requests — rate limit or credit limit exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized — missing or invalid Bearer token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

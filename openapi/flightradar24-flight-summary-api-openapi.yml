@@ -139,156 +139,26 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
-  responses:
-    BadRequest:
-      description: Bad request — invalid or missing parameters.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Unauthorized — missing or invalid Bearer token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    TooManyRequests:
-      description: Too many requests — rate limit or credit limit exceeded.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-  parameters:
-    flight_datetime_to:
-      name: flight_datetime_to
-      in: query
-      required: false
-      description: End of the date-time range for filtering flights (ISO 8601 format, e.g., "2024-01-15T23:59:59").
-      schema:
-        type: string
-        format: date-time
-      example: '2024-01-15T23:59:59'
-    routes:
-      name: routes
-      in: query
-      required: false
-      description: Comma-separated list of routes in origin-destination format (e.g., "LHR-JFK"). Maximum 15 values.
-      schema:
-        type: string
-      example: LHR-JFK,CDG-LAX
-    flight_datetime_from:
-      name: flight_datetime_from
-      in: query
-      required: false
-      description: Start of the date-time range for filtering flights (ISO 8601 format, e.g., "2024-01-15T00:00:00"). Either flight_ids or a date range is required.
-      schema:
-        type: string
-        format: date-time
-      example: '2024-01-15T00:00:00'
-    registrations:
-      name: registrations
-      in: query
-      required: false
-      description: Comma-separated list of aircraft registration codes (e.g., "G-STBK,D-ABCD"). Maximum 15 values.
-      schema:
-        type: string
-      example: G-STBK,D-ABCD
-    painted_as:
-      name: painted_as
-      in: query
-      required: false
-      description: Comma-separated list of airline ICAO codes for the livery carrier (e.g., "BAW,DLH"). Maximum 15 values.
-      schema:
-        type: string
-      example: BAW,DLH
-    flight_ids:
-      name: flight_ids
-      in: query
-      required: false
-      description: Comma-separated FR24 flight IDs (hexadecimal format). Maximum 15 IDs.
-      schema:
-        type: string
-      example: 391fdd79,35f2ffd9
-    categories:
-      name: categories
-      in: query
-      required: false
-      description: Comma-separated list of aircraft/vehicle category codes. Maximum 15 values. P=Passenger, C=Cargo, M=Military and Government, J=Business Jets, T=General Aviation, H=Helicopters, B=Lighter than Air, G=Gliders, D=Drones, V=Ground Vehicles, O=Other, N=Non-Categorized.
-      schema:
-        type: string
-        enum:
-        - P
-        - C
-        - M
-        - J
-        - T
-        - H
-        - B
-        - G
-        - D
-        - V
-        - O
-        - N
-      example: P,C
-    airports:
-      name: airports
-      in: query
-      required: false
-      description: Comma-separated list of airport IATA or ICAO codes. Matches flights departing or arriving at these airports. Maximum 15 values.
-      schema:
-        type: string
-      example: LHR,EDDF
-    flights:
-      name: flights
-      in: query
-      required: false
-      description: Comma-separated list of flight numbers (e.g., "BA123,LH456"). Maximum 15 values.
-      schema:
-        type: string
-      example: BA123,LH456
-    callsigns:
-      name: callsigns
-      in: query
-      required: false
-      description: Comma-separated list of ATC callsigns (e.g., "BAW123,DLH456"). Maximum 15 values.
-      schema:
-        type: string
-      example: BAW123,DLH456
-    limit_20000:
-      name: limit
-      in: query
-      required: false
-      description: Maximum number of records to return (1-20000).
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 20000
-      example: 1000
-    operating_as:
-      name: operating_as
-      in: query
-      required: false
-      description: Comma-separated list of airline ICAO codes for the operating carrier. Maximum 15 values.
-      schema:
-        type: string
-      example: BAW,DLH
-    sort:
-      name: sort
-      in: query
-      required: false
-      description: Sort order for results. Use field name for ascending, prefix with "-" for descending (e.g., "datetime_takeoff" or "-datetime_takeoff").
-      schema:
-        type: string
-      example: -datetime_takeoff
-    aircraft_list:
-      name: aircraft
-      in: query
-      required: false
-      description: Comma-separated list of ICAO aircraft type codes (e.g., "B77W,A320"). Maximum 15 values.
-      schema:
-        type: string
-      example: B77W,A320
   schemas:
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human-readable error description.
+        code:
+          type: string
+          description: Machine-readable error code.
+    CountResponse:
+      type: object
+      description: Generic count response.
+      required:
+      - record_count
+      properties:
+        record_count:
+          type: integer
+          description: Number of records matching the query filters.
+          example: 1247
     FlightSummaryLight:
       type: object
       description: Lightweight flight summary record.
@@ -374,15 +244,6 @@ components:
           nullable: true
           description: Whether the flight has completed.
           example: true
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-          description: Human-readable error description.
-        code:
-          type: string
-          description: Machine-readable error code.
     FlightSummaryFullResponse:
       type: object
       properties:
@@ -390,23 +251,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/FlightSummaryFull'
-    CountResponse:
-      type: object
-      description: Generic count response.
-      required:
-      - record_count
-      properties:
-        record_count:
-          type: integer
-          description: Number of records matching the query filters.
-          example: 1247
-    FlightSummaryLightResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/FlightSummaryLight'
     FlightSummaryFull:
       type: object
       description: Detailed flight summary record with runway, distance, and timing data.
@@ -522,6 +366,162 @@ components:
           type: boolean
           nullable: true
           example: true
+    FlightSummaryLightResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/FlightSummaryLight'
+  parameters:
+    registrations:
+      name: registrations
+      in: query
+      required: false
+      description: Comma-separated list of aircraft registration codes (e.g., "G-STBK,D-ABCD"). Maximum 15 values.
+      schema:
+        type: string
+      example: G-STBK,D-ABCD
+    sort:
+      name: sort
+      in: query
+      required: false
+      description: Sort order for results. Use field name for ascending, prefix with "-" for descending (e.g., "datetime_takeoff" or "-datetime_takeoff").
+      schema:
+        type: string
+      example: -datetime_takeoff
+    limit_20000:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of records to return (1-20000).
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 20000
+      example: 1000
+    flight_datetime_from:
+      name: flight_datetime_from
+      in: query
+      required: false
+      description: Start of the date-time range for filtering flights (ISO 8601 format, e.g., "2024-01-15T00:00:00"). Either flight_ids or a date range is required.
+      schema:
+        type: string
+        format: date-time
+      example: '2024-01-15T00:00:00'
+    callsigns:
+      name: callsigns
+      in: query
+      required: false
+      description: Comma-separated list of ATC callsigns (e.g., "BAW123,DLH456"). Maximum 15 values.
+      schema:
+        type: string
+      example: BAW123,DLH456
+    airports:
+      name: airports
+      in: query
+      required: false
+      description: Comma-separated list of airport IATA or ICAO codes. Matches flights departing or arriving at these airports. Maximum 15 values.
+      schema:
+        type: string
+      example: LHR,EDDF
+    flights:
+      name: flights
+      in: query
+      required: false
+      description: Comma-separated list of flight numbers (e.g., "BA123,LH456"). Maximum 15 values.
+      schema:
+        type: string
+      example: BA123,LH456
+    flight_ids:
+      name: flight_ids
+      in: query
+      required: false
+      description: Comma-separated FR24 flight IDs (hexadecimal format). Maximum 15 IDs.
+      schema:
+        type: string
+      example: 391fdd79,35f2ffd9
+    painted_as:
+      name: painted_as
+      in: query
+      required: false
+      description: Comma-separated list of airline ICAO codes for the livery carrier (e.g., "BAW,DLH"). Maximum 15 values.
+      schema:
+        type: string
+      example: BAW,DLH
+    routes:
+      name: routes
+      in: query
+      required: false
+      description: Comma-separated list of routes in origin-destination format (e.g., "LHR-JFK"). Maximum 15 values.
+      schema:
+        type: string
+      example: LHR-JFK,CDG-LAX
+    aircraft_list:
+      name: aircraft
+      in: query
+      required: false
+      description: Comma-separated list of ICAO aircraft type codes (e.g., "B77W,A320"). Maximum 15 values.
+      schema:
+        type: string
+      example: B77W,A320
+    operating_as:
+      name: operating_as
+      in: query
+      required: false
+      description: Comma-separated list of airline ICAO codes for the operating carrier. Maximum 15 values.
+      schema:
+        type: string
+      example: BAW,DLH
+    flight_datetime_to:
+      name: flight_datetime_to
+      in: query
+      required: false
+      description: End of the date-time range for filtering flights (ISO 8601 format, e.g., "2024-01-15T23:59:59").
+      schema:
+        type: string
+        format: date-time
+      example: '2024-01-15T23:59:59'
+    categories:
+      name: categories
+      in: query
+      required: false
+      description: Comma-separated list of aircraft/vehicle category codes. Maximum 15 values. P=Passenger, C=Cargo, M=Military and Government, J=Business Jets, T=General Aviation, H=Helicopters, B=Lighter than Air, G=Gliders, D=Drones, V=Ground Vehicles, O=Other, N=Non-Categorized.
+      schema:
+        type: string
+        enum:
+        - P
+        - C
+        - M
+        - J
+        - T
+        - H
+        - B
+        - G
+        - D
+        - V
+        - O
+        - N
+      example: P,C
+  responses:
+    Unauthorized:
+      description: Unauthorized — missing or invalid Bearer token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Too many requests — rate limit or credit limit exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Bad request — invalid or missing parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http
