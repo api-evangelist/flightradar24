@@ -107,7 +107,97 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
+  responses:
+    TooManyRequests:
+      description: Too many requests — rate limit or credit limit exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized — missing or invalid Bearer token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Not found — the requested resource does not exist.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
+    Surface:
+      type: object
+      required:
+      - type
+      - description
+      properties:
+        type:
+          type: string
+          description: Surface type code (e.g., ASPH, CONC, GRVL).
+          example: ASPH
+        description:
+          type: string
+          description: Human-readable surface description.
+          example: Asphalt
+    Timezone:
+      type: object
+      required:
+      - name
+      - offset
+      properties:
+        name:
+          type: string
+          description: IANA timezone name.
+          example: Europe/London
+        offset:
+          type: integer
+          description: UTC offset in seconds.
+          example: 0
+    Runway:
+      type: object
+      required:
+      - designator
+      - heading
+      - length
+      - width
+      - elevation
+      - thr_coordinates
+      - surface
+      properties:
+        designator:
+          type: string
+          description: Runway designator (e.g., "27L/09R").
+          example: 27L/09R
+        heading:
+          type: integer
+          description: Magnetic heading in degrees.
+          example: 270
+        length:
+          type: integer
+          description: Runway length in metres.
+          example: 3901
+        width:
+          type: integer
+          description: Runway width in metres.
+          example: 60
+        elevation:
+          type: integer
+          description: Runway elevation in feet.
+          example: 83
+        thr_coordinates:
+          type: array
+          description: Threshold coordinates [latitude, longitude].
+          items:
+            type: number
+          minItems: 2
+          maxItems: 2
+          example:
+          - 51.4706
+          - -0.4619
+        surface:
+          $ref: '#/components/schemas/Surface'
     Error:
       type: object
       properties:
@@ -117,6 +207,20 @@ components:
         code:
           type: string
           description: Machine-readable error code.
+    Country:
+      type: object
+      required:
+      - code
+      - name
+      properties:
+        code:
+          type: string
+          description: ISO 3166-1 alpha-2 country code.
+          example: GB
+        name:
+          type: string
+          description: Country name.
+          example: United Kingdom
     AirportLight:
       type: object
       description: Basic airport reference data.
@@ -137,34 +241,6 @@ components:
           nullable: true
           description: Airport full name.
           example: London Heathrow Airport
-    Surface:
-      type: object
-      required:
-      - type
-      - description
-      properties:
-        type:
-          type: string
-          description: Surface type code (e.g., ASPH, CONC, GRVL).
-          example: ASPH
-        description:
-          type: string
-          description: Human-readable surface description.
-          example: Asphalt
-    Country:
-      type: object
-      required:
-      - code
-      - name
-      properties:
-        code:
-          type: string
-          description: ISO 3166-1 alpha-2 country code.
-          example: GB
-        name:
-          type: string
-          description: Country name.
-          example: United Kingdom
     AirportFull:
       type: object
       description: Detailed airport reference data including runways and geographic information.
@@ -225,82 +301,6 @@ components:
           description: List of runways at the airport.
           items:
             $ref: '#/components/schemas/Runway'
-    Runway:
-      type: object
-      required:
-      - designator
-      - heading
-      - length
-      - width
-      - elevation
-      - thr_coordinates
-      - surface
-      properties:
-        designator:
-          type: string
-          description: Runway designator (e.g., "27L/09R").
-          example: 27L/09R
-        heading:
-          type: integer
-          description: Magnetic heading in degrees.
-          example: 270
-        length:
-          type: integer
-          description: Runway length in metres.
-          example: 3901
-        width:
-          type: integer
-          description: Runway width in metres.
-          example: 60
-        elevation:
-          type: integer
-          description: Runway elevation in feet.
-          example: 83
-        thr_coordinates:
-          type: array
-          description: Threshold coordinates [latitude, longitude].
-          items:
-            type: number
-          minItems: 2
-          maxItems: 2
-          example:
-          - 51.4706
-          - -0.4619
-        surface:
-          $ref: '#/components/schemas/Surface'
-    Timezone:
-      type: object
-      required:
-      - name
-      - offset
-      properties:
-        name:
-          type: string
-          description: IANA timezone name.
-          example: Europe/London
-        offset:
-          type: integer
-          description: UTC offset in seconds.
-          example: 0
-  responses:
-    NotFound:
-      description: Not found — the requested resource does not exist.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    TooManyRequests:
-      description: Too many requests — rate limit or credit limit exceeded.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Unauthorized — missing or invalid Bearer token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

@@ -59,15 +59,6 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-          description: Human-readable error description.
-        code:
-          type: string
-          description: Machine-readable error code.
     UsageLogSummary:
       type: object
       description: API usage summary for a single endpoint.
@@ -95,6 +86,15 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/UsageLogSummary'
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human-readable error description.
+        code:
+          type: string
+          description: Machine-readable error code.
   responses:
     TooManyRequests:
       description: Too many requests — rate limit or credit limit exceeded.

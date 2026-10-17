@@ -100,75 +100,6 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-          description: Human-readable error description.
-        code:
-          type: string
-          description: Machine-readable error code.
-    FlightEventsLight:
-      type: object
-      description: Lightweight historical flight events for a single flight.
-      required:
-      - fr24_id
-      properties:
-        fr24_id:
-          type: string
-          description: Flightradar24 unique identifier for the flight.
-          example: 391fdd79
-        callsign:
-          type: string
-          nullable: true
-          example: BAW456
-        hex:
-          type: string
-          nullable: true
-          description: ICAO 24-bit aircraft address in hexadecimal.
-          example: 400A20
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/FlightEvent'
-    LandingDetails:
-      type: object
-      description: Details for landing events.
-      properties:
-        landed_icao:
-          type: string
-          nullable: true
-          description: ICAO code of the airport where the aircraft landed.
-          example: EGLL
-        landed_runway:
-          type: string
-          nullable: true
-          description: Landing runway designator.
-          example: 27R
-    FlightEventsLightResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/FlightEventsLight'
-    FlightEventsFullResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/FlightEventsFull'
-    TakeoffDetails:
-      type: object
-      description: Details for takeoff events.
-      properties:
-        takeoff_runway:
-          type: string
-          nullable: true
-          description: Takeoff runway designator.
-          example: 27L
     GateDetails:
       type: object
       description: Details for gate departure or arrival events.
@@ -188,58 +119,45 @@ components:
           format: float
           nullable: true
           description: Gate longitude.
-    FlightEventsFull:
+    TakeoffDetails:
       type: object
-      description: Detailed historical flight events with full flight metadata.
-      required:
-      - fr24_id
+      description: Details for takeoff events.
       properties:
-        fr24_id:
-          type: string
-          description: Flightradar24 unique identifier for the flight.
-          example: 391fdd79
-        callsign:
+        takeoff_runway:
           type: string
           nullable: true
-          example: BAW456
-        hex:
-          type: string
-          nullable: true
-          example: 400A20
-        operating_as:
-          type: string
-          nullable: true
-          description: Airline ICAO code for the operating carrier.
-          example: BAW
-        painted_as:
-          type: string
-          nullable: true
-          description: Airline ICAO code for the livery carrier.
-          example: BAW
-        orig_iata:
-          type: string
-          nullable: true
-          description: Origin airport IATA code.
-          example: LHR
-        orig_icao:
-          type: string
-          nullable: true
-          description: Origin airport ICAO code.
-          example: EGLL
-        dest_iata:
-          type: string
-          nullable: true
-          description: Destination airport IATA code.
-          example: JFK
-        dest_icao:
-          type: string
-          nullable: true
-          description: Destination airport ICAO code.
-          example: KJFK
-        events:
+          description: Takeoff runway designator.
+          example: 27L
+    FlightEventsLightResponse:
+      type: object
+      properties:
+        data:
           type: array
           items:
-            $ref: '#/components/schemas/FlightEvent'
+            $ref: '#/components/schemas/FlightEventsLight'
+    LandingDetails:
+      type: object
+      description: Details for landing events.
+      properties:
+        landed_icao:
+          type: string
+          nullable: true
+          description: ICAO code of the airport where the aircraft landed.
+          example: EGLL
+        landed_runway:
+          type: string
+          nullable: true
+          description: Landing runway designator.
+          example: 27R
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human-readable error description.
+        code:
+          type: string
+          description: Machine-readable error code.
     AirspaceDetails:
       type: object
       description: Details for airspace transition events.
@@ -313,13 +231,89 @@ components:
           - $ref: '#/components/schemas/TakeoffDetails'
           - $ref: '#/components/schemas/LandingDetails'
           - $ref: '#/components/schemas/AirspaceDetails'
+    FlightEventsLight:
+      type: object
+      description: Lightweight historical flight events for a single flight.
+      required:
+      - fr24_id
+      properties:
+        fr24_id:
+          type: string
+          description: Flightradar24 unique identifier for the flight.
+          example: 391fdd79
+        callsign:
+          type: string
+          nullable: true
+          example: BAW456
+        hex:
+          type: string
+          nullable: true
+          description: ICAO 24-bit aircraft address in hexadecimal.
+          example: 400A20
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/FlightEvent'
+    FlightEventsFullResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/FlightEventsFull'
+    FlightEventsFull:
+      type: object
+      description: Detailed historical flight events with full flight metadata.
+      required:
+      - fr24_id
+      properties:
+        fr24_id:
+          type: string
+          description: Flightradar24 unique identifier for the flight.
+          example: 391fdd79
+        callsign:
+          type: string
+          nullable: true
+          example: BAW456
+        hex:
+          type: string
+          nullable: true
+          example: 400A20
+        operating_as:
+          type: string
+          nullable: true
+          description: Airline ICAO code for the operating carrier.
+          example: BAW
+        painted_as:
+          type: string
+          nullable: true
+          description: Airline ICAO code for the livery carrier.
+          example: BAW
+        orig_iata:
+          type: string
+          nullable: true
+          description: Origin airport IATA code.
+          example: LHR
+        orig_icao:
+          type: string
+          nullable: true
+          description: Origin airport ICAO code.
+          example: EGLL
+        dest_iata:
+          type: string
+          nullable: true
+          description: Destination airport IATA code.
+          example: JFK
+        dest_icao:
+          type: string
+          nullable: true
+          description: Destination airport ICAO code.
+          example: KJFK
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/FlightEvent'
   responses:
-    BadRequest:
-      description: Bad request — invalid or missing parameters.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     TooManyRequests:
       description: Too many requests — rate limit or credit limit exceeded.
       content:
@@ -328,6 +322,12 @@ components:
             $ref: '#/components/schemas/Error'
     Unauthorized:
       description: Unauthorized — missing or invalid Bearer token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Bad request — invalid or missing parameters.
       content:
         application/json:
           schema:

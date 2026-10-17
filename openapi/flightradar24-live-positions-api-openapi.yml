@@ -168,13 +168,6 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
 components:
   schemas:
-    FlightPositionsLightResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/FlightPositionsLight'
     Error:
       type: object
       properties:
@@ -313,13 +306,13 @@ components:
           description: Estimated time of arrival (ISO 8601).
           nullable: true
           example: '2024-01-15T15:45:00Z'
-    FlightPositionsFullResponse:
+    FlightPositionsLightResponse:
       type: object
       properties:
         data:
           type: array
           items:
-            $ref: '#/components/schemas/FlightPositionsFull'
+            $ref: '#/components/schemas/FlightPositionsLight'
     FlightPositionsLight:
       type: object
       description: Lightweight real-time or historical aircraft position data point.
@@ -388,106 +381,14 @@ components:
           description: ATC callsign.
           nullable: true
           example: BAW123
+    FlightPositionsFullResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/FlightPositionsFull'
   parameters:
-    limit_30000:
-      name: limit
-      in: query
-      required: false
-      description: Maximum number of records to return (1-30000).
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 30000
-      example: 1000
-    registrations:
-      name: registrations
-      in: query
-      required: false
-      description: Comma-separated list of aircraft registration codes (e.g., "G-STBK,D-ABCD"). Maximum 15 values.
-      schema:
-        type: string
-      example: G-STBK,D-ABCD
-    squawks:
-      name: squawks
-      in: query
-      required: false
-      description: Comma-separated list of transponder squawk codes (4-digit octal, e.g., "7700,7600"). Maximum 15 values.
-      schema:
-        type: string
-      example: 7700,7600
-    callsigns:
-      name: callsigns
-      in: query
-      required: false
-      description: Comma-separated list of ATC callsigns (e.g., "BAW123,DLH456"). Maximum 15 values.
-      schema:
-        type: string
-      example: BAW123,DLH456
-    aircraft:
-      name: aircraft
-      in: query
-      required: false
-      description: ICAO aircraft type code (e.g., "B77W", "A320").
-      schema:
-        type: string
-      example: B77W
-    airports:
-      name: airports
-      in: query
-      required: false
-      description: Comma-separated list of airport IATA or ICAO codes. Matches flights departing or arriving at these airports. Maximum 15 values.
-      schema:
-        type: string
-      example: LHR,EDDF
-    flights:
-      name: flights
-      in: query
-      required: false
-      description: Comma-separated list of flight numbers (e.g., "BA123,LH456"). Maximum 15 values.
-      schema:
-        type: string
-      example: BA123,LH456
-    data_sources:
-      name: data_sources
-      in: query
-      required: false
-      description: Comma-separated list of data source types (e.g., "ADSB,MLAT"). Maximum 15 values.
-      schema:
-        type: string
-      example: ADSB,MLAT
-    bounds:
-      name: bounds
-      in: query
-      required: false
-      description: Geographic bounding box in the format "north,south,west,east" (e.g., "51.5,51.0,-0.5,0.5"). Latitudes range -90 to 90; longitudes -180 to 180. North must be greater than south.
-      schema:
-        type: string
-        pattern: ^-?\d+(\.\d+)?,-?\d+(\.\d+)?,-?\d+(\.\d+)?,-?\d+(\.\d+)?$
-      example: 51.5,51.0,-0.5,0.5
-    painted_as:
-      name: painted_as
-      in: query
-      required: false
-      description: Comma-separated list of airline ICAO codes for the livery carrier (e.g., "BAW,DLH"). Maximum 15 values.
-      schema:
-        type: string
-      example: BAW,DLH
-    airspaces:
-      name: airspaces
-      in: query
-      required: false
-      description: Comma-separated list of airspace identifiers. Maximum 15 values. Not available on count endpoints.
-      schema:
-        type: string
-      example: EGTT,EGPX
-    routes:
-      name: routes
-      in: query
-      required: false
-      description: Comma-separated list of routes in origin-destination format (e.g., "LHR-JFK"). Maximum 15 values.
-      schema:
-        type: string
-      example: LHR-JFK,CDG-LAX
     gspeed:
       name: gspeed
       in: query
@@ -500,14 +401,31 @@ components:
           maximum: 5000
         - type: string
       example: 200-400
-    operating_as:
-      name: operating_as
+    airports:
+      name: airports
       in: query
       required: false
-      description: Comma-separated list of airline ICAO codes for the operating carrier. Maximum 15 values.
+      description: Comma-separated list of airport IATA or ICAO codes. Matches flights departing or arriving at these airports. Maximum 15 values.
       schema:
         type: string
-      example: BAW,DLH
+      example: LHR,EDDF
+    bounds:
+      name: bounds
+      in: query
+      required: false
+      description: Geographic bounding box in the format "north,south,west,east" (e.g., "51.5,51.0,-0.5,0.5"). Latitudes range -90 to 90; longitudes -180 to 180. North must be greater than south.
+      schema:
+        type: string
+        pattern: ^-?\d+(\.\d+)?,-?\d+(\.\d+)?,-?\d+(\.\d+)?,-?\d+(\.\d+)?$
+      example: 51.5,51.0,-0.5,0.5
+    callsigns:
+      name: callsigns
+      in: query
+      required: false
+      description: Comma-separated list of ATC callsigns (e.g., "BAW123,DLH456"). Maximum 15 values.
+      schema:
+        type: string
+      example: BAW123,DLH456
     altitude_ranges:
       name: altitude_ranges
       in: query
@@ -537,15 +455,97 @@ components:
         - O
         - N
       example: P,C
+    limit_30000:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of records to return (1-30000).
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 30000
+      example: 1000
+    data_sources:
+      name: data_sources
+      in: query
+      required: false
+      description: Comma-separated list of data source types (e.g., "ADSB,MLAT"). Maximum 15 values.
+      schema:
+        type: string
+      example: ADSB,MLAT
+    painted_as:
+      name: painted_as
+      in: query
+      required: false
+      description: Comma-separated list of airline ICAO codes for the livery carrier (e.g., "BAW,DLH"). Maximum 15 values.
+      schema:
+        type: string
+      example: BAW,DLH
+    routes:
+      name: routes
+      in: query
+      required: false
+      description: Comma-separated list of routes in origin-destination format (e.g., "LHR-JFK"). Maximum 15 values.
+      schema:
+        type: string
+      example: LHR-JFK,CDG-LAX
+    squawks:
+      name: squawks
+      in: query
+      required: false
+      description: Comma-separated list of transponder squawk codes (4-digit octal, e.g., "7700,7600"). Maximum 15 values.
+      schema:
+        type: string
+      example: 7700,7600
+    operating_as:
+      name: operating_as
+      in: query
+      required: false
+      description: Comma-separated list of airline ICAO codes for the operating carrier. Maximum 15 values.
+      schema:
+        type: string
+      example: BAW,DLH
+    flights:
+      name: flights
+      in: query
+      required: false
+      description: Comma-separated list of flight numbers (e.g., "BA123,LH456"). Maximum 15 values.
+      schema:
+        type: string
+      example: BA123,LH456
+    aircraft:
+      name: aircraft
+      in: query
+      required: false
+      description: ICAO aircraft type code (e.g., "B77W", "A320").
+      schema:
+        type: string
+      example: B77W
+    registrations:
+      name: registrations
+      in: query
+      required: false
+      description: Comma-separated list of aircraft registration codes (e.g., "G-STBK,D-ABCD"). Maximum 15 values.
+      schema:
+        type: string
+      example: G-STBK,D-ABCD
+    airspaces:
+      name: airspaces
+      in: query
+      required: false
+      description: Comma-separated list of airspace identifiers. Maximum 15 values. Not available on count endpoints.
+      schema:
+        type: string
+      example: EGTT,EGPX
   responses:
-    Unauthorized:
-      description: Unauthorized — missing or invalid Bearer token.
+    TooManyRequests:
+      description: Too many requests — rate limit or credit limit exceeded.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    TooManyRequests:
-      description: Too many requests — rate limit or credit limit exceeded.
+    Unauthorized:
+      description: Unauthorized — missing or invalid Bearer token.
       content:
         application/json:
           schema:
