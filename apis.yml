@@ -283,6 +283,8 @@ apis:
   - type: OpenAPI
     url: openapi/flightradar24-usage-api-openapi.yml
 common:
+- type: PostmanWorkspace
+  url: https://www.postman.com/kinlaneapi/flightradar24/overview
 - type: Plans
   url: plans/plans.yml
 - type: RateLimits
