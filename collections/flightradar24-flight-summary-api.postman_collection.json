@@ -1,1554 +1,1692 @@
 {
+  "info": {
+    "_postman_id": "3b9d48d0-5471-4b06-865d-bac54751c8fc",
+    "name": "Flightradar24 Flight Summary API",
+    "description": "Flightradar24 is the world's most popular real-time flight tracking platform, monitoring over 250,000 daily flights using data from a global network of ADS-B, MLAT, and radar receivers.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:22:28.000Z",
+    "updatedAt": "2026-10-21T20:22:29.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-3b9d48d0-5471-4b06-865d-bac54751c8fc"
+  },
   "item": [
     {
-      "id": "bf501f9e-7793-4a74-a3e0-a6bff48b7434",
-      "name": "Flight Summary",
-      "description": {
-        "content": "Synopses of individual flights including event timings and key identifiers",
-        "type": "text/plain"
-      },
+      "name": "flight-summary",
       "item": [
         {
-          "id": "63f3a0bf-fdc4-4fbf-b1a8-6af51138f59d",
-          "name": "Get flight summaries (light)",
-          "request": {
-            "name": "Get flight summaries (light)",
-            "description": {
-              "content": "Returns lightweight synopses of individual flights including key event timings and locations such as actual takeoff and landing times, departure and arrival airports, and primary flight, aircraft, and operator identifiers. Available in both near-real-time and historical modes. Either flight_ids or a time range (flight_datetime_from + flight_datetime_to) must be provided.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "flight-summary",
-                "light"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "flight_ids",
-                  "value": "<string>",
-                  "description": "Comma-separated FR24 flight IDs (hexadecimal format). Maximum 15 IDs."
-                },
-                {
-                  "disabled": false,
-                  "key": "flight_datetime_from",
-                  "value": "<dateTime>",
-                  "description": "Start of the date-time range for filtering flights (ISO 8601 format, e.g., \"2024-01-15T00:00:00\"). Either flight_ids or a date range is required."
-                },
-                {
-                  "disabled": false,
-                  "key": "flight_datetime_to",
-                  "value": "<dateTime>",
-                  "description": "End of the date-time range for filtering flights (ISO 8601 format, e.g., \"2024-01-15T23:59:59\")."
-                },
-                {
-                  "disabled": false,
-                  "key": "flights",
-                  "value": "<string>",
-                  "description": "Comma-separated list of flight numbers (e.g., \"BA123,LH456\"). Maximum 15 values."
-                },
-                {
-                  "disabled": false,
-                  "key": "callsigns",
-                  "value": "<string>",
-                  "description": "Comma-separated list of ATC callsigns (e.g., \"BAW123,DLH456\"). Maximum 15 values."
-                },
-                {
-                  "disabled": false,
-                  "key": "registrations",
-                  "value": "<string>",
-                  "description": "Comma-separated list of aircraft registration codes (e.g., \"G-STBK,D-ABCD\"). Maximum 15 values."
-                },
-                {
-                  "disabled": false,
-                  "key": "painted_as",
-                  "value": "<string>",
-                  "description": "Comma-separated list of airline ICAO codes for the livery carrier (e.g., \"BAW,DLH\"). Maximum 15 values."
-                },
-                {
-                  "disabled": false,
-                  "key": "operating_as",
-                  "value": "<string>",
-                  "description": "Comma-separated list of airline ICAO codes for the operating carrier. Maximum 15 values."
-                },
-                {
-                  "disabled": false,
-                  "key": "airports",
-                  "value": "<string>",
-                  "description": "Comma-separated list of airport IATA or ICAO codes. Matches flights departing or arriving at these airports. Maximum 15 values."
-                },
-                {
-                  "disabled": false,
-                  "key": "routes",
-                  "value": "<string>",
-                  "description": "Comma-separated list of routes in origin-destination format (e.g., \"LHR-JFK\"). Maximum 15 values."
-                },
-                {
-                  "disabled": false,
-                  "key": "aircraft",
-                  "value": "<string>",
-                  "description": "Comma-separated list of ICAO aircraft type codes (e.g., \"B77W,A320\"). Maximum 15 values."
-                },
-                {
-                  "disabled": false,
-                  "key": "categories",
-                  "value": "<string>",
-                  "description": "Comma-separated list of aircraft/vehicle category codes. Maximum 15 values. P=Passenger, C=Cargo, M=Military and Government, J=Business Jets, T=General Aviation, H=Helicopters, B=Lighter than Air, G=Gliders, D=Drones, V=Ground Vehicles, O=Other, N=Non-Categorized."
-                },
-                {
-                  "disabled": false,
-                  "key": "sort",
-                  "value": "<string>",
-                  "description": "Sort order for results. Use field name for ascending, prefix with \"-\" for descending (e.g., \"datetime_takeoff\" or \"-datetime_takeoff\")."
-                },
-                {
-                  "disabled": false,
-                  "key": "limit",
-                  "value": "<integer>",
-                  "description": "Maximum number of records to return (1-20000)."
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "light",
+          "item": [
             {
-              "id": "188142c4-c26d-46e2-8dec-e86601fda755",
-              "name": "Successful response with light flight summary data",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "flight-summary",
-                    "light"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "flight_ids",
-                      "value": "391fdd79,35f2ffd9"
-                    },
-                    {
-                      "key": "flight_datetime_from",
-                      "value": "2024-01-15T00:00:00"
-                    },
-                    {
-                      "key": "flight_datetime_to",
-                      "value": "2024-01-15T23:59:59"
-                    },
-                    {
-                      "key": "flights",
-                      "value": "BA123,LH456"
-                    },
-                    {
-                      "key": "callsigns",
-                      "value": "BAW123,DLH456"
-                    },
-                    {
-                      "key": "registrations",
-                      "value": "G-STBK,D-ABCD"
-                    },
-                    {
-                      "key": "painted_as",
-                      "value": "BAW,DLH"
-                    },
-                    {
-                      "key": "operating_as",
-                      "value": "BAW,DLH"
-                    },
-                    {
-                      "key": "airports",
-                      "value": "LHR,EDDF"
-                    },
-                    {
-                      "key": "routes",
-                      "value": "LHR-JFK,CDG-LAX"
-                    },
-                    {
-                      "key": "aircraft",
-                      "value": "B77W,A320"
-                    },
-                    {
-                      "key": "categories",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "sort",
-                      "value": "-datetime_takeoff"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "1000"
-                    }
-                  ],
-                  "variable": []
-                },
+              "name": "Get flight summaries (light)",
+              "id": "ca209fb8-606f-41ad-90a7-65af29f2e4ab",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"data\": [\n    {\n      \"fr24_id\": \"391fdd79\",\n      \"flight\": \"BA456\",\n      \"callsign\": \"BAW456\",\n      \"operating_as\": \"BAW\",\n      \"painted_as\": \"BAW\",\n      \"type\": \"A320\",\n      \"reg\": \"G-EUUU\",\n      \"orig_icao\": \"EGLL\",\n      \"datetime_takeoff\": \"2024-01-15T08:30:00\",\n      \"dest_icao\": \"EDDF\",\n      \"dest_icao_actual\": \"EDDF\",\n      \"datetime_landed\": \"2024-01-15T10:45:00\",\n      \"hex\": \"400A20\",\n      \"first_seen\": \"2024-01-15T08:25:00\",\n      \"last_seen\": \"2024-01-15T10:50:00\",\n      \"flight_ended\": true\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "e44df4ef-c70a-4977-b12e-976a5d069f4e",
-              "name": "Bad request — invalid or missing parameters.",
-              "originalRequest": {
                 "url": {
+                  "raw": "{{baseUrl}}/flight-summary/light?flight_ids=<string>&flight_datetime_from=<dateTime>&flight_datetime_to=<dateTime>&flights=<string>&callsigns=<string>&registrations=<string>&painted_as=<string>&operating_as=<string>&airports=<string>&routes=<string>&aircraft=<string>&categories=T&sort=<string>&limit=<integer>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "flight-summary",
                     "light"
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "query": [
                     {
+                      "description": "Comma-separated FR24 flight IDs (hexadecimal format). Maximum 15 IDs.",
                       "key": "flight_ids",
-                      "value": "391fdd79,35f2ffd9"
-                    },
-                    {
-                      "key": "flight_datetime_from",
-                      "value": "2024-01-15T00:00:00"
-                    },
-                    {
-                      "key": "flight_datetime_to",
-                      "value": "2024-01-15T23:59:59"
-                    },
-                    {
-                      "key": "flights",
-                      "value": "BA123,LH456"
-                    },
-                    {
-                      "key": "callsigns",
-                      "value": "BAW123,DLH456"
-                    },
-                    {
-                      "key": "registrations",
-                      "value": "G-STBK,D-ABCD"
-                    },
-                    {
-                      "key": "painted_as",
-                      "value": "BAW,DLH"
-                    },
-                    {
-                      "key": "operating_as",
-                      "value": "BAW,DLH"
-                    },
-                    {
-                      "key": "airports",
-                      "value": "LHR,EDDF"
-                    },
-                    {
-                      "key": "routes",
-                      "value": "LHR-JFK,CDG-LAX"
-                    },
-                    {
-                      "key": "aircraft",
-                      "value": "B77W,A320"
-                    },
-                    {
-                      "key": "categories",
                       "value": "<string>"
                     },
                     {
-                      "key": "sort",
-                      "value": "-datetime_takeoff"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "1000"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "37a23136-61e2-4dd3-b682-9dde151d3c01",
-              "name": "Unauthorized — missing or invalid Bearer token.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "flight-summary",
-                    "light"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "flight_ids",
-                      "value": "391fdd79,35f2ffd9"
-                    },
-                    {
+                      "description": "Start of the date-time range for filtering flights (ISO 8601 format, e.g., \"2024-01-15T00:00:00\"). Either flight_ids or a date range is required.",
                       "key": "flight_datetime_from",
-                      "value": "2024-01-15T00:00:00"
+                      "value": "<dateTime>"
                     },
                     {
+                      "description": "End of the date-time range for filtering flights (ISO 8601 format, e.g., \"2024-01-15T23:59:59\").",
                       "key": "flight_datetime_to",
-                      "value": "2024-01-15T23:59:59"
+                      "value": "<dateTime>"
                     },
                     {
+                      "description": "Comma-separated list of flight numbers (e.g., \"BA123,LH456\"). Maximum 15 values.",
                       "key": "flights",
-                      "value": "BA123,LH456"
-                    },
-                    {
-                      "key": "callsigns",
-                      "value": "BAW123,DLH456"
-                    },
-                    {
-                      "key": "registrations",
-                      "value": "G-STBK,D-ABCD"
-                    },
-                    {
-                      "key": "painted_as",
-                      "value": "BAW,DLH"
-                    },
-                    {
-                      "key": "operating_as",
-                      "value": "BAW,DLH"
-                    },
-                    {
-                      "key": "airports",
-                      "value": "LHR,EDDF"
-                    },
-                    {
-                      "key": "routes",
-                      "value": "LHR-JFK,CDG-LAX"
-                    },
-                    {
-                      "key": "aircraft",
-                      "value": "B77W,A320"
-                    },
-                    {
-                      "key": "categories",
                       "value": "<string>"
                     },
                     {
-                      "key": "sort",
-                      "value": "-datetime_takeoff"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "1000"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "f1bc36cc-71e0-4992-b310-f444c4019289",
-              "name": "Too many requests — rate limit or credit limit exceeded.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "flight-summary",
-                    "light"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "flight_ids",
-                      "value": "391fdd79,35f2ffd9"
-                    },
-                    {
-                      "key": "flight_datetime_from",
-                      "value": "2024-01-15T00:00:00"
-                    },
-                    {
-                      "key": "flight_datetime_to",
-                      "value": "2024-01-15T23:59:59"
-                    },
-                    {
-                      "key": "flights",
-                      "value": "BA123,LH456"
-                    },
-                    {
+                      "description": "Comma-separated list of ATC callsigns (e.g., \"BAW123,DLH456\"). Maximum 15 values.",
                       "key": "callsigns",
-                      "value": "BAW123,DLH456"
-                    },
-                    {
-                      "key": "registrations",
-                      "value": "G-STBK,D-ABCD"
-                    },
-                    {
-                      "key": "painted_as",
-                      "value": "BAW,DLH"
-                    },
-                    {
-                      "key": "operating_as",
-                      "value": "BAW,DLH"
-                    },
-                    {
-                      "key": "airports",
-                      "value": "LHR,EDDF"
-                    },
-                    {
-                      "key": "routes",
-                      "value": "LHR-JFK,CDG-LAX"
-                    },
-                    {
-                      "key": "aircraft",
-                      "value": "B77W,A320"
-                    },
-                    {
-                      "key": "categories",
                       "value": "<string>"
                     },
                     {
-                      "key": "sort",
-                      "value": "-datetime_takeoff"
+                      "description": "Comma-separated list of aircraft registration codes (e.g., \"G-STBK,D-ABCD\"). Maximum 15 values.",
+                      "key": "registrations",
+                      "value": "<string>"
                     },
                     {
+                      "description": "Comma-separated list of airline ICAO codes for the livery carrier (e.g., \"BAW,DLH\"). Maximum 15 values.",
+                      "key": "painted_as",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated list of airline ICAO codes for the operating carrier. Maximum 15 values.",
+                      "key": "operating_as",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated list of airport IATA or ICAO codes. Matches flights departing or arriving at these airports. Maximum 15 values.",
+                      "key": "airports",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated list of routes in origin-destination format (e.g., \"LHR-JFK\"). Maximum 15 values.",
+                      "key": "routes",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated list of ICAO aircraft type codes (e.g., \"B77W,A320\"). Maximum 15 values.",
+                      "key": "aircraft",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated list of aircraft/vehicle category codes. Maximum 15 values. P=Passenger, C=Cargo, M=Military and Government, J=Business Jets, T=General Aviation, H=Helicopters, B=Lighter than Air, G=Gliders, D=Drones, V=Ground Vehicles, O=Other, N=Non-Categorized.",
+                      "key": "categories",
+                      "value": "T"
+                    },
+                    {
+                      "description": "Sort order for results. Use field name for ascending, prefix with \"-\" for descending (e.g., \"datetime_takeoff\" or \"-datetime_takeoff\").",
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Maximum number of records to return (1-20000).",
                       "key": "limit",
-                      "value": "1000"
+                      "value": "<integer>"
+                    }
+                  ]
+                },
+                "description": "Returns lightweight synopses of individual flights including key event timings and locations such as actual takeoff and landing times, departure and arrival airports, and primary flight, aircraft, and operator identifiers. Available in both near-real-time and historical modes. Either flight_ids or a time range (flight_datetime_from + flight_datetime_to) must be provided."
+              },
+              "response": [
+                {
+                  "id": "c3c761a5-6896-479a-8e72-12c84a183511",
+                  "name": "Successful response with light flight summary data",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/flight-summary/light?flight_ids=<string>&flight_datetime_from=<dateTime>&flight_datetime_to=<dateTime>&flights=<string>&callsigns=<string>&registrations=<string>&painted_as=<string>&operating_as=<string>&airports=<string>&routes=<string>&aircraft=<string>&categories=T&sort=<string>&limit=<integer>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "flight-summary",
+                        "light"
+                      ],
+                      "query": [
+                        {
+                          "description": "Comma-separated FR24 flight IDs (hexadecimal format). Maximum 15 IDs.",
+                          "key": "flight_ids",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Start of the date-time range for filtering flights (ISO 8601 format, e.g., \"2024-01-15T00:00:00\"). Either flight_ids or a date range is required.",
+                          "key": "flight_datetime_from",
+                          "value": "<dateTime>"
+                        },
+                        {
+                          "description": "End of the date-time range for filtering flights (ISO 8601 format, e.g., \"2024-01-15T23:59:59\").",
+                          "key": "flight_datetime_to",
+                          "value": "<dateTime>"
+                        },
+                        {
+                          "description": "Comma-separated list of flight numbers (e.g., \"BA123,LH456\"). Maximum 15 values.",
+                          "key": "flights",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of ATC callsigns (e.g., \"BAW123,DLH456\"). Maximum 15 values.",
+                          "key": "callsigns",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of aircraft registration codes (e.g., \"G-STBK,D-ABCD\"). Maximum 15 values.",
+                          "key": "registrations",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of airline ICAO codes for the livery carrier (e.g., \"BAW,DLH\"). Maximum 15 values.",
+                          "key": "painted_as",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of airline ICAO codes for the operating carrier. Maximum 15 values.",
+                          "key": "operating_as",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of airport IATA or ICAO codes. Matches flights departing or arriving at these airports. Maximum 15 values.",
+                          "key": "airports",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of routes in origin-destination format (e.g., \"LHR-JFK\"). Maximum 15 values.",
+                          "key": "routes",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of ICAO aircraft type codes (e.g., \"B77W,A320\"). Maximum 15 values.",
+                          "key": "aircraft",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of aircraft/vehicle category codes. Maximum 15 values. P=Passenger, C=Cargo, M=Military and Government, J=Business Jets, T=General Aviation, H=Helicopters, B=Lighter than Air, G=Gliders, D=Drones, V=Ground Vehicles, O=Other, N=Non-Categorized.",
+                          "key": "categories",
+                          "value": "T"
+                        },
+                        {
+                          "description": "Sort order for results. Use field name for ascending, prefix with \"-\" for descending (e.g., \"datetime_takeoff\" or \"-datetime_takeoff\").",
+                          "key": "sort",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Maximum number of records to return (1-20000).",
+                          "key": "limit",
+                          "value": "<integer>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
                     }
                   ],
-                  "variable": []
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": [\n    {\n      \"fr24_id\": \"<string>\",\n      \"flight\": \"<string>\",\n      \"callsign\": \"<string>\",\n      \"operating_as\": \"<string>\",\n      \"painted_as\": \"<string>\",\n      \"type\": \"<string>\",\n      \"reg\": \"<string>\",\n      \"orig_icao\": \"<string>\",\n      \"datetime_takeoff\": \"<string>\",\n      \"dest_icao\": \"<string>\",\n      \"dest_icao_actual\": \"<string>\",\n      \"datetime_landed\": \"<string>\",\n      \"hex\": \"<string>\",\n      \"first_seen\": \"<string>\",\n      \"last_seen\": \"<string>\",\n      \"flight_ended\": \"<boolean>\"\n    },\n    {\n      \"fr24_id\": \"<string>\",\n      \"flight\": \"<string>\",\n      \"callsign\": \"<string>\",\n      \"operating_as\": \"<string>\",\n      \"painted_as\": \"<string>\",\n      \"type\": \"<string>\",\n      \"reg\": \"<string>\",\n      \"orig_icao\": \"<string>\",\n      \"datetime_takeoff\": \"<string>\",\n      \"dest_icao\": \"<string>\",\n      \"dest_icao_actual\": \"<string>\",\n      \"datetime_landed\": \"<string>\",\n      \"hex\": \"<string>\",\n      \"first_seen\": \"<string>\",\n      \"last_seen\": \"<string>\",\n      \"flight_ended\": \"<boolean>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-10-21T20:22:29.000Z",
+                  "updatedAt": "2026-10-21T20:22:29.000Z",
+                  "uid": "35240-c3c761a5-6896-479a-8e72-12c84a183511"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Too Many Requests",
-              "code": 429,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "id": "905184b8-fd04-468f-8b52-d70eda9682a9",
+                  "name": "Bad request \u2014 invalid or missing parameters.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/flight-summary/light?flight_ids=<string>&flight_datetime_from=<dateTime>&flight_datetime_to=<dateTime>&flights=<string>&callsigns=<string>&registrations=<string>&painted_as=<string>&operating_as=<string>&airports=<string>&routes=<string>&aircraft=<string>&categories=T&sort=<string>&limit=<integer>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "flight-summary",
+                        "light"
+                      ],
+                      "query": [
+                        {
+                          "description": "Comma-separated FR24 flight IDs (hexadecimal format). Maximum 15 IDs.",
+                          "key": "flight_ids",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Start of the date-time range for filtering flights (ISO 8601 format, e.g., \"2024-01-15T00:00:00\"). Either flight_ids or a date range is required.",
+                          "key": "flight_datetime_from",
+                          "value": "<dateTime>"
+                        },
+                        {
+                          "description": "End of the date-time range for filtering flights (ISO 8601 format, e.g., \"2024-01-15T23:59:59\").",
+                          "key": "flight_datetime_to",
+                          "value": "<dateTime>"
+                        },
+                        {
+                          "description": "Comma-separated list of flight numbers (e.g., \"BA123,LH456\"). Maximum 15 values.",
+                          "key": "flights",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of ATC callsigns (e.g., \"BAW123,DLH456\"). Maximum 15 values.",
+                          "key": "callsigns",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of aircraft registration codes (e.g., \"G-STBK,D-ABCD\"). Maximum 15 values.",
+                          "key": "registrations",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of airline ICAO codes for the livery carrier (e.g., \"BAW,DLH\"). Maximum 15 values.",
+                          "key": "painted_as",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of airline ICAO codes for the operating carrier. Maximum 15 values.",
+                          "key": "operating_as",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of airport IATA or ICAO codes. Matches flights departing or arriving at these airports. Maximum 15 values.",
+                          "key": "airports",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of routes in origin-destination format (e.g., \"LHR-JFK\"). Maximum 15 values.",
+                          "key": "routes",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of ICAO aircraft type codes (e.g., \"B77W,A320\"). Maximum 15 values.",
+                          "key": "aircraft",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of aircraft/vehicle category codes. Maximum 15 values. P=Passenger, C=Cargo, M=Military and Government, J=Business Jets, T=General Aviation, H=Helicopters, B=Lighter than Air, G=Gliders, D=Drones, V=Ground Vehicles, O=Other, N=Non-Categorized.",
+                          "key": "categories",
+                          "value": "T"
+                        },
+                        {
+                          "description": "Sort order for results. Use field name for ascending, prefix with \"-\" for descending (e.g., \"datetime_takeoff\" or \"-datetime_takeoff\").",
+                          "key": "sort",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Maximum number of records to return (1-20000).",
+                          "key": "limit",
+                          "value": "<integer>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T20:22:29.000Z",
+                  "updatedAt": "2026-10-21T20:22:29.000Z",
+                  "uid": "35240-905184b8-fd04-468f-8b52-d70eda9682a9"
+                },
+                {
+                  "id": "510a3db0-f8e6-45c4-833b-8a2f5dfc187f",
+                  "name": "Unauthorized \u2014 missing or invalid Bearer token.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/flight-summary/light?flight_ids=<string>&flight_datetime_from=<dateTime>&flight_datetime_to=<dateTime>&flights=<string>&callsigns=<string>&registrations=<string>&painted_as=<string>&operating_as=<string>&airports=<string>&routes=<string>&aircraft=<string>&categories=T&sort=<string>&limit=<integer>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "flight-summary",
+                        "light"
+                      ],
+                      "query": [
+                        {
+                          "description": "Comma-separated FR24 flight IDs (hexadecimal format). Maximum 15 IDs.",
+                          "key": "flight_ids",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Start of the date-time range for filtering flights (ISO 8601 format, e.g., \"2024-01-15T00:00:00\"). Either flight_ids or a date range is required.",
+                          "key": "flight_datetime_from",
+                          "value": "<dateTime>"
+                        },
+                        {
+                          "description": "End of the date-time range for filtering flights (ISO 8601 format, e.g., \"2024-01-15T23:59:59\").",
+                          "key": "flight_datetime_to",
+                          "value": "<dateTime>"
+                        },
+                        {
+                          "description": "Comma-separated list of flight numbers (e.g., \"BA123,LH456\"). Maximum 15 values.",
+                          "key": "flights",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of ATC callsigns (e.g., \"BAW123,DLH456\"). Maximum 15 values.",
+                          "key": "callsigns",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of aircraft registration codes (e.g., \"G-STBK,D-ABCD\"). Maximum 15 values.",
+                          "key": "registrations",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of airline ICAO codes for the livery carrier (e.g., \"BAW,DLH\"). Maximum 15 values.",
+                          "key": "painted_as",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of airline ICAO codes for the operating carrier. Maximum 15 values.",
+                          "key": "operating_as",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of airport IATA or ICAO codes. Matches flights departing or arriving at these airports. Maximum 15 values.",
+                          "key": "airports",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of routes in origin-destination format (e.g., \"LHR-JFK\"). Maximum 15 values.",
+                          "key": "routes",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of ICAO aircraft type codes (e.g., \"B77W,A320\"). Maximum 15 values.",
+                          "key": "aircraft",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of aircraft/vehicle category codes. Maximum 15 values. P=Passenger, C=Cargo, M=Military and Government, J=Business Jets, T=General Aviation, H=Helicopters, B=Lighter than Air, G=Gliders, D=Drones, V=Ground Vehicles, O=Other, N=Non-Categorized.",
+                          "key": "categories",
+                          "value": "T"
+                        },
+                        {
+                          "description": "Sort order for results. Use field name for ascending, prefix with \"-\" for descending (e.g., \"datetime_takeoff\" or \"-datetime_takeoff\").",
+                          "key": "sort",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Maximum number of records to return (1-20000).",
+                          "key": "limit",
+                          "value": "<integer>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T20:22:29.000Z",
+                  "updatedAt": "2026-10-21T20:22:29.000Z",
+                  "uid": "35240-510a3db0-f8e6-45c4-833b-8a2f5dfc187f"
+                },
+                {
+                  "id": "474a9c53-30ad-4f49-b0a2-97a2fa5529e4",
+                  "name": "Too many requests \u2014 rate limit or credit limit exceeded.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/flight-summary/light?flight_ids=<string>&flight_datetime_from=<dateTime>&flight_datetime_to=<dateTime>&flights=<string>&callsigns=<string>&registrations=<string>&painted_as=<string>&operating_as=<string>&airports=<string>&routes=<string>&aircraft=<string>&categories=T&sort=<string>&limit=<integer>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "flight-summary",
+                        "light"
+                      ],
+                      "query": [
+                        {
+                          "description": "Comma-separated FR24 flight IDs (hexadecimal format). Maximum 15 IDs.",
+                          "key": "flight_ids",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Start of the date-time range for filtering flights (ISO 8601 format, e.g., \"2024-01-15T00:00:00\"). Either flight_ids or a date range is required.",
+                          "key": "flight_datetime_from",
+                          "value": "<dateTime>"
+                        },
+                        {
+                          "description": "End of the date-time range for filtering flights (ISO 8601 format, e.g., \"2024-01-15T23:59:59\").",
+                          "key": "flight_datetime_to",
+                          "value": "<dateTime>"
+                        },
+                        {
+                          "description": "Comma-separated list of flight numbers (e.g., \"BA123,LH456\"). Maximum 15 values.",
+                          "key": "flights",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of ATC callsigns (e.g., \"BAW123,DLH456\"). Maximum 15 values.",
+                          "key": "callsigns",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of aircraft registration codes (e.g., \"G-STBK,D-ABCD\"). Maximum 15 values.",
+                          "key": "registrations",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of airline ICAO codes for the livery carrier (e.g., \"BAW,DLH\"). Maximum 15 values.",
+                          "key": "painted_as",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of airline ICAO codes for the operating carrier. Maximum 15 values.",
+                          "key": "operating_as",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of airport IATA or ICAO codes. Matches flights departing or arriving at these airports. Maximum 15 values.",
+                          "key": "airports",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of routes in origin-destination format (e.g., \"LHR-JFK\"). Maximum 15 values.",
+                          "key": "routes",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of ICAO aircraft type codes (e.g., \"B77W,A320\"). Maximum 15 values.",
+                          "key": "aircraft",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of aircraft/vehicle category codes. Maximum 15 values. P=Passenger, C=Cargo, M=Military and Government, J=Business Jets, T=General Aviation, H=Helicopters, B=Lighter than Air, G=Gliders, D=Drones, V=Ground Vehicles, O=Other, N=Non-Categorized.",
+                          "key": "categories",
+                          "value": "T"
+                        },
+                        {
+                          "description": "Sort order for results. Use field name for ascending, prefix with \"-\" for descending (e.g., \"datetime_takeoff\" or \"-datetime_takeoff\").",
+                          "key": "sort",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Maximum number of records to return (1-20000).",
+                          "key": "limit",
+                          "value": "<integer>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T20:22:29.000Z",
+                  "updatedAt": "2026-10-21T20:22:29.000Z",
+                  "uid": "35240-474a9c53-30ad-4f49-b0a2-97a2fa5529e4"
                 }
               ],
-              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "createdAt": "2026-10-21T20:22:29.000Z",
+              "updatedAt": "2026-10-21T20:22:29.000Z",
+              "uid": "35240-ca209fb8-606f-41ad-90a7-65af29f2e4ab"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "10db985b-4d60-4994-9f84-13f1b84c3dfa",
+          "createdAt": "2026-10-21T20:22:29.000Z",
+          "updatedAt": "2026-10-21T20:22:29.000Z",
+          "uid": "35240-10db985b-4d60-4994-9f84-13f1b84c3dfa"
         },
         {
-          "id": "b7606827-e627-4f7a-a9eb-0bd9e746515e",
-          "name": "Get flight summaries (full)",
-          "request": {
-            "name": "Get flight summaries (full)",
-            "description": {
-              "content": "Returns full synopses of individual flights combining positional event data with enriched metadata including runway designators, flight time, actual distances, and complete airport codes (IATA and ICAO). Either flight_ids or a time range must be provided.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "flight-summary",
-                "full"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "flight_ids",
-                  "value": "<string>",
-                  "description": "Comma-separated FR24 flight IDs (hexadecimal format). Maximum 15 IDs."
-                },
-                {
-                  "disabled": false,
-                  "key": "flight_datetime_from",
-                  "value": "<dateTime>",
-                  "description": "Start of the date-time range for filtering flights (ISO 8601 format, e.g., \"2024-01-15T00:00:00\"). Either flight_ids or a date range is required."
-                },
-                {
-                  "disabled": false,
-                  "key": "flight_datetime_to",
-                  "value": "<dateTime>",
-                  "description": "End of the date-time range for filtering flights (ISO 8601 format, e.g., \"2024-01-15T23:59:59\")."
-                },
-                {
-                  "disabled": false,
-                  "key": "flights",
-                  "value": "<string>",
-                  "description": "Comma-separated list of flight numbers (e.g., \"BA123,LH456\"). Maximum 15 values."
-                },
-                {
-                  "disabled": false,
-                  "key": "callsigns",
-                  "value": "<string>",
-                  "description": "Comma-separated list of ATC callsigns (e.g., \"BAW123,DLH456\"). Maximum 15 values."
-                },
-                {
-                  "disabled": false,
-                  "key": "registrations",
-                  "value": "<string>",
-                  "description": "Comma-separated list of aircraft registration codes (e.g., \"G-STBK,D-ABCD\"). Maximum 15 values."
-                },
-                {
-                  "disabled": false,
-                  "key": "painted_as",
-                  "value": "<string>",
-                  "description": "Comma-separated list of airline ICAO codes for the livery carrier (e.g., \"BAW,DLH\"). Maximum 15 values."
-                },
-                {
-                  "disabled": false,
-                  "key": "operating_as",
-                  "value": "<string>",
-                  "description": "Comma-separated list of airline ICAO codes for the operating carrier. Maximum 15 values."
-                },
-                {
-                  "disabled": false,
-                  "key": "airports",
-                  "value": "<string>",
-                  "description": "Comma-separated list of airport IATA or ICAO codes. Matches flights departing or arriving at these airports. Maximum 15 values."
-                },
-                {
-                  "disabled": false,
-                  "key": "routes",
-                  "value": "<string>",
-                  "description": "Comma-separated list of routes in origin-destination format (e.g., \"LHR-JFK\"). Maximum 15 values."
-                },
-                {
-                  "disabled": false,
-                  "key": "aircraft",
-                  "value": "<string>",
-                  "description": "Comma-separated list of ICAO aircraft type codes (e.g., \"B77W,A320\"). Maximum 15 values."
-                },
-                {
-                  "disabled": false,
-                  "key": "categories",
-                  "value": "<string>",
-                  "description": "Comma-separated list of aircraft/vehicle category codes. Maximum 15 values. P=Passenger, C=Cargo, M=Military and Government, J=Business Jets, T=General Aviation, H=Helicopters, B=Lighter than Air, G=Gliders, D=Drones, V=Ground Vehicles, O=Other, N=Non-Categorized."
-                },
-                {
-                  "disabled": false,
-                  "key": "sort",
-                  "value": "<string>",
-                  "description": "Sort order for results. Use field name for ascending, prefix with \"-\" for descending (e.g., \"datetime_takeoff\" or \"-datetime_takeoff\")."
-                },
-                {
-                  "disabled": false,
-                  "key": "limit",
-                  "value": "<integer>",
-                  "description": "Maximum number of records to return (1-20000)."
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "full",
+          "item": [
             {
-              "id": "de660335-7794-475e-926f-80414570aa04",
-              "name": "Successful response with full flight summary data",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "flight-summary",
-                    "full"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "flight_ids",
-                      "value": "391fdd79,35f2ffd9"
-                    },
-                    {
-                      "key": "flight_datetime_from",
-                      "value": "2024-01-15T00:00:00"
-                    },
-                    {
-                      "key": "flight_datetime_to",
-                      "value": "2024-01-15T23:59:59"
-                    },
-                    {
-                      "key": "flights",
-                      "value": "BA123,LH456"
-                    },
-                    {
-                      "key": "callsigns",
-                      "value": "BAW123,DLH456"
-                    },
-                    {
-                      "key": "registrations",
-                      "value": "G-STBK,D-ABCD"
-                    },
-                    {
-                      "key": "painted_as",
-                      "value": "BAW,DLH"
-                    },
-                    {
-                      "key": "operating_as",
-                      "value": "BAW,DLH"
-                    },
-                    {
-                      "key": "airports",
-                      "value": "LHR,EDDF"
-                    },
-                    {
-                      "key": "routes",
-                      "value": "LHR-JFK,CDG-LAX"
-                    },
-                    {
-                      "key": "aircraft",
-                      "value": "B77W,A320"
-                    },
-                    {
-                      "key": "categories",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "sort",
-                      "value": "-datetime_takeoff"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "1000"
-                    }
-                  ],
-                  "variable": []
-                },
+              "name": "Get flight summaries (full)",
+              "id": "1002cb71-97bf-423b-9d53-cdc5aeb2b80e",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"data\": [\n    {\n      \"fr24_id\": \"391fdd79\",\n      \"flight\": \"BA456\",\n      \"callsign\": \"BAW456\",\n      \"operating_as\": \"BAW\",\n      \"painted_as\": \"BAW\",\n      \"type\": \"A320\",\n      \"reg\": \"G-EUUU\",\n      \"orig_icao\": \"EGLL\",\n      \"orig_iata\": \"LHR\",\n      \"datetime_takeoff\": \"2024-01-15T08:30:00\",\n      \"runway_takeoff\": \"27L\",\n      \"dest_icao\": \"EDDF\",\n      \"dest_iata\": \"FRA\",\n      \"dest_icao_actual\": \"EDDF\",\n      \"dest_iata_actual\": \"FRA\",\n      \"datetime_landed\": \"2024-01-15T10:45:00\",\n      \"runway_landed\": \"25R\",\n      \"flight_time\": 8100,\n      \"actual_distance\": 638.5,\n      \"circle_distance\": 630,\n      \"category\": \"P\",\n      \"hex\": \"400A20\",\n      \"first_seen\": \"2024-01-15T08:25:00\",\n      \"last_seen\": \"2024-01-15T10:50:00\",\n      \"flight_ended\": true\n    },\n    {\n      \"fr24_id\": \"391fdd79\",\n      \"flight\": \"BA456\",\n      \"callsign\": \"BAW456\",\n      \"operating_as\": \"BAW\",\n      \"painted_as\": \"BAW\",\n      \"type\": \"A320\",\n      \"reg\": \"G-EUUU\",\n      \"orig_icao\": \"EGLL\",\n      \"orig_iata\": \"LHR\",\n      \"datetime_takeoff\": \"2024-01-15T08:30:00\",\n      \"runway_takeoff\": \"27L\",\n      \"dest_icao\": \"EDDF\",\n      \"dest_iata\": \"FRA\",\n      \"dest_icao_actual\": \"EDDF\",\n      \"dest_iata_actual\": \"FRA\",\n      \"datetime_landed\": \"2024-01-15T10:45:00\",\n      \"runway_landed\": \"25R\",\n      \"flight_time\": 8100,\n      \"actual_distance\": 638.5,\n      \"circle_distance\": 630,\n      \"category\": \"P\",\n      \"hex\": \"400A20\",\n      \"first_seen\": \"2024-01-15T08:25:00\",\n      \"last_seen\": \"2024-01-15T10:50:00\",\n      \"flight_ended\": true\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "a67d6a9f-fb31-4a9c-b4ec-3926ada80c07",
-              "name": "Bad request — invalid or missing parameters.",
-              "originalRequest": {
                 "url": {
+                  "raw": "{{baseUrl}}/flight-summary/full?flight_ids=<string>&flight_datetime_from=<dateTime>&flight_datetime_to=<dateTime>&flights=<string>&callsigns=<string>&registrations=<string>&painted_as=<string>&operating_as=<string>&airports=<string>&routes=<string>&aircraft=<string>&categories=T&sort=<string>&limit=<integer>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "flight-summary",
                     "full"
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "query": [
                     {
+                      "description": "Comma-separated FR24 flight IDs (hexadecimal format). Maximum 15 IDs.",
                       "key": "flight_ids",
-                      "value": "391fdd79,35f2ffd9"
-                    },
-                    {
-                      "key": "flight_datetime_from",
-                      "value": "2024-01-15T00:00:00"
-                    },
-                    {
-                      "key": "flight_datetime_to",
-                      "value": "2024-01-15T23:59:59"
-                    },
-                    {
-                      "key": "flights",
-                      "value": "BA123,LH456"
-                    },
-                    {
-                      "key": "callsigns",
-                      "value": "BAW123,DLH456"
-                    },
-                    {
-                      "key": "registrations",
-                      "value": "G-STBK,D-ABCD"
-                    },
-                    {
-                      "key": "painted_as",
-                      "value": "BAW,DLH"
-                    },
-                    {
-                      "key": "operating_as",
-                      "value": "BAW,DLH"
-                    },
-                    {
-                      "key": "airports",
-                      "value": "LHR,EDDF"
-                    },
-                    {
-                      "key": "routes",
-                      "value": "LHR-JFK,CDG-LAX"
-                    },
-                    {
-                      "key": "aircraft",
-                      "value": "B77W,A320"
-                    },
-                    {
-                      "key": "categories",
                       "value": "<string>"
                     },
                     {
-                      "key": "sort",
-                      "value": "-datetime_takeoff"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "1000"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "ac3dc84f-6d41-48c8-b01b-16c593da2b22",
-              "name": "Unauthorized — missing or invalid Bearer token.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "flight-summary",
-                    "full"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "flight_ids",
-                      "value": "391fdd79,35f2ffd9"
-                    },
-                    {
+                      "description": "Start of the date-time range for filtering flights (ISO 8601 format, e.g., \"2024-01-15T00:00:00\"). Either flight_ids or a date range is required.",
                       "key": "flight_datetime_from",
-                      "value": "2024-01-15T00:00:00"
+                      "value": "<dateTime>"
                     },
                     {
+                      "description": "End of the date-time range for filtering flights (ISO 8601 format, e.g., \"2024-01-15T23:59:59\").",
                       "key": "flight_datetime_to",
-                      "value": "2024-01-15T23:59:59"
+                      "value": "<dateTime>"
                     },
                     {
+                      "description": "Comma-separated list of flight numbers (e.g., \"BA123,LH456\"). Maximum 15 values.",
                       "key": "flights",
-                      "value": "BA123,LH456"
-                    },
-                    {
-                      "key": "callsigns",
-                      "value": "BAW123,DLH456"
-                    },
-                    {
-                      "key": "registrations",
-                      "value": "G-STBK,D-ABCD"
-                    },
-                    {
-                      "key": "painted_as",
-                      "value": "BAW,DLH"
-                    },
-                    {
-                      "key": "operating_as",
-                      "value": "BAW,DLH"
-                    },
-                    {
-                      "key": "airports",
-                      "value": "LHR,EDDF"
-                    },
-                    {
-                      "key": "routes",
-                      "value": "LHR-JFK,CDG-LAX"
-                    },
-                    {
-                      "key": "aircraft",
-                      "value": "B77W,A320"
-                    },
-                    {
-                      "key": "categories",
                       "value": "<string>"
                     },
                     {
-                      "key": "sort",
-                      "value": "-datetime_takeoff"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "1000"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "933959a3-c1ad-46be-8627-9a4244f3dac2",
-              "name": "Too many requests — rate limit or credit limit exceeded.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "flight-summary",
-                    "full"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "flight_ids",
-                      "value": "391fdd79,35f2ffd9"
-                    },
-                    {
-                      "key": "flight_datetime_from",
-                      "value": "2024-01-15T00:00:00"
-                    },
-                    {
-                      "key": "flight_datetime_to",
-                      "value": "2024-01-15T23:59:59"
-                    },
-                    {
-                      "key": "flights",
-                      "value": "BA123,LH456"
-                    },
-                    {
+                      "description": "Comma-separated list of ATC callsigns (e.g., \"BAW123,DLH456\"). Maximum 15 values.",
                       "key": "callsigns",
-                      "value": "BAW123,DLH456"
-                    },
-                    {
-                      "key": "registrations",
-                      "value": "G-STBK,D-ABCD"
-                    },
-                    {
-                      "key": "painted_as",
-                      "value": "BAW,DLH"
-                    },
-                    {
-                      "key": "operating_as",
-                      "value": "BAW,DLH"
-                    },
-                    {
-                      "key": "airports",
-                      "value": "LHR,EDDF"
-                    },
-                    {
-                      "key": "routes",
-                      "value": "LHR-JFK,CDG-LAX"
-                    },
-                    {
-                      "key": "aircraft",
-                      "value": "B77W,A320"
-                    },
-                    {
-                      "key": "categories",
                       "value": "<string>"
                     },
                     {
-                      "key": "sort",
-                      "value": "-datetime_takeoff"
+                      "description": "Comma-separated list of aircraft registration codes (e.g., \"G-STBK,D-ABCD\"). Maximum 15 values.",
+                      "key": "registrations",
+                      "value": "<string>"
                     },
                     {
+                      "description": "Comma-separated list of airline ICAO codes for the livery carrier (e.g., \"BAW,DLH\"). Maximum 15 values.",
+                      "key": "painted_as",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated list of airline ICAO codes for the operating carrier. Maximum 15 values.",
+                      "key": "operating_as",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated list of airport IATA or ICAO codes. Matches flights departing or arriving at these airports. Maximum 15 values.",
+                      "key": "airports",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated list of routes in origin-destination format (e.g., \"LHR-JFK\"). Maximum 15 values.",
+                      "key": "routes",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated list of ICAO aircraft type codes (e.g., \"B77W,A320\"). Maximum 15 values.",
+                      "key": "aircraft",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated list of aircraft/vehicle category codes. Maximum 15 values. P=Passenger, C=Cargo, M=Military and Government, J=Business Jets, T=General Aviation, H=Helicopters, B=Lighter than Air, G=Gliders, D=Drones, V=Ground Vehicles, O=Other, N=Non-Categorized.",
+                      "key": "categories",
+                      "value": "T"
+                    },
+                    {
+                      "description": "Sort order for results. Use field name for ascending, prefix with \"-\" for descending (e.g., \"datetime_takeoff\" or \"-datetime_takeoff\").",
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Maximum number of records to return (1-20000).",
                       "key": "limit",
-                      "value": "1000"
+                      "value": "<integer>"
+                    }
+                  ]
+                },
+                "description": "Returns full synopses of individual flights combining positional event data with enriched metadata including runway designators, flight time, actual distances, and complete airport codes (IATA and ICAO). Either flight_ids or a time range must be provided."
+              },
+              "response": [
+                {
+                  "id": "b404712f-4f28-403b-b640-244e7e682b45",
+                  "name": "Successful response with full flight summary data",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/flight-summary/full?flight_ids=<string>&flight_datetime_from=<dateTime>&flight_datetime_to=<dateTime>&flights=<string>&callsigns=<string>&registrations=<string>&painted_as=<string>&operating_as=<string>&airports=<string>&routes=<string>&aircraft=<string>&categories=T&sort=<string>&limit=<integer>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "flight-summary",
+                        "full"
+                      ],
+                      "query": [
+                        {
+                          "description": "Comma-separated FR24 flight IDs (hexadecimal format). Maximum 15 IDs.",
+                          "key": "flight_ids",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Start of the date-time range for filtering flights (ISO 8601 format, e.g., \"2024-01-15T00:00:00\"). Either flight_ids or a date range is required.",
+                          "key": "flight_datetime_from",
+                          "value": "<dateTime>"
+                        },
+                        {
+                          "description": "End of the date-time range for filtering flights (ISO 8601 format, e.g., \"2024-01-15T23:59:59\").",
+                          "key": "flight_datetime_to",
+                          "value": "<dateTime>"
+                        },
+                        {
+                          "description": "Comma-separated list of flight numbers (e.g., \"BA123,LH456\"). Maximum 15 values.",
+                          "key": "flights",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of ATC callsigns (e.g., \"BAW123,DLH456\"). Maximum 15 values.",
+                          "key": "callsigns",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of aircraft registration codes (e.g., \"G-STBK,D-ABCD\"). Maximum 15 values.",
+                          "key": "registrations",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of airline ICAO codes for the livery carrier (e.g., \"BAW,DLH\"). Maximum 15 values.",
+                          "key": "painted_as",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of airline ICAO codes for the operating carrier. Maximum 15 values.",
+                          "key": "operating_as",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of airport IATA or ICAO codes. Matches flights departing or arriving at these airports. Maximum 15 values.",
+                          "key": "airports",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of routes in origin-destination format (e.g., \"LHR-JFK\"). Maximum 15 values.",
+                          "key": "routes",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of ICAO aircraft type codes (e.g., \"B77W,A320\"). Maximum 15 values.",
+                          "key": "aircraft",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of aircraft/vehicle category codes. Maximum 15 values. P=Passenger, C=Cargo, M=Military and Government, J=Business Jets, T=General Aviation, H=Helicopters, B=Lighter than Air, G=Gliders, D=Drones, V=Ground Vehicles, O=Other, N=Non-Categorized.",
+                          "key": "categories",
+                          "value": "T"
+                        },
+                        {
+                          "description": "Sort order for results. Use field name for ascending, prefix with \"-\" for descending (e.g., \"datetime_takeoff\" or \"-datetime_takeoff\").",
+                          "key": "sort",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Maximum number of records to return (1-20000).",
+                          "key": "limit",
+                          "value": "<integer>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
                     }
                   ],
-                  "variable": []
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": [\n    {\n      \"fr24_id\": \"<string>\",\n      \"flight\": \"<string>\",\n      \"callsign\": \"<string>\",\n      \"operating_as\": \"<string>\",\n      \"painted_as\": \"<string>\",\n      \"type\": \"<string>\",\n      \"reg\": \"<string>\",\n      \"orig_icao\": \"<string>\",\n      \"orig_iata\": \"<string>\",\n      \"datetime_takeoff\": \"<string>\",\n      \"runway_takeoff\": \"<string>\",\n      \"dest_icao\": \"<string>\",\n      \"dest_iata\": \"<string>\",\n      \"dest_icao_actual\": \"<string>\",\n      \"dest_iata_actual\": \"<string>\",\n      \"datetime_landed\": \"<string>\",\n      \"runway_landed\": \"<string>\",\n      \"flight_time\": \"<float>\",\n      \"actual_distance\": \"<float>\",\n      \"circle_distance\": \"<float>\",\n      \"category\": \"<string>\",\n      \"hex\": \"<string>\",\n      \"first_seen\": \"<string>\",\n      \"last_seen\": \"<string>\",\n      \"flight_ended\": \"<boolean>\"\n    },\n    {\n      \"fr24_id\": \"<string>\",\n      \"flight\": \"<string>\",\n      \"callsign\": \"<string>\",\n      \"operating_as\": \"<string>\",\n      \"painted_as\": \"<string>\",\n      \"type\": \"<string>\",\n      \"reg\": \"<string>\",\n      \"orig_icao\": \"<string>\",\n      \"orig_iata\": \"<string>\",\n      \"datetime_takeoff\": \"<string>\",\n      \"runway_takeoff\": \"<string>\",\n      \"dest_icao\": \"<string>\",\n      \"dest_iata\": \"<string>\",\n      \"dest_icao_actual\": \"<string>\",\n      \"dest_iata_actual\": \"<string>\",\n      \"datetime_landed\": \"<string>\",\n      \"runway_landed\": \"<string>\",\n      \"flight_time\": \"<float>\",\n      \"actual_distance\": \"<float>\",\n      \"circle_distance\": \"<float>\",\n      \"category\": \"<string>\",\n      \"hex\": \"<string>\",\n      \"first_seen\": \"<string>\",\n      \"last_seen\": \"<string>\",\n      \"flight_ended\": \"<boolean>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-10-21T20:22:29.000Z",
+                  "updatedAt": "2026-10-21T20:22:29.000Z",
+                  "uid": "35240-b404712f-4f28-403b-b640-244e7e682b45"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Too Many Requests",
-              "code": 429,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "id": "7f8208ca-1483-4aca-9580-1703997cdb2e",
+                  "name": "Bad request \u2014 invalid or missing parameters.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/flight-summary/full?flight_ids=<string>&flight_datetime_from=<dateTime>&flight_datetime_to=<dateTime>&flights=<string>&callsigns=<string>&registrations=<string>&painted_as=<string>&operating_as=<string>&airports=<string>&routes=<string>&aircraft=<string>&categories=T&sort=<string>&limit=<integer>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "flight-summary",
+                        "full"
+                      ],
+                      "query": [
+                        {
+                          "description": "Comma-separated FR24 flight IDs (hexadecimal format). Maximum 15 IDs.",
+                          "key": "flight_ids",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Start of the date-time range for filtering flights (ISO 8601 format, e.g., \"2024-01-15T00:00:00\"). Either flight_ids or a date range is required.",
+                          "key": "flight_datetime_from",
+                          "value": "<dateTime>"
+                        },
+                        {
+                          "description": "End of the date-time range for filtering flights (ISO 8601 format, e.g., \"2024-01-15T23:59:59\").",
+                          "key": "flight_datetime_to",
+                          "value": "<dateTime>"
+                        },
+                        {
+                          "description": "Comma-separated list of flight numbers (e.g., \"BA123,LH456\"). Maximum 15 values.",
+                          "key": "flights",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of ATC callsigns (e.g., \"BAW123,DLH456\"). Maximum 15 values.",
+                          "key": "callsigns",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of aircraft registration codes (e.g., \"G-STBK,D-ABCD\"). Maximum 15 values.",
+                          "key": "registrations",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of airline ICAO codes for the livery carrier (e.g., \"BAW,DLH\"). Maximum 15 values.",
+                          "key": "painted_as",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of airline ICAO codes for the operating carrier. Maximum 15 values.",
+                          "key": "operating_as",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of airport IATA or ICAO codes. Matches flights departing or arriving at these airports. Maximum 15 values.",
+                          "key": "airports",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of routes in origin-destination format (e.g., \"LHR-JFK\"). Maximum 15 values.",
+                          "key": "routes",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of ICAO aircraft type codes (e.g., \"B77W,A320\"). Maximum 15 values.",
+                          "key": "aircraft",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of aircraft/vehicle category codes. Maximum 15 values. P=Passenger, C=Cargo, M=Military and Government, J=Business Jets, T=General Aviation, H=Helicopters, B=Lighter than Air, G=Gliders, D=Drones, V=Ground Vehicles, O=Other, N=Non-Categorized.",
+                          "key": "categories",
+                          "value": "T"
+                        },
+                        {
+                          "description": "Sort order for results. Use field name for ascending, prefix with \"-\" for descending (e.g., \"datetime_takeoff\" or \"-datetime_takeoff\").",
+                          "key": "sort",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Maximum number of records to return (1-20000).",
+                          "key": "limit",
+                          "value": "<integer>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T20:22:29.000Z",
+                  "updatedAt": "2026-10-21T20:22:29.000Z",
+                  "uid": "35240-7f8208ca-1483-4aca-9580-1703997cdb2e"
+                },
+                {
+                  "id": "42a383d1-2de2-4a6e-ae09-dca46680926e",
+                  "name": "Unauthorized \u2014 missing or invalid Bearer token.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/flight-summary/full?flight_ids=<string>&flight_datetime_from=<dateTime>&flight_datetime_to=<dateTime>&flights=<string>&callsigns=<string>&registrations=<string>&painted_as=<string>&operating_as=<string>&airports=<string>&routes=<string>&aircraft=<string>&categories=T&sort=<string>&limit=<integer>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "flight-summary",
+                        "full"
+                      ],
+                      "query": [
+                        {
+                          "description": "Comma-separated FR24 flight IDs (hexadecimal format). Maximum 15 IDs.",
+                          "key": "flight_ids",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Start of the date-time range for filtering flights (ISO 8601 format, e.g., \"2024-01-15T00:00:00\"). Either flight_ids or a date range is required.",
+                          "key": "flight_datetime_from",
+                          "value": "<dateTime>"
+                        },
+                        {
+                          "description": "End of the date-time range for filtering flights (ISO 8601 format, e.g., \"2024-01-15T23:59:59\").",
+                          "key": "flight_datetime_to",
+                          "value": "<dateTime>"
+                        },
+                        {
+                          "description": "Comma-separated list of flight numbers (e.g., \"BA123,LH456\"). Maximum 15 values.",
+                          "key": "flights",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of ATC callsigns (e.g., \"BAW123,DLH456\"). Maximum 15 values.",
+                          "key": "callsigns",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of aircraft registration codes (e.g., \"G-STBK,D-ABCD\"). Maximum 15 values.",
+                          "key": "registrations",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of airline ICAO codes for the livery carrier (e.g., \"BAW,DLH\"). Maximum 15 values.",
+                          "key": "painted_as",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of airline ICAO codes for the operating carrier. Maximum 15 values.",
+                          "key": "operating_as",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of airport IATA or ICAO codes. Matches flights departing or arriving at these airports. Maximum 15 values.",
+                          "key": "airports",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of routes in origin-destination format (e.g., \"LHR-JFK\"). Maximum 15 values.",
+                          "key": "routes",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of ICAO aircraft type codes (e.g., \"B77W,A320\"). Maximum 15 values.",
+                          "key": "aircraft",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of aircraft/vehicle category codes. Maximum 15 values. P=Passenger, C=Cargo, M=Military and Government, J=Business Jets, T=General Aviation, H=Helicopters, B=Lighter than Air, G=Gliders, D=Drones, V=Ground Vehicles, O=Other, N=Non-Categorized.",
+                          "key": "categories",
+                          "value": "T"
+                        },
+                        {
+                          "description": "Sort order for results. Use field name for ascending, prefix with \"-\" for descending (e.g., \"datetime_takeoff\" or \"-datetime_takeoff\").",
+                          "key": "sort",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Maximum number of records to return (1-20000).",
+                          "key": "limit",
+                          "value": "<integer>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T20:22:29.000Z",
+                  "updatedAt": "2026-10-21T20:22:29.000Z",
+                  "uid": "35240-42a383d1-2de2-4a6e-ae09-dca46680926e"
+                },
+                {
+                  "id": "57948ef7-215d-43de-bb85-44735b54ae27",
+                  "name": "Too many requests \u2014 rate limit or credit limit exceeded.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/flight-summary/full?flight_ids=<string>&flight_datetime_from=<dateTime>&flight_datetime_to=<dateTime>&flights=<string>&callsigns=<string>&registrations=<string>&painted_as=<string>&operating_as=<string>&airports=<string>&routes=<string>&aircraft=<string>&categories=T&sort=<string>&limit=<integer>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "flight-summary",
+                        "full"
+                      ],
+                      "query": [
+                        {
+                          "description": "Comma-separated FR24 flight IDs (hexadecimal format). Maximum 15 IDs.",
+                          "key": "flight_ids",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Start of the date-time range for filtering flights (ISO 8601 format, e.g., \"2024-01-15T00:00:00\"). Either flight_ids or a date range is required.",
+                          "key": "flight_datetime_from",
+                          "value": "<dateTime>"
+                        },
+                        {
+                          "description": "End of the date-time range for filtering flights (ISO 8601 format, e.g., \"2024-01-15T23:59:59\").",
+                          "key": "flight_datetime_to",
+                          "value": "<dateTime>"
+                        },
+                        {
+                          "description": "Comma-separated list of flight numbers (e.g., \"BA123,LH456\"). Maximum 15 values.",
+                          "key": "flights",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of ATC callsigns (e.g., \"BAW123,DLH456\"). Maximum 15 values.",
+                          "key": "callsigns",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of aircraft registration codes (e.g., \"G-STBK,D-ABCD\"). Maximum 15 values.",
+                          "key": "registrations",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of airline ICAO codes for the livery carrier (e.g., \"BAW,DLH\"). Maximum 15 values.",
+                          "key": "painted_as",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of airline ICAO codes for the operating carrier. Maximum 15 values.",
+                          "key": "operating_as",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of airport IATA or ICAO codes. Matches flights departing or arriving at these airports. Maximum 15 values.",
+                          "key": "airports",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of routes in origin-destination format (e.g., \"LHR-JFK\"). Maximum 15 values.",
+                          "key": "routes",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of ICAO aircraft type codes (e.g., \"B77W,A320\"). Maximum 15 values.",
+                          "key": "aircraft",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of aircraft/vehicle category codes. Maximum 15 values. P=Passenger, C=Cargo, M=Military and Government, J=Business Jets, T=General Aviation, H=Helicopters, B=Lighter than Air, G=Gliders, D=Drones, V=Ground Vehicles, O=Other, N=Non-Categorized.",
+                          "key": "categories",
+                          "value": "T"
+                        },
+                        {
+                          "description": "Sort order for results. Use field name for ascending, prefix with \"-\" for descending (e.g., \"datetime_takeoff\" or \"-datetime_takeoff\").",
+                          "key": "sort",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Maximum number of records to return (1-20000).",
+                          "key": "limit",
+                          "value": "<integer>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T20:22:29.000Z",
+                  "updatedAt": "2026-10-21T20:22:29.000Z",
+                  "uid": "35240-57948ef7-215d-43de-bb85-44735b54ae27"
                 }
               ],
-              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "createdAt": "2026-10-21T20:22:29.000Z",
+              "updatedAt": "2026-10-21T20:22:29.000Z",
+              "uid": "35240-1002cb71-97bf-423b-9d53-cdc5aeb2b80e"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "25df18aa-a8d1-4b5a-853b-1dee0fc0fea2",
+          "createdAt": "2026-10-21T20:22:29.000Z",
+          "updatedAt": "2026-10-21T20:22:29.000Z",
+          "uid": "35240-25df18aa-a8d1-4b5a-853b-1dee0fc0fea2"
         },
         {
-          "id": "f261225b-2c9c-43db-afb6-cda0cca18901",
-          "name": "Count flight summaries",
-          "request": {
-            "name": "Count flight summaries",
-            "description": {
-              "content": "Returns the number of flight summary records matching the given filters. Either flight_ids or a time range must be provided.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "flight-summary",
-                "count"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "flight_ids",
-                  "value": "<string>",
-                  "description": "Comma-separated FR24 flight IDs (hexadecimal format). Maximum 15 IDs."
-                },
-                {
-                  "disabled": false,
-                  "key": "flight_datetime_from",
-                  "value": "<dateTime>",
-                  "description": "Start of the date-time range for filtering flights (ISO 8601 format, e.g., \"2024-01-15T00:00:00\"). Either flight_ids or a date range is required."
-                },
-                {
-                  "disabled": false,
-                  "key": "flight_datetime_to",
-                  "value": "<dateTime>",
-                  "description": "End of the date-time range for filtering flights (ISO 8601 format, e.g., \"2024-01-15T23:59:59\")."
-                },
-                {
-                  "disabled": false,
-                  "key": "flights",
-                  "value": "<string>",
-                  "description": "Comma-separated list of flight numbers (e.g., \"BA123,LH456\"). Maximum 15 values."
-                },
-                {
-                  "disabled": false,
-                  "key": "callsigns",
-                  "value": "<string>",
-                  "description": "Comma-separated list of ATC callsigns (e.g., \"BAW123,DLH456\"). Maximum 15 values."
-                },
-                {
-                  "disabled": false,
-                  "key": "registrations",
-                  "value": "<string>",
-                  "description": "Comma-separated list of aircraft registration codes (e.g., \"G-STBK,D-ABCD\"). Maximum 15 values."
-                },
-                {
-                  "disabled": false,
-                  "key": "painted_as",
-                  "value": "<string>",
-                  "description": "Comma-separated list of airline ICAO codes for the livery carrier (e.g., \"BAW,DLH\"). Maximum 15 values."
-                },
-                {
-                  "disabled": false,
-                  "key": "operating_as",
-                  "value": "<string>",
-                  "description": "Comma-separated list of airline ICAO codes for the operating carrier. Maximum 15 values."
-                },
-                {
-                  "disabled": false,
-                  "key": "airports",
-                  "value": "<string>",
-                  "description": "Comma-separated list of airport IATA or ICAO codes. Matches flights departing or arriving at these airports. Maximum 15 values."
-                },
-                {
-                  "disabled": false,
-                  "key": "routes",
-                  "value": "<string>",
-                  "description": "Comma-separated list of routes in origin-destination format (e.g., \"LHR-JFK\"). Maximum 15 values."
-                },
-                {
-                  "disabled": false,
-                  "key": "aircraft",
-                  "value": "<string>",
-                  "description": "Comma-separated list of ICAO aircraft type codes (e.g., \"B77W,A320\"). Maximum 15 values."
-                },
-                {
-                  "disabled": false,
-                  "key": "categories",
-                  "value": "<string>",
-                  "description": "Comma-separated list of aircraft/vehicle category codes. Maximum 15 values. P=Passenger, C=Cargo, M=Military and Government, J=Business Jets, T=General Aviation, H=Helicopters, B=Lighter than Air, G=Gliders, D=Drones, V=Ground Vehicles, O=Other, N=Non-Categorized."
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "count",
+          "item": [
             {
-              "id": "28206a4a-6154-4368-8b69-168c262f7624",
-              "name": "Successful response with count of matching flight summaries",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "flight-summary",
-                    "count"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "flight_ids",
-                      "value": "391fdd79,35f2ffd9"
-                    },
-                    {
-                      "key": "flight_datetime_from",
-                      "value": "2024-01-15T00:00:00"
-                    },
-                    {
-                      "key": "flight_datetime_to",
-                      "value": "2024-01-15T23:59:59"
-                    },
-                    {
-                      "key": "flights",
-                      "value": "BA123,LH456"
-                    },
-                    {
-                      "key": "callsigns",
-                      "value": "BAW123,DLH456"
-                    },
-                    {
-                      "key": "registrations",
-                      "value": "G-STBK,D-ABCD"
-                    },
-                    {
-                      "key": "painted_as",
-                      "value": "BAW,DLH"
-                    },
-                    {
-                      "key": "operating_as",
-                      "value": "BAW,DLH"
-                    },
-                    {
-                      "key": "airports",
-                      "value": "LHR,EDDF"
-                    },
-                    {
-                      "key": "routes",
-                      "value": "LHR-JFK,CDG-LAX"
-                    },
-                    {
-                      "key": "aircraft",
-                      "value": "B77W,A320"
-                    },
-                    {
-                      "key": "categories",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
+              "name": "Count flight summaries",
+              "id": "873bdf3a-3ab3-4442-96bb-1e38406d84ef",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"record_count\": 1247\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "be712db7-cea3-421a-80d5-bcda26722f83",
-              "name": "Bad request — invalid or missing parameters.",
-              "originalRequest": {
                 "url": {
+                  "raw": "{{baseUrl}}/flight-summary/count?flight_ids=<string>&flight_datetime_from=<dateTime>&flight_datetime_to=<dateTime>&flights=<string>&callsigns=<string>&registrations=<string>&painted_as=<string>&operating_as=<string>&airports=<string>&routes=<string>&aircraft=<string>&categories=T",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "flight-summary",
                     "count"
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "query": [
                     {
+                      "description": "Comma-separated FR24 flight IDs (hexadecimal format). Maximum 15 IDs.",
                       "key": "flight_ids",
-                      "value": "391fdd79,35f2ffd9"
-                    },
-                    {
-                      "key": "flight_datetime_from",
-                      "value": "2024-01-15T00:00:00"
-                    },
-                    {
-                      "key": "flight_datetime_to",
-                      "value": "2024-01-15T23:59:59"
-                    },
-                    {
-                      "key": "flights",
-                      "value": "BA123,LH456"
-                    },
-                    {
-                      "key": "callsigns",
-                      "value": "BAW123,DLH456"
-                    },
-                    {
-                      "key": "registrations",
-                      "value": "G-STBK,D-ABCD"
-                    },
-                    {
-                      "key": "painted_as",
-                      "value": "BAW,DLH"
-                    },
-                    {
-                      "key": "operating_as",
-                      "value": "BAW,DLH"
-                    },
-                    {
-                      "key": "airports",
-                      "value": "LHR,EDDF"
-                    },
-                    {
-                      "key": "routes",
-                      "value": "LHR-JFK,CDG-LAX"
-                    },
-                    {
-                      "key": "aircraft",
-                      "value": "B77W,A320"
-                    },
-                    {
-                      "key": "categories",
                       "value": "<string>"
+                    },
+                    {
+                      "description": "Start of the date-time range for filtering flights (ISO 8601 format, e.g., \"2024-01-15T00:00:00\"). Either flight_ids or a date range is required.",
+                      "key": "flight_datetime_from",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "description": "End of the date-time range for filtering flights (ISO 8601 format, e.g., \"2024-01-15T23:59:59\").",
+                      "key": "flight_datetime_to",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "description": "Comma-separated list of flight numbers (e.g., \"BA123,LH456\"). Maximum 15 values.",
+                      "key": "flights",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated list of ATC callsigns (e.g., \"BAW123,DLH456\"). Maximum 15 values.",
+                      "key": "callsigns",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated list of aircraft registration codes (e.g., \"G-STBK,D-ABCD\"). Maximum 15 values.",
+                      "key": "registrations",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated list of airline ICAO codes for the livery carrier (e.g., \"BAW,DLH\"). Maximum 15 values.",
+                      "key": "painted_as",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated list of airline ICAO codes for the operating carrier. Maximum 15 values.",
+                      "key": "operating_as",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated list of airport IATA or ICAO codes. Matches flights departing or arriving at these airports. Maximum 15 values.",
+                      "key": "airports",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated list of routes in origin-destination format (e.g., \"LHR-JFK\"). Maximum 15 values.",
+                      "key": "routes",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated list of ICAO aircraft type codes (e.g., \"B77W,A320\"). Maximum 15 values.",
+                      "key": "aircraft",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated list of aircraft/vehicle category codes. Maximum 15 values. P=Passenger, C=Cargo, M=Military and Government, J=Business Jets, T=General Aviation, H=Helicopters, B=Lighter than Air, G=Gliders, D=Drones, V=Ground Vehicles, O=Other, N=Non-Categorized.",
+                      "key": "categories",
+                      "value": "T"
+                    }
+                  ]
+                },
+                "description": "Returns the number of flight summary records matching the given filters. Either flight_ids or a time range must be provided."
+              },
+              "response": [
+                {
+                  "id": "681003b3-5409-4d07-860f-5efca13e3cd3",
+                  "name": "Successful response with count of matching flight summaries",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/flight-summary/count?flight_ids=<string>&flight_datetime_from=<dateTime>&flight_datetime_to=<dateTime>&flights=<string>&callsigns=<string>&registrations=<string>&painted_as=<string>&operating_as=<string>&airports=<string>&routes=<string>&aircraft=<string>&categories=T",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "flight-summary",
+                        "count"
+                      ],
+                      "query": [
+                        {
+                          "description": "Comma-separated FR24 flight IDs (hexadecimal format). Maximum 15 IDs.",
+                          "key": "flight_ids",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Start of the date-time range for filtering flights (ISO 8601 format, e.g., \"2024-01-15T00:00:00\"). Either flight_ids or a date range is required.",
+                          "key": "flight_datetime_from",
+                          "value": "<dateTime>"
+                        },
+                        {
+                          "description": "End of the date-time range for filtering flights (ISO 8601 format, e.g., \"2024-01-15T23:59:59\").",
+                          "key": "flight_datetime_to",
+                          "value": "<dateTime>"
+                        },
+                        {
+                          "description": "Comma-separated list of flight numbers (e.g., \"BA123,LH456\"). Maximum 15 values.",
+                          "key": "flights",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of ATC callsigns (e.g., \"BAW123,DLH456\"). Maximum 15 values.",
+                          "key": "callsigns",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of aircraft registration codes (e.g., \"G-STBK,D-ABCD\"). Maximum 15 values.",
+                          "key": "registrations",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of airline ICAO codes for the livery carrier (e.g., \"BAW,DLH\"). Maximum 15 values.",
+                          "key": "painted_as",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of airline ICAO codes for the operating carrier. Maximum 15 values.",
+                          "key": "operating_as",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of airport IATA or ICAO codes. Matches flights departing or arriving at these airports. Maximum 15 values.",
+                          "key": "airports",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of routes in origin-destination format (e.g., \"LHR-JFK\"). Maximum 15 values.",
+                          "key": "routes",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of ICAO aircraft type codes (e.g., \"B77W,A320\"). Maximum 15 values.",
+                          "key": "aircraft",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of aircraft/vehicle category codes. Maximum 15 values. P=Passenger, C=Cargo, M=Military and Government, J=Business Jets, T=General Aviation, H=Helicopters, B=Lighter than Air, G=Gliders, D=Drones, V=Ground Vehicles, O=Other, N=Non-Categorized.",
+                          "key": "categories",
+                          "value": "T"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
                     }
                   ],
-                  "variable": []
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"record_count\": \"<integer>\"\n}",
+                  "createdAt": "2026-10-21T20:22:29.000Z",
+                  "updatedAt": "2026-10-21T20:22:29.000Z",
+                  "uid": "35240-681003b3-5409-4d07-860f-5efca13e3cd3"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "75c20141-cd43-4242-abab-8d8bb65d2194",
-              "name": "Unauthorized — missing or invalid Bearer token.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "flight-summary",
-                    "count"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+                  "id": "96314c40-1776-4588-9656-07e43c01f48d",
+                  "name": "Bad request \u2014 invalid or missing parameters.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/flight-summary/count?flight_ids=<string>&flight_datetime_from=<dateTime>&flight_datetime_to=<dateTime>&flights=<string>&callsigns=<string>&registrations=<string>&painted_as=<string>&operating_as=<string>&airports=<string>&routes=<string>&aircraft=<string>&categories=T",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "flight-summary",
+                        "count"
+                      ],
+                      "query": [
+                        {
+                          "description": "Comma-separated FR24 flight IDs (hexadecimal format). Maximum 15 IDs.",
+                          "key": "flight_ids",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Start of the date-time range for filtering flights (ISO 8601 format, e.g., \"2024-01-15T00:00:00\"). Either flight_ids or a date range is required.",
+                          "key": "flight_datetime_from",
+                          "value": "<dateTime>"
+                        },
+                        {
+                          "description": "End of the date-time range for filtering flights (ISO 8601 format, e.g., \"2024-01-15T23:59:59\").",
+                          "key": "flight_datetime_to",
+                          "value": "<dateTime>"
+                        },
+                        {
+                          "description": "Comma-separated list of flight numbers (e.g., \"BA123,LH456\"). Maximum 15 values.",
+                          "key": "flights",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of ATC callsigns (e.g., \"BAW123,DLH456\"). Maximum 15 values.",
+                          "key": "callsigns",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of aircraft registration codes (e.g., \"G-STBK,D-ABCD\"). Maximum 15 values.",
+                          "key": "registrations",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of airline ICAO codes for the livery carrier (e.g., \"BAW,DLH\"). Maximum 15 values.",
+                          "key": "painted_as",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of airline ICAO codes for the operating carrier. Maximum 15 values.",
+                          "key": "operating_as",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of airport IATA or ICAO codes. Matches flights departing or arriving at these airports. Maximum 15 values.",
+                          "key": "airports",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of routes in origin-destination format (e.g., \"LHR-JFK\"). Maximum 15 values.",
+                          "key": "routes",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of ICAO aircraft type codes (e.g., \"B77W,A320\"). Maximum 15 values.",
+                          "key": "aircraft",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of aircraft/vehicle category codes. Maximum 15 values. P=Passenger, C=Cargo, M=Military and Government, J=Business Jets, T=General Aviation, H=Helicopters, B=Lighter than Air, G=Gliders, D=Drones, V=Ground Vehicles, O=Other, N=Non-Categorized.",
+                          "key": "categories",
+                          "value": "T"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
                     {
-                      "key": "flight_ids",
-                      "value": "391fdd79,35f2ffd9"
-                    },
-                    {
-                      "key": "flight_datetime_from",
-                      "value": "2024-01-15T00:00:00"
-                    },
-                    {
-                      "key": "flight_datetime_to",
-                      "value": "2024-01-15T23:59:59"
-                    },
-                    {
-                      "key": "flights",
-                      "value": "BA123,LH456"
-                    },
-                    {
-                      "key": "callsigns",
-                      "value": "BAW123,DLH456"
-                    },
-                    {
-                      "key": "registrations",
-                      "value": "G-STBK,D-ABCD"
-                    },
-                    {
-                      "key": "painted_as",
-                      "value": "BAW,DLH"
-                    },
-                    {
-                      "key": "operating_as",
-                      "value": "BAW,DLH"
-                    },
-                    {
-                      "key": "airports",
-                      "value": "LHR,EDDF"
-                    },
-                    {
-                      "key": "routes",
-                      "value": "LHR-JFK,CDG-LAX"
-                    },
-                    {
-                      "key": "aircraft",
-                      "value": "B77W,A320"
-                    },
-                    {
-                      "key": "categories",
-                      "value": "<string>"
+                      "key": "Content-Type",
+                      "value": "application/json"
                     }
                   ],
-                  "variable": []
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T20:22:29.000Z",
+                  "updatedAt": "2026-10-21T20:22:29.000Z",
+                  "uid": "35240-96314c40-1776-4588-9656-07e43c01f48d"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "6a85fab1-8a55-42bf-b79a-c468a934183b",
-              "name": "Too many requests — rate limit or credit limit exceeded.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "flight-summary",
-                    "count"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+                  "id": "dd0f5b33-668c-4e54-99ca-233e19092b3e",
+                  "name": "Unauthorized \u2014 missing or invalid Bearer token.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/flight-summary/count?flight_ids=<string>&flight_datetime_from=<dateTime>&flight_datetime_to=<dateTime>&flights=<string>&callsigns=<string>&registrations=<string>&painted_as=<string>&operating_as=<string>&airports=<string>&routes=<string>&aircraft=<string>&categories=T",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "flight-summary",
+                        "count"
+                      ],
+                      "query": [
+                        {
+                          "description": "Comma-separated FR24 flight IDs (hexadecimal format). Maximum 15 IDs.",
+                          "key": "flight_ids",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Start of the date-time range for filtering flights (ISO 8601 format, e.g., \"2024-01-15T00:00:00\"). Either flight_ids or a date range is required.",
+                          "key": "flight_datetime_from",
+                          "value": "<dateTime>"
+                        },
+                        {
+                          "description": "End of the date-time range for filtering flights (ISO 8601 format, e.g., \"2024-01-15T23:59:59\").",
+                          "key": "flight_datetime_to",
+                          "value": "<dateTime>"
+                        },
+                        {
+                          "description": "Comma-separated list of flight numbers (e.g., \"BA123,LH456\"). Maximum 15 values.",
+                          "key": "flights",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of ATC callsigns (e.g., \"BAW123,DLH456\"). Maximum 15 values.",
+                          "key": "callsigns",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of aircraft registration codes (e.g., \"G-STBK,D-ABCD\"). Maximum 15 values.",
+                          "key": "registrations",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of airline ICAO codes for the livery carrier (e.g., \"BAW,DLH\"). Maximum 15 values.",
+                          "key": "painted_as",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of airline ICAO codes for the operating carrier. Maximum 15 values.",
+                          "key": "operating_as",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of airport IATA or ICAO codes. Matches flights departing or arriving at these airports. Maximum 15 values.",
+                          "key": "airports",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of routes in origin-destination format (e.g., \"LHR-JFK\"). Maximum 15 values.",
+                          "key": "routes",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of ICAO aircraft type codes (e.g., \"B77W,A320\"). Maximum 15 values.",
+                          "key": "aircraft",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of aircraft/vehicle category codes. Maximum 15 values. P=Passenger, C=Cargo, M=Military and Government, J=Business Jets, T=General Aviation, H=Helicopters, B=Lighter than Air, G=Gliders, D=Drones, V=Ground Vehicles, O=Other, N=Non-Categorized.",
+                          "key": "categories",
+                          "value": "T"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
                     {
-                      "key": "flight_ids",
-                      "value": "391fdd79,35f2ffd9"
-                    },
-                    {
-                      "key": "flight_datetime_from",
-                      "value": "2024-01-15T00:00:00"
-                    },
-                    {
-                      "key": "flight_datetime_to",
-                      "value": "2024-01-15T23:59:59"
-                    },
-                    {
-                      "key": "flights",
-                      "value": "BA123,LH456"
-                    },
-                    {
-                      "key": "callsigns",
-                      "value": "BAW123,DLH456"
-                    },
-                    {
-                      "key": "registrations",
-                      "value": "G-STBK,D-ABCD"
-                    },
-                    {
-                      "key": "painted_as",
-                      "value": "BAW,DLH"
-                    },
-                    {
-                      "key": "operating_as",
-                      "value": "BAW,DLH"
-                    },
-                    {
-                      "key": "airports",
-                      "value": "LHR,EDDF"
-                    },
-                    {
-                      "key": "routes",
-                      "value": "LHR-JFK,CDG-LAX"
-                    },
-                    {
-                      "key": "aircraft",
-                      "value": "B77W,A320"
-                    },
-                    {
-                      "key": "categories",
-                      "value": "<string>"
+                      "key": "Content-Type",
+                      "value": "application/json"
                     }
                   ],
-                  "variable": []
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T20:22:29.000Z",
+                  "updatedAt": "2026-10-21T20:22:29.000Z",
+                  "uid": "35240-dd0f5b33-668c-4e54-99ca-233e19092b3e"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Too Many Requests",
-              "code": 429,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "id": "65bc2f2f-4926-42ad-83b8-b3e5150fcc9d",
+                  "name": "Too many requests \u2014 rate limit or credit limit exceeded.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/flight-summary/count?flight_ids=<string>&flight_datetime_from=<dateTime>&flight_datetime_to=<dateTime>&flights=<string>&callsigns=<string>&registrations=<string>&painted_as=<string>&operating_as=<string>&airports=<string>&routes=<string>&aircraft=<string>&categories=T",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "flight-summary",
+                        "count"
+                      ],
+                      "query": [
+                        {
+                          "description": "Comma-separated FR24 flight IDs (hexadecimal format). Maximum 15 IDs.",
+                          "key": "flight_ids",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Start of the date-time range for filtering flights (ISO 8601 format, e.g., \"2024-01-15T00:00:00\"). Either flight_ids or a date range is required.",
+                          "key": "flight_datetime_from",
+                          "value": "<dateTime>"
+                        },
+                        {
+                          "description": "End of the date-time range for filtering flights (ISO 8601 format, e.g., \"2024-01-15T23:59:59\").",
+                          "key": "flight_datetime_to",
+                          "value": "<dateTime>"
+                        },
+                        {
+                          "description": "Comma-separated list of flight numbers (e.g., \"BA123,LH456\"). Maximum 15 values.",
+                          "key": "flights",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of ATC callsigns (e.g., \"BAW123,DLH456\"). Maximum 15 values.",
+                          "key": "callsigns",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of aircraft registration codes (e.g., \"G-STBK,D-ABCD\"). Maximum 15 values.",
+                          "key": "registrations",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of airline ICAO codes for the livery carrier (e.g., \"BAW,DLH\"). Maximum 15 values.",
+                          "key": "painted_as",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of airline ICAO codes for the operating carrier. Maximum 15 values.",
+                          "key": "operating_as",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of airport IATA or ICAO codes. Matches flights departing or arriving at these airports. Maximum 15 values.",
+                          "key": "airports",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of routes in origin-destination format (e.g., \"LHR-JFK\"). Maximum 15 values.",
+                          "key": "routes",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of ICAO aircraft type codes (e.g., \"B77W,A320\"). Maximum 15 values.",
+                          "key": "aircraft",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of aircraft/vehicle category codes. Maximum 15 values. P=Passenger, C=Cargo, M=Military and Government, J=Business Jets, T=General Aviation, H=Helicopters, B=Lighter than Air, G=Gliders, D=Drones, V=Ground Vehicles, O=Other, N=Non-Categorized.",
+                          "key": "categories",
+                          "value": "T"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T20:22:29.000Z",
+                  "updatedAt": "2026-10-21T20:22:29.000Z",
+                  "uid": "35240-65bc2f2f-4926-42ad-83b8-b3e5150fcc9d"
                 }
               ],
-              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "createdAt": "2026-10-21T20:22:29.000Z",
+              "updatedAt": "2026-10-21T20:22:29.000Z",
+              "uid": "35240-873bdf3a-3ab3-4442-96bb-1e38406d84ef"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "ccd53f97-fc23-4a1b-a97f-b8e6a1e733b0",
+          "createdAt": "2026-10-21T20:22:29.000Z",
+          "updatedAt": "2026-10-21T20:22:29.000Z",
+          "uid": "35240-ccd53f97-fc23-4a1b-a97f-b8e6a1e733b0"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://fr24api.flightradar24.com/api",
-      "key": "baseUrl"
+      "id": "28da8328-d6f1-482f-be16-4b591798748e",
+      "createdAt": "2026-10-21T20:22:29.000Z",
+      "updatedAt": "2026-10-21T20:22:29.000Z",
+      "uid": "35240-28da8328-d6f1-482f-be16-4b591798748e"
     }
   ],
   "auth": {
@@ -1556,17 +1694,15 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "0049b559-2177-44b5-9c79-18d0455631ba",
-    "name": "Flightradar24 Airlines Flight Summary API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "Flightradar24 is the world's most popular real-time flight tracking platform, monitoring over 250,000 daily flights using data from a global network of ADS-B, MLAT, and radar receivers. The FR24 API provides developers with programmatic access to live aircraft positions, historical flight data, flight summaries, and reference data for airports and airlines. The credit-based subscription API uses Bearer token authentication and is available at https://fr24api.flightradar24.com/api with three tiers — Explorer, Essential, and Advanced — covering hobby projects through high-volume commercial applications.",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://fr24api.flightradar24.com/api"
     }
-  }
+  ]
 }

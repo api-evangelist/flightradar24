@@ -1,1723 +1,1891 @@
 {
+  "info": {
+    "_postman_id": "88de119e-17ff-4fda-a975-c45d66ff2882",
+    "name": "Flightradar24 Historic Positions API",
+    "description": "Flightradar24 is the world's most popular real-time flight tracking platform, monitoring over 250,000 daily flights using data from a global network of ADS-B, MLAT, and radar receivers.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:22:48.000Z",
+    "updatedAt": "2026-10-21T20:22:48.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-88de119e-17ff-4fda-a975-c45d66ff2882"
+  },
   "item": [
     {
-      "id": "3b2b9d80-7dd0-4be7-a4cc-cbb003266e19",
-      "name": "Historic Positions",
-      "description": {
-        "content": "Historical aircraft position data (back to May 11, 2016)",
-        "type": "text/plain"
-      },
+      "name": "historic",
       "item": [
         {
-          "id": "bc373d59-cb1c-4985-93bd-0a26cb1cff18",
-          "name": "Get historical flight positions (light)",
-          "request": {
-            "name": "Get historical flight positions (light)",
-            "description": {
-              "content": "Provides historical aircraft positional data using Unix timestamp. Returns lightweight position records (latitude, longitude, altitude, speed, heading, callsign, registration) for past flights. Historical data coverage extends back to May 11, 2016, with availability depending on the subscription plan. A timestamp and at least one additional filter parameter are required.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "historic",
-                "flight-positions",
-                "light"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "timestamp",
-                  "value": "<integer>",
-                  "description": "(Required) Unix timestamp (seconds since epoch) for the historical snapshot. Must be after 2016-05-11T00:00:00Z (Unix timestamp 1462924800)."
-                },
-                {
-                  "disabled": false,
-                  "key": "bounds",
-                  "value": "<string>",
-                  "description": "Geographic bounding box in the format \"north,south,west,east\" (e.g., \"51.5,51.0,-0.5,0.5\"). Latitudes range -90 to 90; longitudes -180 to 180. North must be greater than south."
-                },
-                {
-                  "disabled": false,
-                  "key": "flights",
-                  "value": "<string>",
-                  "description": "Comma-separated list of flight numbers (e.g., \"BA123,LH456\"). Maximum 15 values."
-                },
-                {
-                  "disabled": false,
-                  "key": "callsigns",
-                  "value": "<string>",
-                  "description": "Comma-separated list of ATC callsigns (e.g., \"BAW123,DLH456\"). Maximum 15 values."
-                },
-                {
-                  "disabled": false,
-                  "key": "registrations",
-                  "value": "<string>",
-                  "description": "Comma-separated list of aircraft registration codes (e.g., \"G-STBK,D-ABCD\"). Maximum 15 values."
-                },
-                {
-                  "disabled": false,
-                  "key": "painted_as",
-                  "value": "<string>",
-                  "description": "Comma-separated list of airline ICAO codes for the livery carrier (e.g., \"BAW,DLH\"). Maximum 15 values."
-                },
-                {
-                  "disabled": false,
-                  "key": "operating_as",
-                  "value": "<string>",
-                  "description": "Comma-separated list of airline ICAO codes for the operating carrier. Maximum 15 values."
-                },
-                {
-                  "disabled": false,
-                  "key": "airports",
-                  "value": "<string>",
-                  "description": "Comma-separated list of airport IATA or ICAO codes. Matches flights departing or arriving at these airports. Maximum 15 values."
-                },
-                {
-                  "disabled": false,
-                  "key": "routes",
-                  "value": "<string>",
-                  "description": "Comma-separated list of routes in origin-destination format (e.g., \"LHR-JFK\"). Maximum 15 values."
-                },
-                {
-                  "disabled": false,
-                  "key": "aircraft",
-                  "value": "<string>",
-                  "description": "ICAO aircraft type code (e.g., \"B77W\", \"A320\")."
-                },
-                {
-                  "disabled": false,
-                  "key": "altitude_ranges",
-                  "value": "<string>",
-                  "description": "Comma-separated altitude ranges in feet using \"min-max\" format (e.g., \"0-5000,35000-45000\"). Minimum altitude is -2000 ft. Maximum 15 ranges."
-                },
-                {
-                  "disabled": false,
-                  "key": "squawks",
-                  "value": "<string>",
-                  "description": "Comma-separated list of transponder squawk codes (4-digit octal, e.g., \"7700,7600\"). Maximum 15 values."
-                },
-                {
-                  "disabled": false,
-                  "key": "categories",
-                  "value": "<string>",
-                  "description": "Comma-separated list of aircraft/vehicle category codes. Maximum 15 values. P=Passenger, C=Cargo, M=Military and Government, J=Business Jets, T=General Aviation, H=Helicopters, B=Lighter than Air, G=Gliders, D=Drones, V=Ground Vehicles, O=Other, N=Non-Categorized."
-                },
-                {
-                  "disabled": false,
-                  "key": "data_sources",
-                  "value": "<string>",
-                  "description": "Comma-separated list of data source types (e.g., \"ADSB,MLAT\"). Maximum 15 values."
-                },
-                {
-                  "disabled": false,
-                  "key": "gspeed",
-                  "value": "<integer>",
-                  "description": "Ground speed filter in knots (0-5000), or a range string (e.g., \"200-400\")."
-                },
-                {
-                  "disabled": false,
-                  "key": "limit",
-                  "value": "<integer>",
-                  "description": "Maximum number of records to return (1-30000)."
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "flight-positions",
+          "item": [
             {
-              "id": "74f8bc0a-0257-4701-9d0d-5ebb82a7a7fe",
-              "name": "Successful response with historical light flight position data",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "historic",
-                    "flight-positions",
-                    "light"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+              "name": "light",
+              "item": [
+                {
+                  "name": "Get historical flight positions (light)",
+                  "id": "22ae0b01-c739-47f0-96a6-01651f879ba2",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/historic/flight-positions/light?timestamp=<integer>&bounds=940.7391,-1745657323.43777249,380857,092&flights=<string>&callsigns=<string>&registrations=<string>&painted_as=<string>&operating_as=<string>&airports=<string>&routes=<string>&aircraft=<string>&altitude_ranges=<string>&squawks=<string>&categories=V&data_sources=<string>&gspeed=<integer>&limit=<integer>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "historic",
+                        "flight-positions",
+                        "light"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Unix timestamp (seconds since epoch) for the historical snapshot. Must be after 2016-05-11T00:00:00Z (Unix timestamp 1462924800).",
+                          "key": "timestamp",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Geographic bounding box in the format \"north,south,west,east\" (e.g., \"51.5,51.0,-0.5,0.5\"). Latitudes range -90 to 90; longitudes -180 to 180. North must be greater than south.",
+                          "key": "bounds",
+                          "value": "940.7391,-1745657323.43777249,380857,092"
+                        },
+                        {
+                          "description": "Comma-separated list of flight numbers (e.g., \"BA123,LH456\"). Maximum 15 values.",
+                          "key": "flights",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of ATC callsigns (e.g., \"BAW123,DLH456\"). Maximum 15 values.",
+                          "key": "callsigns",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of aircraft registration codes (e.g., \"G-STBK,D-ABCD\"). Maximum 15 values.",
+                          "key": "registrations",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of airline ICAO codes for the livery carrier (e.g., \"BAW,DLH\"). Maximum 15 values.",
+                          "key": "painted_as",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of airline ICAO codes for the operating carrier. Maximum 15 values.",
+                          "key": "operating_as",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of airport IATA or ICAO codes. Matches flights departing or arriving at these airports. Maximum 15 values.",
+                          "key": "airports",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of routes in origin-destination format (e.g., \"LHR-JFK\"). Maximum 15 values.",
+                          "key": "routes",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "ICAO aircraft type code (e.g., \"B77W\", \"A320\").",
+                          "key": "aircraft",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated altitude ranges in feet using \"min-max\" format (e.g., \"0-5000,35000-45000\"). Minimum altitude is -2000 ft. Maximum 15 ranges.",
+                          "key": "altitude_ranges",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of transponder squawk codes (4-digit octal, e.g., \"7700,7600\"). Maximum 15 values.",
+                          "key": "squawks",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of aircraft/vehicle category codes. Maximum 15 values. P=Passenger, C=Cargo, M=Military and Government, J=Business Jets, T=General Aviation, H=Helicopters, B=Lighter than Air, G=Gliders, D=Drones, V=Ground Vehicles, O=Other, N=Non-Categorized.",
+                          "key": "categories",
+                          "value": "V"
+                        },
+                        {
+                          "description": "Comma-separated list of data source types (e.g., \"ADSB,MLAT\"). Maximum 15 values.",
+                          "key": "data_sources",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Ground speed filter in knots (0-5000), or a range string (e.g., \"200-400\").",
+                          "key": "gspeed",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Maximum number of records to return (1-30000).",
+                          "key": "limit",
+                          "value": "<integer>"
+                        }
+                      ]
+                    },
+                    "description": "Provides historical aircraft positional data using Unix timestamp. Returns lightweight position records (latitude, longitude, altitude, speed, heading, callsign, registration) for past flights. Historical data coverage extends back to May 11, 2016, with availability depending on the subscription plan. A timestamp and at least one additional filter parameter are required."
+                  },
+                  "response": [
                     {
-                      "key": "timestamp",
-                      "value": "1705312200"
+                      "id": "e2cd19d1-709d-40fe-8de5-f61e4d2ae270",
+                      "name": "Successful response with historical light flight position data",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/historic/flight-positions/light?timestamp=<integer>&bounds=940.7391,-1745657323.43777249,380857,092&flights=<string>&callsigns=<string>&registrations=<string>&painted_as=<string>&operating_as=<string>&airports=<string>&routes=<string>&aircraft=<string>&altitude_ranges=<string>&squawks=<string>&categories=V&data_sources=<string>&gspeed=<integer>&limit=<integer>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "historic",
+                            "flight-positions",
+                            "light"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Unix timestamp (seconds since epoch) for the historical snapshot. Must be after 2016-05-11T00:00:00Z (Unix timestamp 1462924800).",
+                              "key": "timestamp",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Geographic bounding box in the format \"north,south,west,east\" (e.g., \"51.5,51.0,-0.5,0.5\"). Latitudes range -90 to 90; longitudes -180 to 180. North must be greater than south.",
+                              "key": "bounds",
+                              "value": "940.7391,-1745657323.43777249,380857,092"
+                            },
+                            {
+                              "description": "Comma-separated list of flight numbers (e.g., \"BA123,LH456\"). Maximum 15 values.",
+                              "key": "flights",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of ATC callsigns (e.g., \"BAW123,DLH456\"). Maximum 15 values.",
+                              "key": "callsigns",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of aircraft registration codes (e.g., \"G-STBK,D-ABCD\"). Maximum 15 values.",
+                              "key": "registrations",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of airline ICAO codes for the livery carrier (e.g., \"BAW,DLH\"). Maximum 15 values.",
+                              "key": "painted_as",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of airline ICAO codes for the operating carrier. Maximum 15 values.",
+                              "key": "operating_as",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of airport IATA or ICAO codes. Matches flights departing or arriving at these airports. Maximum 15 values.",
+                              "key": "airports",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of routes in origin-destination format (e.g., \"LHR-JFK\"). Maximum 15 values.",
+                              "key": "routes",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "ICAO aircraft type code (e.g., \"B77W\", \"A320\").",
+                              "key": "aircraft",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated altitude ranges in feet using \"min-max\" format (e.g., \"0-5000,35000-45000\"). Minimum altitude is -2000 ft. Maximum 15 ranges.",
+                              "key": "altitude_ranges",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of transponder squawk codes (4-digit octal, e.g., \"7700,7600\"). Maximum 15 values.",
+                              "key": "squawks",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of aircraft/vehicle category codes. Maximum 15 values. P=Passenger, C=Cargo, M=Military and Government, J=Business Jets, T=General Aviation, H=Helicopters, B=Lighter than Air, G=Gliders, D=Drones, V=Ground Vehicles, O=Other, N=Non-Categorized.",
+                              "key": "categories",
+                              "value": "V"
+                            },
+                            {
+                              "description": "Comma-separated list of data source types (e.g., \"ADSB,MLAT\"). Maximum 15 values.",
+                              "key": "data_sources",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Ground speed filter in knots (0-5000), or a range string (e.g., \"200-400\").",
+                              "key": "gspeed",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Maximum number of records to return (1-30000).",
+                              "key": "limit",
+                              "value": "<integer>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": [\n    {\n      \"fr24_id\": \"<string>\",\n      \"lat\": \"<float>\",\n      \"lon\": \"<float>\",\n      \"track\": \"<integer>\",\n      \"alt\": \"<integer>\",\n      \"gspeed\": \"<integer>\",\n      \"vspeed\": \"<integer>\",\n      \"squawk\": \"<string>\",\n      \"timestamp\": \"<dateTime>\",\n      \"source\": \"<string>\",\n      \"hex\": \"<string>\",\n      \"callsign\": \"<string>\"\n    },\n    {\n      \"fr24_id\": \"<string>\",\n      \"lat\": \"<float>\",\n      \"lon\": \"<float>\",\n      \"track\": \"<integer>\",\n      \"alt\": \"<integer>\",\n      \"gspeed\": \"<integer>\",\n      \"vspeed\": \"<integer>\",\n      \"squawk\": \"<string>\",\n      \"timestamp\": \"<dateTime>\",\n      \"source\": \"<string>\",\n      \"hex\": \"<string>\",\n      \"callsign\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-10-21T20:22:48.000Z",
+                      "updatedAt": "2026-10-21T20:22:48.000Z",
+                      "uid": "35240-e2cd19d1-709d-40fe-8de5-f61e4d2ae270"
                     },
                     {
-                      "key": "bounds",
-                      "value": "51.5,51.0,-0.5,0.5"
+                      "id": "fd72e9c9-9a6c-40cb-a742-84f0b9903165",
+                      "name": "Bad request \u2014 invalid or missing parameters.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/historic/flight-positions/light?timestamp=<integer>&bounds=940.7391,-1745657323.43777249,380857,092&flights=<string>&callsigns=<string>&registrations=<string>&painted_as=<string>&operating_as=<string>&airports=<string>&routes=<string>&aircraft=<string>&altitude_ranges=<string>&squawks=<string>&categories=V&data_sources=<string>&gspeed=<integer>&limit=<integer>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "historic",
+                            "flight-positions",
+                            "light"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Unix timestamp (seconds since epoch) for the historical snapshot. Must be after 2016-05-11T00:00:00Z (Unix timestamp 1462924800).",
+                              "key": "timestamp",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Geographic bounding box in the format \"north,south,west,east\" (e.g., \"51.5,51.0,-0.5,0.5\"). Latitudes range -90 to 90; longitudes -180 to 180. North must be greater than south.",
+                              "key": "bounds",
+                              "value": "940.7391,-1745657323.43777249,380857,092"
+                            },
+                            {
+                              "description": "Comma-separated list of flight numbers (e.g., \"BA123,LH456\"). Maximum 15 values.",
+                              "key": "flights",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of ATC callsigns (e.g., \"BAW123,DLH456\"). Maximum 15 values.",
+                              "key": "callsigns",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of aircraft registration codes (e.g., \"G-STBK,D-ABCD\"). Maximum 15 values.",
+                              "key": "registrations",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of airline ICAO codes for the livery carrier (e.g., \"BAW,DLH\"). Maximum 15 values.",
+                              "key": "painted_as",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of airline ICAO codes for the operating carrier. Maximum 15 values.",
+                              "key": "operating_as",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of airport IATA or ICAO codes. Matches flights departing or arriving at these airports. Maximum 15 values.",
+                              "key": "airports",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of routes in origin-destination format (e.g., \"LHR-JFK\"). Maximum 15 values.",
+                              "key": "routes",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "ICAO aircraft type code (e.g., \"B77W\", \"A320\").",
+                              "key": "aircraft",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated altitude ranges in feet using \"min-max\" format (e.g., \"0-5000,35000-45000\"). Minimum altitude is -2000 ft. Maximum 15 ranges.",
+                              "key": "altitude_ranges",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of transponder squawk codes (4-digit octal, e.g., \"7700,7600\"). Maximum 15 values.",
+                              "key": "squawks",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of aircraft/vehicle category codes. Maximum 15 values. P=Passenger, C=Cargo, M=Military and Government, J=Business Jets, T=General Aviation, H=Helicopters, B=Lighter than Air, G=Gliders, D=Drones, V=Ground Vehicles, O=Other, N=Non-Categorized.",
+                              "key": "categories",
+                              "value": "V"
+                            },
+                            {
+                              "description": "Comma-separated list of data source types (e.g., \"ADSB,MLAT\"). Maximum 15 values.",
+                              "key": "data_sources",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Ground speed filter in knots (0-5000), or a range string (e.g., \"200-400\").",
+                              "key": "gspeed",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Maximum number of records to return (1-30000).",
+                              "key": "limit",
+                              "value": "<integer>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T20:22:48.000Z",
+                      "updatedAt": "2026-10-21T20:22:48.000Z",
+                      "uid": "35240-fd72e9c9-9a6c-40cb-a742-84f0b9903165"
                     },
                     {
-                      "key": "flights",
-                      "value": "BA123,LH456"
+                      "id": "09412eab-d240-4a4a-abdb-b8896fc24c2a",
+                      "name": "Unauthorized \u2014 missing or invalid Bearer token.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/historic/flight-positions/light?timestamp=<integer>&bounds=940.7391,-1745657323.43777249,380857,092&flights=<string>&callsigns=<string>&registrations=<string>&painted_as=<string>&operating_as=<string>&airports=<string>&routes=<string>&aircraft=<string>&altitude_ranges=<string>&squawks=<string>&categories=V&data_sources=<string>&gspeed=<integer>&limit=<integer>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "historic",
+                            "flight-positions",
+                            "light"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Unix timestamp (seconds since epoch) for the historical snapshot. Must be after 2016-05-11T00:00:00Z (Unix timestamp 1462924800).",
+                              "key": "timestamp",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Geographic bounding box in the format \"north,south,west,east\" (e.g., \"51.5,51.0,-0.5,0.5\"). Latitudes range -90 to 90; longitudes -180 to 180. North must be greater than south.",
+                              "key": "bounds",
+                              "value": "940.7391,-1745657323.43777249,380857,092"
+                            },
+                            {
+                              "description": "Comma-separated list of flight numbers (e.g., \"BA123,LH456\"). Maximum 15 values.",
+                              "key": "flights",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of ATC callsigns (e.g., \"BAW123,DLH456\"). Maximum 15 values.",
+                              "key": "callsigns",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of aircraft registration codes (e.g., \"G-STBK,D-ABCD\"). Maximum 15 values.",
+                              "key": "registrations",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of airline ICAO codes for the livery carrier (e.g., \"BAW,DLH\"). Maximum 15 values.",
+                              "key": "painted_as",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of airline ICAO codes for the operating carrier. Maximum 15 values.",
+                              "key": "operating_as",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of airport IATA or ICAO codes. Matches flights departing or arriving at these airports. Maximum 15 values.",
+                              "key": "airports",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of routes in origin-destination format (e.g., \"LHR-JFK\"). Maximum 15 values.",
+                              "key": "routes",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "ICAO aircraft type code (e.g., \"B77W\", \"A320\").",
+                              "key": "aircraft",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated altitude ranges in feet using \"min-max\" format (e.g., \"0-5000,35000-45000\"). Minimum altitude is -2000 ft. Maximum 15 ranges.",
+                              "key": "altitude_ranges",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of transponder squawk codes (4-digit octal, e.g., \"7700,7600\"). Maximum 15 values.",
+                              "key": "squawks",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of aircraft/vehicle category codes. Maximum 15 values. P=Passenger, C=Cargo, M=Military and Government, J=Business Jets, T=General Aviation, H=Helicopters, B=Lighter than Air, G=Gliders, D=Drones, V=Ground Vehicles, O=Other, N=Non-Categorized.",
+                              "key": "categories",
+                              "value": "V"
+                            },
+                            {
+                              "description": "Comma-separated list of data source types (e.g., \"ADSB,MLAT\"). Maximum 15 values.",
+                              "key": "data_sources",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Ground speed filter in knots (0-5000), or a range string (e.g., \"200-400\").",
+                              "key": "gspeed",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Maximum number of records to return (1-30000).",
+                              "key": "limit",
+                              "value": "<integer>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T20:22:48.000Z",
+                      "updatedAt": "2026-10-21T20:22:48.000Z",
+                      "uid": "35240-09412eab-d240-4a4a-abdb-b8896fc24c2a"
                     },
                     {
-                      "key": "callsigns",
-                      "value": "BAW123,DLH456"
-                    },
-                    {
-                      "key": "registrations",
-                      "value": "G-STBK,D-ABCD"
-                    },
-                    {
-                      "key": "painted_as",
-                      "value": "BAW,DLH"
-                    },
-                    {
-                      "key": "operating_as",
-                      "value": "BAW,DLH"
-                    },
-                    {
-                      "key": "airports",
-                      "value": "LHR,EDDF"
-                    },
-                    {
-                      "key": "routes",
-                      "value": "LHR-JFK,CDG-LAX"
-                    },
-                    {
-                      "key": "aircraft",
-                      "value": "B77W"
-                    },
-                    {
-                      "key": "altitude_ranges",
-                      "value": "0-5000,35000-45000"
-                    },
-                    {
-                      "key": "squawks",
-                      "value": "7700,7600"
-                    },
-                    {
-                      "key": "categories",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "data_sources",
-                      "value": "ADSB,MLAT"
-                    },
-                    {
-                      "key": "gspeed",
-                      "value": "<integer>"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "1000"
+                      "id": "e0305b38-f5e0-447a-983f-04cb2627ae3d",
+                      "name": "Too many requests \u2014 rate limit or credit limit exceeded.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/historic/flight-positions/light?timestamp=<integer>&bounds=940.7391,-1745657323.43777249,380857,092&flights=<string>&callsigns=<string>&registrations=<string>&painted_as=<string>&operating_as=<string>&airports=<string>&routes=<string>&aircraft=<string>&altitude_ranges=<string>&squawks=<string>&categories=V&data_sources=<string>&gspeed=<integer>&limit=<integer>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "historic",
+                            "flight-positions",
+                            "light"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Unix timestamp (seconds since epoch) for the historical snapshot. Must be after 2016-05-11T00:00:00Z (Unix timestamp 1462924800).",
+                              "key": "timestamp",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Geographic bounding box in the format \"north,south,west,east\" (e.g., \"51.5,51.0,-0.5,0.5\"). Latitudes range -90 to 90; longitudes -180 to 180. North must be greater than south.",
+                              "key": "bounds",
+                              "value": "940.7391,-1745657323.43777249,380857,092"
+                            },
+                            {
+                              "description": "Comma-separated list of flight numbers (e.g., \"BA123,LH456\"). Maximum 15 values.",
+                              "key": "flights",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of ATC callsigns (e.g., \"BAW123,DLH456\"). Maximum 15 values.",
+                              "key": "callsigns",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of aircraft registration codes (e.g., \"G-STBK,D-ABCD\"). Maximum 15 values.",
+                              "key": "registrations",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of airline ICAO codes for the livery carrier (e.g., \"BAW,DLH\"). Maximum 15 values.",
+                              "key": "painted_as",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of airline ICAO codes for the operating carrier. Maximum 15 values.",
+                              "key": "operating_as",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of airport IATA or ICAO codes. Matches flights departing or arriving at these airports. Maximum 15 values.",
+                              "key": "airports",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of routes in origin-destination format (e.g., \"LHR-JFK\"). Maximum 15 values.",
+                              "key": "routes",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "ICAO aircraft type code (e.g., \"B77W\", \"A320\").",
+                              "key": "aircraft",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated altitude ranges in feet using \"min-max\" format (e.g., \"0-5000,35000-45000\"). Minimum altitude is -2000 ft. Maximum 15 ranges.",
+                              "key": "altitude_ranges",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of transponder squawk codes (4-digit octal, e.g., \"7700,7600\"). Maximum 15 values.",
+                              "key": "squawks",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of aircraft/vehicle category codes. Maximum 15 values. P=Passenger, C=Cargo, M=Military and Government, J=Business Jets, T=General Aviation, H=Helicopters, B=Lighter than Air, G=Gliders, D=Drones, V=Ground Vehicles, O=Other, N=Non-Categorized.",
+                              "key": "categories",
+                              "value": "V"
+                            },
+                            {
+                              "description": "Comma-separated list of data source types (e.g., \"ADSB,MLAT\"). Maximum 15 values.",
+                              "key": "data_sources",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Ground speed filter in knots (0-5000), or a range string (e.g., \"200-400\").",
+                              "key": "gspeed",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Maximum number of records to return (1-30000).",
+                              "key": "limit",
+                              "value": "<integer>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T20:22:48.000Z",
+                      "updatedAt": "2026-10-21T20:22:48.000Z",
+                      "uid": "35240-e0305b38-f5e0-447a-983f-04cb2627ae3d"
                     }
                   ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "createdAt": "2026-10-21T20:22:48.000Z",
+                  "updatedAt": "2026-10-21T20:22:48.000Z",
+                  "uid": "35240-22ae0b01-c739-47f0-96a6-01651f879ba2"
                 }
               ],
-              "body": "{\n  \"data\": [\n    {\n      \"fr24_id\": \"34242a02\",\n      \"lat\": 51.4706,\n      \"lon\": -0.4619,\n      \"track\": 270,\n      \"alt\": 35000,\n      \"gspeed\": 450,\n      \"vspeed\": 0,\n      \"squawk\": \"7700\",\n      \"timestamp\": \"2024-01-15T10:30:00Z\",\n      \"source\": \"ADSB\",\n      \"hex\": \"400A10\",\n      \"callsign\": \"BAW123\"\n    },\n    {\n      \"fr24_id\": \"34242a02\",\n      \"lat\": 51.4706,\n      \"lon\": -0.4619,\n      \"track\": 270,\n      \"alt\": 35000,\n      \"gspeed\": 450,\n      \"vspeed\": 0,\n      \"squawk\": \"7700\",\n      \"timestamp\": \"2024-01-15T10:30:00Z\",\n      \"source\": \"ADSB\",\n      \"hex\": \"400A10\",\n      \"callsign\": \"BAW123\"\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "ab74d710-bda0-45a3-9d5e-d1135363f61d",
+              "createdAt": "2026-10-21T20:22:48.000Z",
+              "updatedAt": "2026-10-21T20:22:48.000Z",
+              "uid": "35240-ab74d710-bda0-45a3-9d5e-d1135363f61d"
             },
             {
-              "id": "991e903e-c38c-48d1-bf81-6f1af2a9aadb",
-              "name": "Bad request — invalid or missing parameters.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "historic",
-                    "flight-positions",
-                    "light"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+              "name": "full",
+              "item": [
+                {
+                  "name": "Get historical flight positions (full)",
+                  "id": "0db8ec6b-5b79-4aa7-9c0a-2a47eef976d7",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/historic/flight-positions/full?timestamp=<integer>&bounds=940.7391,-1745657323.43777249,380857,092&flights=<string>&callsigns=<string>&registrations=<string>&painted_as=<string>&operating_as=<string>&airports=<string>&routes=<string>&aircraft=<string>&altitude_ranges=<string>&squawks=<string>&categories=V&data_sources=<string>&gspeed=<integer>&limit=<integer>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "historic",
+                        "flight-positions",
+                        "full"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Unix timestamp (seconds since epoch) for the historical snapshot. Must be after 2016-05-11T00:00:00Z (Unix timestamp 1462924800).",
+                          "key": "timestamp",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Geographic bounding box in the format \"north,south,west,east\" (e.g., \"51.5,51.0,-0.5,0.5\"). Latitudes range -90 to 90; longitudes -180 to 180. North must be greater than south.",
+                          "key": "bounds",
+                          "value": "940.7391,-1745657323.43777249,380857,092"
+                        },
+                        {
+                          "description": "Comma-separated list of flight numbers (e.g., \"BA123,LH456\"). Maximum 15 values.",
+                          "key": "flights",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of ATC callsigns (e.g., \"BAW123,DLH456\"). Maximum 15 values.",
+                          "key": "callsigns",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of aircraft registration codes (e.g., \"G-STBK,D-ABCD\"). Maximum 15 values.",
+                          "key": "registrations",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of airline ICAO codes for the livery carrier (e.g., \"BAW,DLH\"). Maximum 15 values.",
+                          "key": "painted_as",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of airline ICAO codes for the operating carrier. Maximum 15 values.",
+                          "key": "operating_as",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of airport IATA or ICAO codes. Matches flights departing or arriving at these airports. Maximum 15 values.",
+                          "key": "airports",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of routes in origin-destination format (e.g., \"LHR-JFK\"). Maximum 15 values.",
+                          "key": "routes",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "ICAO aircraft type code (e.g., \"B77W\", \"A320\").",
+                          "key": "aircraft",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated altitude ranges in feet using \"min-max\" format (e.g., \"0-5000,35000-45000\"). Minimum altitude is -2000 ft. Maximum 15 ranges.",
+                          "key": "altitude_ranges",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of transponder squawk codes (4-digit octal, e.g., \"7700,7600\"). Maximum 15 values.",
+                          "key": "squawks",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of aircraft/vehicle category codes. Maximum 15 values. P=Passenger, C=Cargo, M=Military and Government, J=Business Jets, T=General Aviation, H=Helicopters, B=Lighter than Air, G=Gliders, D=Drones, V=Ground Vehicles, O=Other, N=Non-Categorized.",
+                          "key": "categories",
+                          "value": "V"
+                        },
+                        {
+                          "description": "Comma-separated list of data source types (e.g., \"ADSB,MLAT\"). Maximum 15 values.",
+                          "key": "data_sources",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Ground speed filter in knots (0-5000), or a range string (e.g., \"200-400\").",
+                          "key": "gspeed",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Maximum number of records to return (1-30000).",
+                          "key": "limit",
+                          "value": "<integer>"
+                        }
+                      ]
+                    },
+                    "description": "Returns full historical aircraft flight movement records for a given time window, combining positional data with enriched flight metadata including origin, destination, callsign, registration, aircraft type, and operator. Data is accessible back to May 11, 2016 depending on the subscription tier. Available on Essential and Advanced plans. A timestamp and at least one additional filter parameter are required."
+                  },
+                  "response": [
                     {
-                      "key": "timestamp",
-                      "value": "1705312200"
+                      "id": "9bf925bf-da6b-4517-a765-935ea9452073",
+                      "name": "Successful response with historical full flight position data",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/historic/flight-positions/full?timestamp=<integer>&bounds=940.7391,-1745657323.43777249,380857,092&flights=<string>&callsigns=<string>&registrations=<string>&painted_as=<string>&operating_as=<string>&airports=<string>&routes=<string>&aircraft=<string>&altitude_ranges=<string>&squawks=<string>&categories=V&data_sources=<string>&gspeed=<integer>&limit=<integer>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "historic",
+                            "flight-positions",
+                            "full"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Unix timestamp (seconds since epoch) for the historical snapshot. Must be after 2016-05-11T00:00:00Z (Unix timestamp 1462924800).",
+                              "key": "timestamp",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Geographic bounding box in the format \"north,south,west,east\" (e.g., \"51.5,51.0,-0.5,0.5\"). Latitudes range -90 to 90; longitudes -180 to 180. North must be greater than south.",
+                              "key": "bounds",
+                              "value": "940.7391,-1745657323.43777249,380857,092"
+                            },
+                            {
+                              "description": "Comma-separated list of flight numbers (e.g., \"BA123,LH456\"). Maximum 15 values.",
+                              "key": "flights",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of ATC callsigns (e.g., \"BAW123,DLH456\"). Maximum 15 values.",
+                              "key": "callsigns",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of aircraft registration codes (e.g., \"G-STBK,D-ABCD\"). Maximum 15 values.",
+                              "key": "registrations",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of airline ICAO codes for the livery carrier (e.g., \"BAW,DLH\"). Maximum 15 values.",
+                              "key": "painted_as",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of airline ICAO codes for the operating carrier. Maximum 15 values.",
+                              "key": "operating_as",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of airport IATA or ICAO codes. Matches flights departing or arriving at these airports. Maximum 15 values.",
+                              "key": "airports",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of routes in origin-destination format (e.g., \"LHR-JFK\"). Maximum 15 values.",
+                              "key": "routes",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "ICAO aircraft type code (e.g., \"B77W\", \"A320\").",
+                              "key": "aircraft",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated altitude ranges in feet using \"min-max\" format (e.g., \"0-5000,35000-45000\"). Minimum altitude is -2000 ft. Maximum 15 ranges.",
+                              "key": "altitude_ranges",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of transponder squawk codes (4-digit octal, e.g., \"7700,7600\"). Maximum 15 values.",
+                              "key": "squawks",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of aircraft/vehicle category codes. Maximum 15 values. P=Passenger, C=Cargo, M=Military and Government, J=Business Jets, T=General Aviation, H=Helicopters, B=Lighter than Air, G=Gliders, D=Drones, V=Ground Vehicles, O=Other, N=Non-Categorized.",
+                              "key": "categories",
+                              "value": "V"
+                            },
+                            {
+                              "description": "Comma-separated list of data source types (e.g., \"ADSB,MLAT\"). Maximum 15 values.",
+                              "key": "data_sources",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Ground speed filter in knots (0-5000), or a range string (e.g., \"200-400\").",
+                              "key": "gspeed",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Maximum number of records to return (1-30000).",
+                              "key": "limit",
+                              "value": "<integer>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": [\n    {\n      \"fr24_id\": \"<string>\",\n      \"lat\": \"<float>\",\n      \"lon\": \"<float>\",\n      \"track\": \"<integer>\",\n      \"alt\": \"<integer>\",\n      \"gspeed\": \"<integer>\",\n      \"vspeed\": \"<integer>\",\n      \"squawk\": \"<string>\",\n      \"timestamp\": \"<dateTime>\",\n      \"source\": \"<string>\",\n      \"flight\": \"<string>\",\n      \"callsign\": \"<string>\",\n      \"hex\": \"<string>\",\n      \"type\": \"<string>\",\n      \"reg\": \"<string>\",\n      \"painted_as\": \"<string>\",\n      \"operating_as\": \"<string>\",\n      \"orig_iata\": \"<string>\",\n      \"orig_icao\": \"<string>\",\n      \"dest_iata\": \"<string>\",\n      \"dest_icao\": \"<string>\",\n      \"eta\": \"<dateTime>\"\n    },\n    {\n      \"fr24_id\": \"<string>\",\n      \"lat\": \"<float>\",\n      \"lon\": \"<float>\",\n      \"track\": \"<integer>\",\n      \"alt\": \"<integer>\",\n      \"gspeed\": \"<integer>\",\n      \"vspeed\": \"<integer>\",\n      \"squawk\": \"<string>\",\n      \"timestamp\": \"<dateTime>\",\n      \"source\": \"<string>\",\n      \"flight\": \"<string>\",\n      \"callsign\": \"<string>\",\n      \"hex\": \"<string>\",\n      \"type\": \"<string>\",\n      \"reg\": \"<string>\",\n      \"painted_as\": \"<string>\",\n      \"operating_as\": \"<string>\",\n      \"orig_iata\": \"<string>\",\n      \"orig_icao\": \"<string>\",\n      \"dest_iata\": \"<string>\",\n      \"dest_icao\": \"<string>\",\n      \"eta\": \"<dateTime>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-10-21T20:22:48.000Z",
+                      "updatedAt": "2026-10-21T20:22:48.000Z",
+                      "uid": "35240-9bf925bf-da6b-4517-a765-935ea9452073"
                     },
                     {
-                      "key": "bounds",
-                      "value": "51.5,51.0,-0.5,0.5"
+                      "id": "da60b421-24b2-4a67-815e-ac3f211c3581",
+                      "name": "Bad request \u2014 invalid or missing parameters.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/historic/flight-positions/full?timestamp=<integer>&bounds=940.7391,-1745657323.43777249,380857,092&flights=<string>&callsigns=<string>&registrations=<string>&painted_as=<string>&operating_as=<string>&airports=<string>&routes=<string>&aircraft=<string>&altitude_ranges=<string>&squawks=<string>&categories=V&data_sources=<string>&gspeed=<integer>&limit=<integer>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "historic",
+                            "flight-positions",
+                            "full"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Unix timestamp (seconds since epoch) for the historical snapshot. Must be after 2016-05-11T00:00:00Z (Unix timestamp 1462924800).",
+                              "key": "timestamp",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Geographic bounding box in the format \"north,south,west,east\" (e.g., \"51.5,51.0,-0.5,0.5\"). Latitudes range -90 to 90; longitudes -180 to 180. North must be greater than south.",
+                              "key": "bounds",
+                              "value": "940.7391,-1745657323.43777249,380857,092"
+                            },
+                            {
+                              "description": "Comma-separated list of flight numbers (e.g., \"BA123,LH456\"). Maximum 15 values.",
+                              "key": "flights",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of ATC callsigns (e.g., \"BAW123,DLH456\"). Maximum 15 values.",
+                              "key": "callsigns",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of aircraft registration codes (e.g., \"G-STBK,D-ABCD\"). Maximum 15 values.",
+                              "key": "registrations",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of airline ICAO codes for the livery carrier (e.g., \"BAW,DLH\"). Maximum 15 values.",
+                              "key": "painted_as",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of airline ICAO codes for the operating carrier. Maximum 15 values.",
+                              "key": "operating_as",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of airport IATA or ICAO codes. Matches flights departing or arriving at these airports. Maximum 15 values.",
+                              "key": "airports",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of routes in origin-destination format (e.g., \"LHR-JFK\"). Maximum 15 values.",
+                              "key": "routes",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "ICAO aircraft type code (e.g., \"B77W\", \"A320\").",
+                              "key": "aircraft",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated altitude ranges in feet using \"min-max\" format (e.g., \"0-5000,35000-45000\"). Minimum altitude is -2000 ft. Maximum 15 ranges.",
+                              "key": "altitude_ranges",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of transponder squawk codes (4-digit octal, e.g., \"7700,7600\"). Maximum 15 values.",
+                              "key": "squawks",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of aircraft/vehicle category codes. Maximum 15 values. P=Passenger, C=Cargo, M=Military and Government, J=Business Jets, T=General Aviation, H=Helicopters, B=Lighter than Air, G=Gliders, D=Drones, V=Ground Vehicles, O=Other, N=Non-Categorized.",
+                              "key": "categories",
+                              "value": "V"
+                            },
+                            {
+                              "description": "Comma-separated list of data source types (e.g., \"ADSB,MLAT\"). Maximum 15 values.",
+                              "key": "data_sources",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Ground speed filter in knots (0-5000), or a range string (e.g., \"200-400\").",
+                              "key": "gspeed",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Maximum number of records to return (1-30000).",
+                              "key": "limit",
+                              "value": "<integer>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T20:22:48.000Z",
+                      "updatedAt": "2026-10-21T20:22:48.000Z",
+                      "uid": "35240-da60b421-24b2-4a67-815e-ac3f211c3581"
                     },
                     {
-                      "key": "flights",
-                      "value": "BA123,LH456"
+                      "id": "59012ea9-865f-49b3-b982-08b216623dfa",
+                      "name": "Unauthorized \u2014 missing or invalid Bearer token.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/historic/flight-positions/full?timestamp=<integer>&bounds=940.7391,-1745657323.43777249,380857,092&flights=<string>&callsigns=<string>&registrations=<string>&painted_as=<string>&operating_as=<string>&airports=<string>&routes=<string>&aircraft=<string>&altitude_ranges=<string>&squawks=<string>&categories=V&data_sources=<string>&gspeed=<integer>&limit=<integer>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "historic",
+                            "flight-positions",
+                            "full"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Unix timestamp (seconds since epoch) for the historical snapshot. Must be after 2016-05-11T00:00:00Z (Unix timestamp 1462924800).",
+                              "key": "timestamp",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Geographic bounding box in the format \"north,south,west,east\" (e.g., \"51.5,51.0,-0.5,0.5\"). Latitudes range -90 to 90; longitudes -180 to 180. North must be greater than south.",
+                              "key": "bounds",
+                              "value": "940.7391,-1745657323.43777249,380857,092"
+                            },
+                            {
+                              "description": "Comma-separated list of flight numbers (e.g., \"BA123,LH456\"). Maximum 15 values.",
+                              "key": "flights",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of ATC callsigns (e.g., \"BAW123,DLH456\"). Maximum 15 values.",
+                              "key": "callsigns",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of aircraft registration codes (e.g., \"G-STBK,D-ABCD\"). Maximum 15 values.",
+                              "key": "registrations",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of airline ICAO codes for the livery carrier (e.g., \"BAW,DLH\"). Maximum 15 values.",
+                              "key": "painted_as",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of airline ICAO codes for the operating carrier. Maximum 15 values.",
+                              "key": "operating_as",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of airport IATA or ICAO codes. Matches flights departing or arriving at these airports. Maximum 15 values.",
+                              "key": "airports",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of routes in origin-destination format (e.g., \"LHR-JFK\"). Maximum 15 values.",
+                              "key": "routes",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "ICAO aircraft type code (e.g., \"B77W\", \"A320\").",
+                              "key": "aircraft",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated altitude ranges in feet using \"min-max\" format (e.g., \"0-5000,35000-45000\"). Minimum altitude is -2000 ft. Maximum 15 ranges.",
+                              "key": "altitude_ranges",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of transponder squawk codes (4-digit octal, e.g., \"7700,7600\"). Maximum 15 values.",
+                              "key": "squawks",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of aircraft/vehicle category codes. Maximum 15 values. P=Passenger, C=Cargo, M=Military and Government, J=Business Jets, T=General Aviation, H=Helicopters, B=Lighter than Air, G=Gliders, D=Drones, V=Ground Vehicles, O=Other, N=Non-Categorized.",
+                              "key": "categories",
+                              "value": "V"
+                            },
+                            {
+                              "description": "Comma-separated list of data source types (e.g., \"ADSB,MLAT\"). Maximum 15 values.",
+                              "key": "data_sources",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Ground speed filter in knots (0-5000), or a range string (e.g., \"200-400\").",
+                              "key": "gspeed",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Maximum number of records to return (1-30000).",
+                              "key": "limit",
+                              "value": "<integer>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T20:22:48.000Z",
+                      "updatedAt": "2026-10-21T20:22:48.000Z",
+                      "uid": "35240-59012ea9-865f-49b3-b982-08b216623dfa"
                     },
                     {
-                      "key": "callsigns",
-                      "value": "BAW123,DLH456"
-                    },
-                    {
-                      "key": "registrations",
-                      "value": "G-STBK,D-ABCD"
-                    },
-                    {
-                      "key": "painted_as",
-                      "value": "BAW,DLH"
-                    },
-                    {
-                      "key": "operating_as",
-                      "value": "BAW,DLH"
-                    },
-                    {
-                      "key": "airports",
-                      "value": "LHR,EDDF"
-                    },
-                    {
-                      "key": "routes",
-                      "value": "LHR-JFK,CDG-LAX"
-                    },
-                    {
-                      "key": "aircraft",
-                      "value": "B77W"
-                    },
-                    {
-                      "key": "altitude_ranges",
-                      "value": "0-5000,35000-45000"
-                    },
-                    {
-                      "key": "squawks",
-                      "value": "7700,7600"
-                    },
-                    {
-                      "key": "categories",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "data_sources",
-                      "value": "ADSB,MLAT"
-                    },
-                    {
-                      "key": "gspeed",
-                      "value": "<integer>"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "1000"
+                      "id": "d1d9e4b5-6b1f-40a7-b0d9-57a9bd7ba853",
+                      "name": "Too many requests \u2014 rate limit or credit limit exceeded.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/historic/flight-positions/full?timestamp=<integer>&bounds=940.7391,-1745657323.43777249,380857,092&flights=<string>&callsigns=<string>&registrations=<string>&painted_as=<string>&operating_as=<string>&airports=<string>&routes=<string>&aircraft=<string>&altitude_ranges=<string>&squawks=<string>&categories=V&data_sources=<string>&gspeed=<integer>&limit=<integer>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "historic",
+                            "flight-positions",
+                            "full"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Unix timestamp (seconds since epoch) for the historical snapshot. Must be after 2016-05-11T00:00:00Z (Unix timestamp 1462924800).",
+                              "key": "timestamp",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Geographic bounding box in the format \"north,south,west,east\" (e.g., \"51.5,51.0,-0.5,0.5\"). Latitudes range -90 to 90; longitudes -180 to 180. North must be greater than south.",
+                              "key": "bounds",
+                              "value": "940.7391,-1745657323.43777249,380857,092"
+                            },
+                            {
+                              "description": "Comma-separated list of flight numbers (e.g., \"BA123,LH456\"). Maximum 15 values.",
+                              "key": "flights",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of ATC callsigns (e.g., \"BAW123,DLH456\"). Maximum 15 values.",
+                              "key": "callsigns",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of aircraft registration codes (e.g., \"G-STBK,D-ABCD\"). Maximum 15 values.",
+                              "key": "registrations",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of airline ICAO codes for the livery carrier (e.g., \"BAW,DLH\"). Maximum 15 values.",
+                              "key": "painted_as",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of airline ICAO codes for the operating carrier. Maximum 15 values.",
+                              "key": "operating_as",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of airport IATA or ICAO codes. Matches flights departing or arriving at these airports. Maximum 15 values.",
+                              "key": "airports",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of routes in origin-destination format (e.g., \"LHR-JFK\"). Maximum 15 values.",
+                              "key": "routes",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "ICAO aircraft type code (e.g., \"B77W\", \"A320\").",
+                              "key": "aircraft",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated altitude ranges in feet using \"min-max\" format (e.g., \"0-5000,35000-45000\"). Minimum altitude is -2000 ft. Maximum 15 ranges.",
+                              "key": "altitude_ranges",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of transponder squawk codes (4-digit octal, e.g., \"7700,7600\"). Maximum 15 values.",
+                              "key": "squawks",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of aircraft/vehicle category codes. Maximum 15 values. P=Passenger, C=Cargo, M=Military and Government, J=Business Jets, T=General Aviation, H=Helicopters, B=Lighter than Air, G=Gliders, D=Drones, V=Ground Vehicles, O=Other, N=Non-Categorized.",
+                              "key": "categories",
+                              "value": "V"
+                            },
+                            {
+                              "description": "Comma-separated list of data source types (e.g., \"ADSB,MLAT\"). Maximum 15 values.",
+                              "key": "data_sources",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Ground speed filter in knots (0-5000), or a range string (e.g., \"200-400\").",
+                              "key": "gspeed",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Maximum number of records to return (1-30000).",
+                              "key": "limit",
+                              "value": "<integer>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T20:22:48.000Z",
+                      "updatedAt": "2026-10-21T20:22:48.000Z",
+                      "uid": "35240-d1d9e4b5-6b1f-40a7-b0d9-57a9bd7ba853"
                     }
                   ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "createdAt": "2026-10-21T20:22:48.000Z",
+                  "updatedAt": "2026-10-21T20:22:48.000Z",
+                  "uid": "35240-0db8ec6b-5b79-4aa7-9c0a-2a47eef976d7"
                 }
               ],
-              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "2a3ecdf6-aa02-4f6d-8400-951cfcfc296c",
+              "createdAt": "2026-10-21T20:22:48.000Z",
+              "updatedAt": "2026-10-21T20:22:48.000Z",
+              "uid": "35240-2a3ecdf6-aa02-4f6d-8400-951cfcfc296c"
             },
             {
-              "id": "e73a5543-f7e9-4e74-a355-16b8af605adb",
-              "name": "Unauthorized — missing or invalid Bearer token.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "historic",
-                    "flight-positions",
-                    "light"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+              "name": "count",
+              "item": [
+                {
+                  "name": "Count historical flight positions",
+                  "id": "f88b9dcd-3937-411c-b082-f9043f8c232e",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/historic/flight-positions/count?timestamp=<integer>&bounds=940.7391,-1745657323.43777249,380857,092&flights=<string>&callsigns=<string>&registrations=<string>&painted_as=<string>&operating_as=<string>&airports=<string>&routes=<string>&aircraft=<string>&altitude_ranges=<string>&squawks=<string>&categories=V&data_sources=<string>&gspeed=<integer>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "historic",
+                        "flight-positions",
+                        "count"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Unix timestamp (seconds since epoch) for the historical snapshot. Must be after 2016-05-11T00:00:00Z (Unix timestamp 1462924800).",
+                          "key": "timestamp",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Geographic bounding box in the format \"north,south,west,east\" (e.g., \"51.5,51.0,-0.5,0.5\"). Latitudes range -90 to 90; longitudes -180 to 180. North must be greater than south.",
+                          "key": "bounds",
+                          "value": "940.7391,-1745657323.43777249,380857,092"
+                        },
+                        {
+                          "description": "Comma-separated list of flight numbers (e.g., \"BA123,LH456\"). Maximum 15 values.",
+                          "key": "flights",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of ATC callsigns (e.g., \"BAW123,DLH456\"). Maximum 15 values.",
+                          "key": "callsigns",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of aircraft registration codes (e.g., \"G-STBK,D-ABCD\"). Maximum 15 values.",
+                          "key": "registrations",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of airline ICAO codes for the livery carrier (e.g., \"BAW,DLH\"). Maximum 15 values.",
+                          "key": "painted_as",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of airline ICAO codes for the operating carrier. Maximum 15 values.",
+                          "key": "operating_as",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of airport IATA or ICAO codes. Matches flights departing or arriving at these airports. Maximum 15 values.",
+                          "key": "airports",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of routes in origin-destination format (e.g., \"LHR-JFK\"). Maximum 15 values.",
+                          "key": "routes",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "ICAO aircraft type code (e.g., \"B77W\", \"A320\").",
+                          "key": "aircraft",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated altitude ranges in feet using \"min-max\" format (e.g., \"0-5000,35000-45000\"). Minimum altitude is -2000 ft. Maximum 15 ranges.",
+                          "key": "altitude_ranges",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of transponder squawk codes (4-digit octal, e.g., \"7700,7600\"). Maximum 15 values.",
+                          "key": "squawks",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of aircraft/vehicle category codes. Maximum 15 values. P=Passenger, C=Cargo, M=Military and Government, J=Business Jets, T=General Aviation, H=Helicopters, B=Lighter than Air, G=Gliders, D=Drones, V=Ground Vehicles, O=Other, N=Non-Categorized.",
+                          "key": "categories",
+                          "value": "V"
+                        },
+                        {
+                          "description": "Comma-separated list of data source types (e.g., \"ADSB,MLAT\"). Maximum 15 values.",
+                          "key": "data_sources",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Ground speed filter in knots (0-5000), or a range string (e.g., \"200-400\").",
+                          "key": "gspeed",
+                          "value": "<integer>"
+                        }
+                      ]
+                    },
+                    "description": "Returns the number of historical aircraft positions that match the given filters. A timestamp and at least one additional filter parameter are required."
+                  },
+                  "response": [
                     {
-                      "key": "timestamp",
-                      "value": "1705312200"
+                      "id": "35e18eff-b25b-40d3-8bf1-13e7990ab52a",
+                      "name": "Successful response with count of matching historical records",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/historic/flight-positions/count?timestamp=<integer>&bounds=940.7391,-1745657323.43777249,380857,092&flights=<string>&callsigns=<string>&registrations=<string>&painted_as=<string>&operating_as=<string>&airports=<string>&routes=<string>&aircraft=<string>&altitude_ranges=<string>&squawks=<string>&categories=V&data_sources=<string>&gspeed=<integer>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "historic",
+                            "flight-positions",
+                            "count"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Unix timestamp (seconds since epoch) for the historical snapshot. Must be after 2016-05-11T00:00:00Z (Unix timestamp 1462924800).",
+                              "key": "timestamp",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Geographic bounding box in the format \"north,south,west,east\" (e.g., \"51.5,51.0,-0.5,0.5\"). Latitudes range -90 to 90; longitudes -180 to 180. North must be greater than south.",
+                              "key": "bounds",
+                              "value": "940.7391,-1745657323.43777249,380857,092"
+                            },
+                            {
+                              "description": "Comma-separated list of flight numbers (e.g., \"BA123,LH456\"). Maximum 15 values.",
+                              "key": "flights",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of ATC callsigns (e.g., \"BAW123,DLH456\"). Maximum 15 values.",
+                              "key": "callsigns",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of aircraft registration codes (e.g., \"G-STBK,D-ABCD\"). Maximum 15 values.",
+                              "key": "registrations",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of airline ICAO codes for the livery carrier (e.g., \"BAW,DLH\"). Maximum 15 values.",
+                              "key": "painted_as",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of airline ICAO codes for the operating carrier. Maximum 15 values.",
+                              "key": "operating_as",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of airport IATA or ICAO codes. Matches flights departing or arriving at these airports. Maximum 15 values.",
+                              "key": "airports",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of routes in origin-destination format (e.g., \"LHR-JFK\"). Maximum 15 values.",
+                              "key": "routes",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "ICAO aircraft type code (e.g., \"B77W\", \"A320\").",
+                              "key": "aircraft",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated altitude ranges in feet using \"min-max\" format (e.g., \"0-5000,35000-45000\"). Minimum altitude is -2000 ft. Maximum 15 ranges.",
+                              "key": "altitude_ranges",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of transponder squawk codes (4-digit octal, e.g., \"7700,7600\"). Maximum 15 values.",
+                              "key": "squawks",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of aircraft/vehicle category codes. Maximum 15 values. P=Passenger, C=Cargo, M=Military and Government, J=Business Jets, T=General Aviation, H=Helicopters, B=Lighter than Air, G=Gliders, D=Drones, V=Ground Vehicles, O=Other, N=Non-Categorized.",
+                              "key": "categories",
+                              "value": "V"
+                            },
+                            {
+                              "description": "Comma-separated list of data source types (e.g., \"ADSB,MLAT\"). Maximum 15 values.",
+                              "key": "data_sources",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Ground speed filter in knots (0-5000), or a range string (e.g., \"200-400\").",
+                              "key": "gspeed",
+                              "value": "<integer>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"record_count\": \"<integer>\"\n}",
+                      "createdAt": "2026-10-21T20:22:48.000Z",
+                      "updatedAt": "2026-10-21T20:22:48.000Z",
+                      "uid": "35240-35e18eff-b25b-40d3-8bf1-13e7990ab52a"
                     },
                     {
-                      "key": "bounds",
-                      "value": "51.5,51.0,-0.5,0.5"
+                      "id": "77df8a9f-76d9-494a-8475-2411c524d119",
+                      "name": "Bad request \u2014 invalid or missing parameters.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/historic/flight-positions/count?timestamp=<integer>&bounds=940.7391,-1745657323.43777249,380857,092&flights=<string>&callsigns=<string>&registrations=<string>&painted_as=<string>&operating_as=<string>&airports=<string>&routes=<string>&aircraft=<string>&altitude_ranges=<string>&squawks=<string>&categories=V&data_sources=<string>&gspeed=<integer>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "historic",
+                            "flight-positions",
+                            "count"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Unix timestamp (seconds since epoch) for the historical snapshot. Must be after 2016-05-11T00:00:00Z (Unix timestamp 1462924800).",
+                              "key": "timestamp",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Geographic bounding box in the format \"north,south,west,east\" (e.g., \"51.5,51.0,-0.5,0.5\"). Latitudes range -90 to 90; longitudes -180 to 180. North must be greater than south.",
+                              "key": "bounds",
+                              "value": "940.7391,-1745657323.43777249,380857,092"
+                            },
+                            {
+                              "description": "Comma-separated list of flight numbers (e.g., \"BA123,LH456\"). Maximum 15 values.",
+                              "key": "flights",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of ATC callsigns (e.g., \"BAW123,DLH456\"). Maximum 15 values.",
+                              "key": "callsigns",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of aircraft registration codes (e.g., \"G-STBK,D-ABCD\"). Maximum 15 values.",
+                              "key": "registrations",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of airline ICAO codes for the livery carrier (e.g., \"BAW,DLH\"). Maximum 15 values.",
+                              "key": "painted_as",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of airline ICAO codes for the operating carrier. Maximum 15 values.",
+                              "key": "operating_as",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of airport IATA or ICAO codes. Matches flights departing or arriving at these airports. Maximum 15 values.",
+                              "key": "airports",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of routes in origin-destination format (e.g., \"LHR-JFK\"). Maximum 15 values.",
+                              "key": "routes",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "ICAO aircraft type code (e.g., \"B77W\", \"A320\").",
+                              "key": "aircraft",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated altitude ranges in feet using \"min-max\" format (e.g., \"0-5000,35000-45000\"). Minimum altitude is -2000 ft. Maximum 15 ranges.",
+                              "key": "altitude_ranges",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of transponder squawk codes (4-digit octal, e.g., \"7700,7600\"). Maximum 15 values.",
+                              "key": "squawks",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of aircraft/vehicle category codes. Maximum 15 values. P=Passenger, C=Cargo, M=Military and Government, J=Business Jets, T=General Aviation, H=Helicopters, B=Lighter than Air, G=Gliders, D=Drones, V=Ground Vehicles, O=Other, N=Non-Categorized.",
+                              "key": "categories",
+                              "value": "V"
+                            },
+                            {
+                              "description": "Comma-separated list of data source types (e.g., \"ADSB,MLAT\"). Maximum 15 values.",
+                              "key": "data_sources",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Ground speed filter in knots (0-5000), or a range string (e.g., \"200-400\").",
+                              "key": "gspeed",
+                              "value": "<integer>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T20:22:48.000Z",
+                      "updatedAt": "2026-10-21T20:22:48.000Z",
+                      "uid": "35240-77df8a9f-76d9-494a-8475-2411c524d119"
                     },
                     {
-                      "key": "flights",
-                      "value": "BA123,LH456"
+                      "id": "d86228f5-ed49-42d8-bdbb-1016149e45b4",
+                      "name": "Unauthorized \u2014 missing or invalid Bearer token.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/historic/flight-positions/count?timestamp=<integer>&bounds=940.7391,-1745657323.43777249,380857,092&flights=<string>&callsigns=<string>&registrations=<string>&painted_as=<string>&operating_as=<string>&airports=<string>&routes=<string>&aircraft=<string>&altitude_ranges=<string>&squawks=<string>&categories=V&data_sources=<string>&gspeed=<integer>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "historic",
+                            "flight-positions",
+                            "count"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Unix timestamp (seconds since epoch) for the historical snapshot. Must be after 2016-05-11T00:00:00Z (Unix timestamp 1462924800).",
+                              "key": "timestamp",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Geographic bounding box in the format \"north,south,west,east\" (e.g., \"51.5,51.0,-0.5,0.5\"). Latitudes range -90 to 90; longitudes -180 to 180. North must be greater than south.",
+                              "key": "bounds",
+                              "value": "940.7391,-1745657323.43777249,380857,092"
+                            },
+                            {
+                              "description": "Comma-separated list of flight numbers (e.g., \"BA123,LH456\"). Maximum 15 values.",
+                              "key": "flights",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of ATC callsigns (e.g., \"BAW123,DLH456\"). Maximum 15 values.",
+                              "key": "callsigns",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of aircraft registration codes (e.g., \"G-STBK,D-ABCD\"). Maximum 15 values.",
+                              "key": "registrations",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of airline ICAO codes for the livery carrier (e.g., \"BAW,DLH\"). Maximum 15 values.",
+                              "key": "painted_as",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of airline ICAO codes for the operating carrier. Maximum 15 values.",
+                              "key": "operating_as",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of airport IATA or ICAO codes. Matches flights departing or arriving at these airports. Maximum 15 values.",
+                              "key": "airports",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of routes in origin-destination format (e.g., \"LHR-JFK\"). Maximum 15 values.",
+                              "key": "routes",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "ICAO aircraft type code (e.g., \"B77W\", \"A320\").",
+                              "key": "aircraft",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated altitude ranges in feet using \"min-max\" format (e.g., \"0-5000,35000-45000\"). Minimum altitude is -2000 ft. Maximum 15 ranges.",
+                              "key": "altitude_ranges",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of transponder squawk codes (4-digit octal, e.g., \"7700,7600\"). Maximum 15 values.",
+                              "key": "squawks",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of aircraft/vehicle category codes. Maximum 15 values. P=Passenger, C=Cargo, M=Military and Government, J=Business Jets, T=General Aviation, H=Helicopters, B=Lighter than Air, G=Gliders, D=Drones, V=Ground Vehicles, O=Other, N=Non-Categorized.",
+                              "key": "categories",
+                              "value": "V"
+                            },
+                            {
+                              "description": "Comma-separated list of data source types (e.g., \"ADSB,MLAT\"). Maximum 15 values.",
+                              "key": "data_sources",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Ground speed filter in knots (0-5000), or a range string (e.g., \"200-400\").",
+                              "key": "gspeed",
+                              "value": "<integer>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T20:22:48.000Z",
+                      "updatedAt": "2026-10-21T20:22:48.000Z",
+                      "uid": "35240-d86228f5-ed49-42d8-bdbb-1016149e45b4"
                     },
                     {
-                      "key": "callsigns",
-                      "value": "BAW123,DLH456"
-                    },
-                    {
-                      "key": "registrations",
-                      "value": "G-STBK,D-ABCD"
-                    },
-                    {
-                      "key": "painted_as",
-                      "value": "BAW,DLH"
-                    },
-                    {
-                      "key": "operating_as",
-                      "value": "BAW,DLH"
-                    },
-                    {
-                      "key": "airports",
-                      "value": "LHR,EDDF"
-                    },
-                    {
-                      "key": "routes",
-                      "value": "LHR-JFK,CDG-LAX"
-                    },
-                    {
-                      "key": "aircraft",
-                      "value": "B77W"
-                    },
-                    {
-                      "key": "altitude_ranges",
-                      "value": "0-5000,35000-45000"
-                    },
-                    {
-                      "key": "squawks",
-                      "value": "7700,7600"
-                    },
-                    {
-                      "key": "categories",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "data_sources",
-                      "value": "ADSB,MLAT"
-                    },
-                    {
-                      "key": "gspeed",
-                      "value": "<integer>"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "1000"
+                      "id": "99d0eaae-a0ca-4fcc-8bce-9d57fc9c04d2",
+                      "name": "Too many requests \u2014 rate limit or credit limit exceeded.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/historic/flight-positions/count?timestamp=<integer>&bounds=940.7391,-1745657323.43777249,380857,092&flights=<string>&callsigns=<string>&registrations=<string>&painted_as=<string>&operating_as=<string>&airports=<string>&routes=<string>&aircraft=<string>&altitude_ranges=<string>&squawks=<string>&categories=V&data_sources=<string>&gspeed=<integer>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "historic",
+                            "flight-positions",
+                            "count"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Unix timestamp (seconds since epoch) for the historical snapshot. Must be after 2016-05-11T00:00:00Z (Unix timestamp 1462924800).",
+                              "key": "timestamp",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Geographic bounding box in the format \"north,south,west,east\" (e.g., \"51.5,51.0,-0.5,0.5\"). Latitudes range -90 to 90; longitudes -180 to 180. North must be greater than south.",
+                              "key": "bounds",
+                              "value": "940.7391,-1745657323.43777249,380857,092"
+                            },
+                            {
+                              "description": "Comma-separated list of flight numbers (e.g., \"BA123,LH456\"). Maximum 15 values.",
+                              "key": "flights",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of ATC callsigns (e.g., \"BAW123,DLH456\"). Maximum 15 values.",
+                              "key": "callsigns",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of aircraft registration codes (e.g., \"G-STBK,D-ABCD\"). Maximum 15 values.",
+                              "key": "registrations",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of airline ICAO codes for the livery carrier (e.g., \"BAW,DLH\"). Maximum 15 values.",
+                              "key": "painted_as",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of airline ICAO codes for the operating carrier. Maximum 15 values.",
+                              "key": "operating_as",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of airport IATA or ICAO codes. Matches flights departing or arriving at these airports. Maximum 15 values.",
+                              "key": "airports",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of routes in origin-destination format (e.g., \"LHR-JFK\"). Maximum 15 values.",
+                              "key": "routes",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "ICAO aircraft type code (e.g., \"B77W\", \"A320\").",
+                              "key": "aircraft",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated altitude ranges in feet using \"min-max\" format (e.g., \"0-5000,35000-45000\"). Minimum altitude is -2000 ft. Maximum 15 ranges.",
+                              "key": "altitude_ranges",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of transponder squawk codes (4-digit octal, e.g., \"7700,7600\"). Maximum 15 values.",
+                              "key": "squawks",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of aircraft/vehicle category codes. Maximum 15 values. P=Passenger, C=Cargo, M=Military and Government, J=Business Jets, T=General Aviation, H=Helicopters, B=Lighter than Air, G=Gliders, D=Drones, V=Ground Vehicles, O=Other, N=Non-Categorized.",
+                              "key": "categories",
+                              "value": "V"
+                            },
+                            {
+                              "description": "Comma-separated list of data source types (e.g., \"ADSB,MLAT\"). Maximum 15 values.",
+                              "key": "data_sources",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Ground speed filter in knots (0-5000), or a range string (e.g., \"200-400\").",
+                              "key": "gspeed",
+                              "value": "<integer>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T20:22:48.000Z",
+                      "updatedAt": "2026-10-21T20:22:48.000Z",
+                      "uid": "35240-99d0eaae-a0ca-4fcc-8bce-9d57fc9c04d2"
                     }
                   ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "createdAt": "2026-10-21T20:22:48.000Z",
+                  "updatedAt": "2026-10-21T20:22:48.000Z",
+                  "uid": "35240-f88b9dcd-3937-411c-b082-f9043f8c232e"
                 }
               ],
-              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "b043de86-72ff-4bf9-8b25-65dd037fc114",
-              "name": "Too many requests — rate limit or credit limit exceeded.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "historic",
-                    "flight-positions",
-                    "light"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "timestamp",
-                      "value": "1705312200"
-                    },
-                    {
-                      "key": "bounds",
-                      "value": "51.5,51.0,-0.5,0.5"
-                    },
-                    {
-                      "key": "flights",
-                      "value": "BA123,LH456"
-                    },
-                    {
-                      "key": "callsigns",
-                      "value": "BAW123,DLH456"
-                    },
-                    {
-                      "key": "registrations",
-                      "value": "G-STBK,D-ABCD"
-                    },
-                    {
-                      "key": "painted_as",
-                      "value": "BAW,DLH"
-                    },
-                    {
-                      "key": "operating_as",
-                      "value": "BAW,DLH"
-                    },
-                    {
-                      "key": "airports",
-                      "value": "LHR,EDDF"
-                    },
-                    {
-                      "key": "routes",
-                      "value": "LHR-JFK,CDG-LAX"
-                    },
-                    {
-                      "key": "aircraft",
-                      "value": "B77W"
-                    },
-                    {
-                      "key": "altitude_ranges",
-                      "value": "0-5000,35000-45000"
-                    },
-                    {
-                      "key": "squawks",
-                      "value": "7700,7600"
-                    },
-                    {
-                      "key": "categories",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "data_sources",
-                      "value": "ADSB,MLAT"
-                    },
-                    {
-                      "key": "gspeed",
-                      "value": "<integer>"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "1000"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Too Many Requests",
-              "code": 429,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "ad6217c9-1b11-4f10-bc29-e7339fd84cf4",
+              "createdAt": "2026-10-21T20:22:48.000Z",
+              "updatedAt": "2026-10-21T20:22:48.000Z",
+              "uid": "35240-ad6217c9-1b11-4f10-bc29-e7339fd84cf4"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "fbcf7158-1003-42f1-bedc-754ce4c05155",
-          "name": "Get historical flight positions (full)",
-          "request": {
-            "name": "Get historical flight positions (full)",
-            "description": {
-              "content": "Returns full historical aircraft flight movement records for a given time window, combining positional data with enriched flight metadata including origin, destination, callsign, registration, aircraft type, and operator. Data is accessible back to May 11, 2016 depending on the subscription tier. Available on Essential and Advanced plans. A timestamp and at least one additional filter parameter are required.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "historic",
-                "flight-positions",
-                "full"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "timestamp",
-                  "value": "<integer>",
-                  "description": "(Required) Unix timestamp (seconds since epoch) for the historical snapshot. Must be after 2016-05-11T00:00:00Z (Unix timestamp 1462924800)."
-                },
-                {
-                  "disabled": false,
-                  "key": "bounds",
-                  "value": "<string>",
-                  "description": "Geographic bounding box in the format \"north,south,west,east\" (e.g., \"51.5,51.0,-0.5,0.5\"). Latitudes range -90 to 90; longitudes -180 to 180. North must be greater than south."
-                },
-                {
-                  "disabled": false,
-                  "key": "flights",
-                  "value": "<string>",
-                  "description": "Comma-separated list of flight numbers (e.g., \"BA123,LH456\"). Maximum 15 values."
-                },
-                {
-                  "disabled": false,
-                  "key": "callsigns",
-                  "value": "<string>",
-                  "description": "Comma-separated list of ATC callsigns (e.g., \"BAW123,DLH456\"). Maximum 15 values."
-                },
-                {
-                  "disabled": false,
-                  "key": "registrations",
-                  "value": "<string>",
-                  "description": "Comma-separated list of aircraft registration codes (e.g., \"G-STBK,D-ABCD\"). Maximum 15 values."
-                },
-                {
-                  "disabled": false,
-                  "key": "painted_as",
-                  "value": "<string>",
-                  "description": "Comma-separated list of airline ICAO codes for the livery carrier (e.g., \"BAW,DLH\"). Maximum 15 values."
-                },
-                {
-                  "disabled": false,
-                  "key": "operating_as",
-                  "value": "<string>",
-                  "description": "Comma-separated list of airline ICAO codes for the operating carrier. Maximum 15 values."
-                },
-                {
-                  "disabled": false,
-                  "key": "airports",
-                  "value": "<string>",
-                  "description": "Comma-separated list of airport IATA or ICAO codes. Matches flights departing or arriving at these airports. Maximum 15 values."
-                },
-                {
-                  "disabled": false,
-                  "key": "routes",
-                  "value": "<string>",
-                  "description": "Comma-separated list of routes in origin-destination format (e.g., \"LHR-JFK\"). Maximum 15 values."
-                },
-                {
-                  "disabled": false,
-                  "key": "aircraft",
-                  "value": "<string>",
-                  "description": "ICAO aircraft type code (e.g., \"B77W\", \"A320\")."
-                },
-                {
-                  "disabled": false,
-                  "key": "altitude_ranges",
-                  "value": "<string>",
-                  "description": "Comma-separated altitude ranges in feet using \"min-max\" format (e.g., \"0-5000,35000-45000\"). Minimum altitude is -2000 ft. Maximum 15 ranges."
-                },
-                {
-                  "disabled": false,
-                  "key": "squawks",
-                  "value": "<string>",
-                  "description": "Comma-separated list of transponder squawk codes (4-digit octal, e.g., \"7700,7600\"). Maximum 15 values."
-                },
-                {
-                  "disabled": false,
-                  "key": "categories",
-                  "value": "<string>",
-                  "description": "Comma-separated list of aircraft/vehicle category codes. Maximum 15 values. P=Passenger, C=Cargo, M=Military and Government, J=Business Jets, T=General Aviation, H=Helicopters, B=Lighter than Air, G=Gliders, D=Drones, V=Ground Vehicles, O=Other, N=Non-Categorized."
-                },
-                {
-                  "disabled": false,
-                  "key": "data_sources",
-                  "value": "<string>",
-                  "description": "Comma-separated list of data source types (e.g., \"ADSB,MLAT\"). Maximum 15 values."
-                },
-                {
-                  "disabled": false,
-                  "key": "gspeed",
-                  "value": "<integer>",
-                  "description": "Ground speed filter in knots (0-5000), or a range string (e.g., \"200-400\")."
-                },
-                {
-                  "disabled": false,
-                  "key": "limit",
-                  "value": "<integer>",
-                  "description": "Maximum number of records to return (1-30000)."
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "fc069f24-c662-4c39-9580-36aff36dfb92",
-              "name": "Successful response with historical full flight position data",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "historic",
-                    "flight-positions",
-                    "full"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "timestamp",
-                      "value": "1705312200"
-                    },
-                    {
-                      "key": "bounds",
-                      "value": "51.5,51.0,-0.5,0.5"
-                    },
-                    {
-                      "key": "flights",
-                      "value": "BA123,LH456"
-                    },
-                    {
-                      "key": "callsigns",
-                      "value": "BAW123,DLH456"
-                    },
-                    {
-                      "key": "registrations",
-                      "value": "G-STBK,D-ABCD"
-                    },
-                    {
-                      "key": "painted_as",
-                      "value": "BAW,DLH"
-                    },
-                    {
-                      "key": "operating_as",
-                      "value": "BAW,DLH"
-                    },
-                    {
-                      "key": "airports",
-                      "value": "LHR,EDDF"
-                    },
-                    {
-                      "key": "routes",
-                      "value": "LHR-JFK,CDG-LAX"
-                    },
-                    {
-                      "key": "aircraft",
-                      "value": "B77W"
-                    },
-                    {
-                      "key": "altitude_ranges",
-                      "value": "0-5000,35000-45000"
-                    },
-                    {
-                      "key": "squawks",
-                      "value": "7700,7600"
-                    },
-                    {
-                      "key": "categories",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "data_sources",
-                      "value": "ADSB,MLAT"
-                    },
-                    {
-                      "key": "gspeed",
-                      "value": "<integer>"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "1000"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"data\": [\n    {\n      \"fr24_id\": \"34242a02\",\n      \"lat\": 51.4706,\n      \"lon\": -0.4619,\n      \"track\": 270,\n      \"alt\": 35000,\n      \"gspeed\": 450,\n      \"vspeed\": 0,\n      \"squawk\": \"7700\",\n      \"timestamp\": \"2024-01-15T10:30:00Z\",\n      \"source\": \"ADSB\",\n      \"flight\": \"BA123\",\n      \"callsign\": \"BAW123\",\n      \"hex\": \"400A10\",\n      \"type\": \"B77W\",\n      \"reg\": \"G-STBK\",\n      \"painted_as\": \"BAW\",\n      \"operating_as\": \"BAW\",\n      \"orig_iata\": \"LHR\",\n      \"orig_icao\": \"EGLL\",\n      \"dest_iata\": \"JFK\",\n      \"dest_icao\": \"KJFK\",\n      \"eta\": \"2024-01-15T15:45:00Z\"\n    },\n    {\n      \"fr24_id\": \"34242a02\",\n      \"lat\": 51.4706,\n      \"lon\": -0.4619,\n      \"track\": 270,\n      \"alt\": 35000,\n      \"gspeed\": 450,\n      \"vspeed\": 0,\n      \"squawk\": \"7700\",\n      \"timestamp\": \"2024-01-15T10:30:00Z\",\n      \"source\": \"ADSB\",\n      \"flight\": \"BA123\",\n      \"callsign\": \"BAW123\",\n      \"hex\": \"400A10\",\n      \"type\": \"B77W\",\n      \"reg\": \"G-STBK\",\n      \"painted_as\": \"BAW\",\n      \"operating_as\": \"BAW\",\n      \"orig_iata\": \"LHR\",\n      \"orig_icao\": \"EGLL\",\n      \"dest_iata\": \"JFK\",\n      \"dest_icao\": \"KJFK\",\n      \"eta\": \"2024-01-15T15:45:00Z\"\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "47b50522-2416-4220-9902-d3817028f623",
-              "name": "Bad request — invalid or missing parameters.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "historic",
-                    "flight-positions",
-                    "full"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "timestamp",
-                      "value": "1705312200"
-                    },
-                    {
-                      "key": "bounds",
-                      "value": "51.5,51.0,-0.5,0.5"
-                    },
-                    {
-                      "key": "flights",
-                      "value": "BA123,LH456"
-                    },
-                    {
-                      "key": "callsigns",
-                      "value": "BAW123,DLH456"
-                    },
-                    {
-                      "key": "registrations",
-                      "value": "G-STBK,D-ABCD"
-                    },
-                    {
-                      "key": "painted_as",
-                      "value": "BAW,DLH"
-                    },
-                    {
-                      "key": "operating_as",
-                      "value": "BAW,DLH"
-                    },
-                    {
-                      "key": "airports",
-                      "value": "LHR,EDDF"
-                    },
-                    {
-                      "key": "routes",
-                      "value": "LHR-JFK,CDG-LAX"
-                    },
-                    {
-                      "key": "aircraft",
-                      "value": "B77W"
-                    },
-                    {
-                      "key": "altitude_ranges",
-                      "value": "0-5000,35000-45000"
-                    },
-                    {
-                      "key": "squawks",
-                      "value": "7700,7600"
-                    },
-                    {
-                      "key": "categories",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "data_sources",
-                      "value": "ADSB,MLAT"
-                    },
-                    {
-                      "key": "gspeed",
-                      "value": "<integer>"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "1000"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "85f0a615-855d-482a-84f6-58fb007dd586",
-              "name": "Unauthorized — missing or invalid Bearer token.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "historic",
-                    "flight-positions",
-                    "full"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "timestamp",
-                      "value": "1705312200"
-                    },
-                    {
-                      "key": "bounds",
-                      "value": "51.5,51.0,-0.5,0.5"
-                    },
-                    {
-                      "key": "flights",
-                      "value": "BA123,LH456"
-                    },
-                    {
-                      "key": "callsigns",
-                      "value": "BAW123,DLH456"
-                    },
-                    {
-                      "key": "registrations",
-                      "value": "G-STBK,D-ABCD"
-                    },
-                    {
-                      "key": "painted_as",
-                      "value": "BAW,DLH"
-                    },
-                    {
-                      "key": "operating_as",
-                      "value": "BAW,DLH"
-                    },
-                    {
-                      "key": "airports",
-                      "value": "LHR,EDDF"
-                    },
-                    {
-                      "key": "routes",
-                      "value": "LHR-JFK,CDG-LAX"
-                    },
-                    {
-                      "key": "aircraft",
-                      "value": "B77W"
-                    },
-                    {
-                      "key": "altitude_ranges",
-                      "value": "0-5000,35000-45000"
-                    },
-                    {
-                      "key": "squawks",
-                      "value": "7700,7600"
-                    },
-                    {
-                      "key": "categories",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "data_sources",
-                      "value": "ADSB,MLAT"
-                    },
-                    {
-                      "key": "gspeed",
-                      "value": "<integer>"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "1000"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "92b7d9d0-0bb3-4d25-8208-8cbadd9c017a",
-              "name": "Too many requests — rate limit or credit limit exceeded.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "historic",
-                    "flight-positions",
-                    "full"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "timestamp",
-                      "value": "1705312200"
-                    },
-                    {
-                      "key": "bounds",
-                      "value": "51.5,51.0,-0.5,0.5"
-                    },
-                    {
-                      "key": "flights",
-                      "value": "BA123,LH456"
-                    },
-                    {
-                      "key": "callsigns",
-                      "value": "BAW123,DLH456"
-                    },
-                    {
-                      "key": "registrations",
-                      "value": "G-STBK,D-ABCD"
-                    },
-                    {
-                      "key": "painted_as",
-                      "value": "BAW,DLH"
-                    },
-                    {
-                      "key": "operating_as",
-                      "value": "BAW,DLH"
-                    },
-                    {
-                      "key": "airports",
-                      "value": "LHR,EDDF"
-                    },
-                    {
-                      "key": "routes",
-                      "value": "LHR-JFK,CDG-LAX"
-                    },
-                    {
-                      "key": "aircraft",
-                      "value": "B77W"
-                    },
-                    {
-                      "key": "altitude_ranges",
-                      "value": "0-5000,35000-45000"
-                    },
-                    {
-                      "key": "squawks",
-                      "value": "7700,7600"
-                    },
-                    {
-                      "key": "categories",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "data_sources",
-                      "value": "ADSB,MLAT"
-                    },
-                    {
-                      "key": "gspeed",
-                      "value": "<integer>"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "1000"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Too Many Requests",
-              "code": 429,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "83c82b85-418d-419f-8c09-1340ebd02cca",
-          "name": "Count historical flight positions",
-          "request": {
-            "name": "Count historical flight positions",
-            "description": {
-              "content": "Returns the number of historical aircraft positions that match the given filters. A timestamp and at least one additional filter parameter are required.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "historic",
-                "flight-positions",
-                "count"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "timestamp",
-                  "value": "<integer>",
-                  "description": "(Required) Unix timestamp (seconds since epoch) for the historical snapshot. Must be after 2016-05-11T00:00:00Z (Unix timestamp 1462924800)."
-                },
-                {
-                  "disabled": false,
-                  "key": "bounds",
-                  "value": "<string>",
-                  "description": "Geographic bounding box in the format \"north,south,west,east\" (e.g., \"51.5,51.0,-0.5,0.5\"). Latitudes range -90 to 90; longitudes -180 to 180. North must be greater than south."
-                },
-                {
-                  "disabled": false,
-                  "key": "flights",
-                  "value": "<string>",
-                  "description": "Comma-separated list of flight numbers (e.g., \"BA123,LH456\"). Maximum 15 values."
-                },
-                {
-                  "disabled": false,
-                  "key": "callsigns",
-                  "value": "<string>",
-                  "description": "Comma-separated list of ATC callsigns (e.g., \"BAW123,DLH456\"). Maximum 15 values."
-                },
-                {
-                  "disabled": false,
-                  "key": "registrations",
-                  "value": "<string>",
-                  "description": "Comma-separated list of aircraft registration codes (e.g., \"G-STBK,D-ABCD\"). Maximum 15 values."
-                },
-                {
-                  "disabled": false,
-                  "key": "painted_as",
-                  "value": "<string>",
-                  "description": "Comma-separated list of airline ICAO codes for the livery carrier (e.g., \"BAW,DLH\"). Maximum 15 values."
-                },
-                {
-                  "disabled": false,
-                  "key": "operating_as",
-                  "value": "<string>",
-                  "description": "Comma-separated list of airline ICAO codes for the operating carrier. Maximum 15 values."
-                },
-                {
-                  "disabled": false,
-                  "key": "airports",
-                  "value": "<string>",
-                  "description": "Comma-separated list of airport IATA or ICAO codes. Matches flights departing or arriving at these airports. Maximum 15 values."
-                },
-                {
-                  "disabled": false,
-                  "key": "routes",
-                  "value": "<string>",
-                  "description": "Comma-separated list of routes in origin-destination format (e.g., \"LHR-JFK\"). Maximum 15 values."
-                },
-                {
-                  "disabled": false,
-                  "key": "aircraft",
-                  "value": "<string>",
-                  "description": "ICAO aircraft type code (e.g., \"B77W\", \"A320\")."
-                },
-                {
-                  "disabled": false,
-                  "key": "altitude_ranges",
-                  "value": "<string>",
-                  "description": "Comma-separated altitude ranges in feet using \"min-max\" format (e.g., \"0-5000,35000-45000\"). Minimum altitude is -2000 ft. Maximum 15 ranges."
-                },
-                {
-                  "disabled": false,
-                  "key": "squawks",
-                  "value": "<string>",
-                  "description": "Comma-separated list of transponder squawk codes (4-digit octal, e.g., \"7700,7600\"). Maximum 15 values."
-                },
-                {
-                  "disabled": false,
-                  "key": "categories",
-                  "value": "<string>",
-                  "description": "Comma-separated list of aircraft/vehicle category codes. Maximum 15 values. P=Passenger, C=Cargo, M=Military and Government, J=Business Jets, T=General Aviation, H=Helicopters, B=Lighter than Air, G=Gliders, D=Drones, V=Ground Vehicles, O=Other, N=Non-Categorized."
-                },
-                {
-                  "disabled": false,
-                  "key": "data_sources",
-                  "value": "<string>",
-                  "description": "Comma-separated list of data source types (e.g., \"ADSB,MLAT\"). Maximum 15 values."
-                },
-                {
-                  "disabled": false,
-                  "key": "gspeed",
-                  "value": "<integer>",
-                  "description": "Ground speed filter in knots (0-5000), or a range string (e.g., \"200-400\")."
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "8943b680-454a-42c5-92bf-1728fb010b41",
-              "name": "Successful response with count of matching historical records",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "historic",
-                    "flight-positions",
-                    "count"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "timestamp",
-                      "value": "1705312200"
-                    },
-                    {
-                      "key": "bounds",
-                      "value": "51.5,51.0,-0.5,0.5"
-                    },
-                    {
-                      "key": "flights",
-                      "value": "BA123,LH456"
-                    },
-                    {
-                      "key": "callsigns",
-                      "value": "BAW123,DLH456"
-                    },
-                    {
-                      "key": "registrations",
-                      "value": "G-STBK,D-ABCD"
-                    },
-                    {
-                      "key": "painted_as",
-                      "value": "BAW,DLH"
-                    },
-                    {
-                      "key": "operating_as",
-                      "value": "BAW,DLH"
-                    },
-                    {
-                      "key": "airports",
-                      "value": "LHR,EDDF"
-                    },
-                    {
-                      "key": "routes",
-                      "value": "LHR-JFK,CDG-LAX"
-                    },
-                    {
-                      "key": "aircraft",
-                      "value": "B77W"
-                    },
-                    {
-                      "key": "altitude_ranges",
-                      "value": "0-5000,35000-45000"
-                    },
-                    {
-                      "key": "squawks",
-                      "value": "7700,7600"
-                    },
-                    {
-                      "key": "categories",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "data_sources",
-                      "value": "ADSB,MLAT"
-                    },
-                    {
-                      "key": "gspeed",
-                      "value": "<integer>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"record_count\": 1247\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "915209b5-47f1-4cdc-8872-965c0bc2e941",
-              "name": "Bad request — invalid or missing parameters.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "historic",
-                    "flight-positions",
-                    "count"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "timestamp",
-                      "value": "1705312200"
-                    },
-                    {
-                      "key": "bounds",
-                      "value": "51.5,51.0,-0.5,0.5"
-                    },
-                    {
-                      "key": "flights",
-                      "value": "BA123,LH456"
-                    },
-                    {
-                      "key": "callsigns",
-                      "value": "BAW123,DLH456"
-                    },
-                    {
-                      "key": "registrations",
-                      "value": "G-STBK,D-ABCD"
-                    },
-                    {
-                      "key": "painted_as",
-                      "value": "BAW,DLH"
-                    },
-                    {
-                      "key": "operating_as",
-                      "value": "BAW,DLH"
-                    },
-                    {
-                      "key": "airports",
-                      "value": "LHR,EDDF"
-                    },
-                    {
-                      "key": "routes",
-                      "value": "LHR-JFK,CDG-LAX"
-                    },
-                    {
-                      "key": "aircraft",
-                      "value": "B77W"
-                    },
-                    {
-                      "key": "altitude_ranges",
-                      "value": "0-5000,35000-45000"
-                    },
-                    {
-                      "key": "squawks",
-                      "value": "7700,7600"
-                    },
-                    {
-                      "key": "categories",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "data_sources",
-                      "value": "ADSB,MLAT"
-                    },
-                    {
-                      "key": "gspeed",
-                      "value": "<integer>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "3b5f63ae-218f-4f82-aaad-3fd6333127ae",
-              "name": "Unauthorized — missing or invalid Bearer token.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "historic",
-                    "flight-positions",
-                    "count"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "timestamp",
-                      "value": "1705312200"
-                    },
-                    {
-                      "key": "bounds",
-                      "value": "51.5,51.0,-0.5,0.5"
-                    },
-                    {
-                      "key": "flights",
-                      "value": "BA123,LH456"
-                    },
-                    {
-                      "key": "callsigns",
-                      "value": "BAW123,DLH456"
-                    },
-                    {
-                      "key": "registrations",
-                      "value": "G-STBK,D-ABCD"
-                    },
-                    {
-                      "key": "painted_as",
-                      "value": "BAW,DLH"
-                    },
-                    {
-                      "key": "operating_as",
-                      "value": "BAW,DLH"
-                    },
-                    {
-                      "key": "airports",
-                      "value": "LHR,EDDF"
-                    },
-                    {
-                      "key": "routes",
-                      "value": "LHR-JFK,CDG-LAX"
-                    },
-                    {
-                      "key": "aircraft",
-                      "value": "B77W"
-                    },
-                    {
-                      "key": "altitude_ranges",
-                      "value": "0-5000,35000-45000"
-                    },
-                    {
-                      "key": "squawks",
-                      "value": "7700,7600"
-                    },
-                    {
-                      "key": "categories",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "data_sources",
-                      "value": "ADSB,MLAT"
-                    },
-                    {
-                      "key": "gspeed",
-                      "value": "<integer>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "7a612a46-d7bd-4c82-9f5f-30c26d941659",
-              "name": "Too many requests — rate limit or credit limit exceeded.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "historic",
-                    "flight-positions",
-                    "count"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "timestamp",
-                      "value": "1705312200"
-                    },
-                    {
-                      "key": "bounds",
-                      "value": "51.5,51.0,-0.5,0.5"
-                    },
-                    {
-                      "key": "flights",
-                      "value": "BA123,LH456"
-                    },
-                    {
-                      "key": "callsigns",
-                      "value": "BAW123,DLH456"
-                    },
-                    {
-                      "key": "registrations",
-                      "value": "G-STBK,D-ABCD"
-                    },
-                    {
-                      "key": "painted_as",
-                      "value": "BAW,DLH"
-                    },
-                    {
-                      "key": "operating_as",
-                      "value": "BAW,DLH"
-                    },
-                    {
-                      "key": "airports",
-                      "value": "LHR,EDDF"
-                    },
-                    {
-                      "key": "routes",
-                      "value": "LHR-JFK,CDG-LAX"
-                    },
-                    {
-                      "key": "aircraft",
-                      "value": "B77W"
-                    },
-                    {
-                      "key": "altitude_ranges",
-                      "value": "0-5000,35000-45000"
-                    },
-                    {
-                      "key": "squawks",
-                      "value": "7700,7600"
-                    },
-                    {
-                      "key": "categories",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "data_sources",
-                      "value": "ADSB,MLAT"
-                    },
-                    {
-                      "key": "gspeed",
-                      "value": "<integer>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Too Many Requests",
-              "code": 429,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "aa436851-2fdb-4d5b-b42a-f1c6b952066d",
+          "createdAt": "2026-10-21T20:22:48.000Z",
+          "updatedAt": "2026-10-21T20:22:48.000Z",
+          "uid": "35240-aa436851-2fdb-4d5b-b42a-f1c6b952066d"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://fr24api.flightradar24.com/api",
-      "key": "baseUrl"
+      "id": "6ee8fa67-ca56-4ce1-a23a-87f5187c606b",
+      "createdAt": "2026-10-21T20:22:48.000Z",
+      "updatedAt": "2026-10-21T20:22:48.000Z",
+      "uid": "35240-6ee8fa67-ca56-4ce1-a23a-87f5187c606b"
     }
   ],
   "auth": {
@@ -1725,17 +1893,15 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "d2b36273-5781-4d31-91bd-56e5cfbb24e2",
-    "name": "Flightradar24 Airlines Historic Positions API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "Flightradar24 is the world's most popular real-time flight tracking platform, monitoring over 250,000 daily flights using data from a global network of ADS-B, MLAT, and radar receivers. The FR24 API provides developers with programmatic access to live aircraft positions, historical flight data, flight summaries, and reference data for airports and airlines. The credit-based subscription API uses Bearer token authentication and is available at https://fr24api.flightradar24.com/api with three tiers — Explorer, Essential, and Advanced — covering hobby projects through high-volume commercial applications.",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://fr24api.flightradar24.com/api"
     }
-  }
+  ]
 }

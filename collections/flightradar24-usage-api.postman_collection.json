@@ -1,209 +1,208 @@
 {
+  "info": {
+    "_postman_id": "567504e9-d70d-4533-aac7-169a002a5f25",
+    "name": "Flightradar24 Usage API",
+    "description": "Flightradar24 is the world's most popular real-time flight tracking platform, monitoring over 250,000 daily flights using data from a global network of ADS-B, MLAT, and radar receivers.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:23:02.000Z",
+    "updatedAt": "2026-10-21T20:23:02.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-567504e9-d70d-4533-aac7-169a002a5f25"
+  },
   "item": [
     {
-      "id": "d58b0415-069a-41fb-a7ee-38487fb76e39",
-      "name": "Usage",
-      "description": {
-        "content": "API account usage and credit consumption",
-        "type": "text/plain"
-      },
+      "name": "usage",
       "item": [
         {
-          "id": "9ebc16b6-b405-409e-a728-d868268b59d1",
           "name": "Get API usage",
+          "id": "8296dd98-6def-43f4-9160-f9be36a0d322",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "name": "Get API usage",
-            "description": {
-              "content": "Returns a summary of API account usage and credit consumption broken down by endpoint for the specified time period.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "usage"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "period",
-                  "value": "24h",
-                  "description": "Time period for the usage summary."
-                }
-              ],
-              "variable": []
-            },
+            "method": "GET",
             "header": [
               {
                 "key": "Accept",
                 "value": "application/json"
               }
             ],
-            "method": "GET",
-            "auth": null
+            "url": {
+              "raw": "{{baseUrl}}/usage?period=24h",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "usage"
+              ],
+              "query": [
+                {
+                  "description": "Time period for the usage summary.",
+                  "key": "period",
+                  "value": "24h"
+                }
+              ]
+            },
+            "description": "Returns a summary of API account usage and credit consumption broken down by endpoint for the specified time period."
           },
           "response": [
             {
-              "id": "7712c1a0-c7ba-465e-8c05-60e9be0206b5",
+              "id": "39126dad-6302-4ff5-a2d4-644ee82cf00e",
               "name": "Successful response with API usage data",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "usage"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "period",
-                      "value": "24h"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/usage?period=24h",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "usage"
+                  ],
+                  "query": [
+                    {
+                      "description": "Time period for the usage summary.",
+                      "key": "period",
+                      "value": "24h"
+                    }
+                  ]
+                }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"data\": [\n    {\n      \"endpoint\": \"/api/live/flight-positions/light\",\n      \"request_count\": 142,\n      \"credits\": 284\n    },\n    {\n      \"endpoint\": \"/api/flight-summary/full\",\n      \"request_count\": 38,\n      \"credits\": 380\n    }\n  ]\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"data\": [\n    {\n      \"endpoint\": \"<string>\",\n      \"request_count\": \"<integer>\",\n      \"credits\": \"<integer>\"\n    },\n    {\n      \"endpoint\": \"<string>\",\n      \"request_count\": \"<integer>\",\n      \"credits\": \"<integer>\"\n    }\n  ]\n}",
+              "createdAt": "2026-10-21T20:23:02.000Z",
+              "updatedAt": "2026-10-21T20:23:02.000Z",
+              "uid": "35240-39126dad-6302-4ff5-a2d4-644ee82cf00e"
             },
             {
-              "id": "2c8eec29-c60d-4dc7-97c8-617a6167a332",
-              "name": "Unauthorized — missing or invalid Bearer token.",
+              "id": "0bd114d8-cdc7-499b-a052-89f46caf3e54",
+              "name": "Unauthorized \u2014 missing or invalid Bearer token.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "usage"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "period",
-                      "value": "24h"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/usage?period=24h",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "usage"
+                  ],
+                  "query": [
+                    {
+                      "description": "Time period for the usage summary.",
+                      "key": "period",
+                      "value": "24h"
+                    }
+                  ]
+                }
               },
               "status": "Unauthorized",
               "code": 401,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+              "createdAt": "2026-10-21T20:23:02.000Z",
+              "updatedAt": "2026-10-21T20:23:02.000Z",
+              "uid": "35240-0bd114d8-cdc7-499b-a052-89f46caf3e54"
             },
             {
-              "id": "3c9e68a6-4393-4f6c-ba51-7cfa8d1934a4",
-              "name": "Too many requests — rate limit or credit limit exceeded.",
+              "id": "2eddb258-4bf1-4a4d-b860-4fb25fb693d1",
+              "name": "Too many requests \u2014 rate limit or credit limit exceeded.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "usage"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "period",
-                      "value": "24h"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/usage?period=24h",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "usage"
+                  ],
+                  "query": [
+                    {
+                      "description": "Time period for the usage summary.",
+                      "key": "period",
+                      "value": "24h"
+                    }
+                  ]
+                }
               },
               "status": "Too Many Requests",
               "code": 429,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+              "createdAt": "2026-10-21T20:23:02.000Z",
+              "updatedAt": "2026-10-21T20:23:02.000Z",
+              "uid": "35240-2eddb258-4bf1-4a4d-b860-4fb25fb693d1"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-21T20:23:02.000Z",
+          "updatedAt": "2026-10-21T20:23:02.000Z",
+          "uid": "35240-8296dd98-6def-43f4-9160-f9be36a0d322"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://fr24api.flightradar24.com/api",
-      "key": "baseUrl"
+      "id": "ce9c40c0-e60a-4d15-9633-d7ae34caa56d",
+      "createdAt": "2026-10-21T20:23:02.000Z",
+      "updatedAt": "2026-10-21T20:23:02.000Z",
+      "uid": "35240-ce9c40c0-e60a-4d15-9633-d7ae34caa56d"
     }
   ],
   "auth": {
@@ -211,17 +210,15 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "46cd9510-e6d7-4bf6-b8a5-f028c6eadeda",
-    "name": "Flightradar24 Airlines Usage API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "Flightradar24 is the world's most popular real-time flight tracking platform, monitoring over 250,000 daily flights using data from a global network of ADS-B, MLAT, and radar receivers. The FR24 API provides developers with programmatic access to live aircraft positions, historical flight data, flight summaries, and reference data for airports and airlines. The credit-based subscription API uses Bearer token authentication and is available at https://fr24api.flightradar24.com/api with three tiers — Explorer, Essential, and Advanced — covering hobby projects through high-volume commercial applications.",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://fr24api.flightradar24.com/api"
     }
-  }
+  ]
 }

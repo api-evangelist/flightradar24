@@ -1,285 +1,292 @@
 {
+  "info": {
+    "_postman_id": "dca6c684-142a-44b6-acfd-6f598ddd1093",
+    "name": "Flightradar24 Airlines API",
+    "description": "Flightradar24 is the world's most popular real-time flight tracking platform, monitoring over 250,000 daily flights using data from a global network of ADS-B, MLAT, and radar receivers.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:22:14.000Z",
+    "updatedAt": "2026-10-21T20:22:14.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-dca6c684-142a-44b6-acfd-6f598ddd1093"
+  },
   "item": [
     {
-      "id": "9c8c6876-c844-4410-9a8d-78e59c306345",
-      "name": "Airlines",
-      "description": {
-        "content": "Reference data for airlines",
-        "type": "text/plain"
-      },
+      "name": "static",
       "item": [
         {
-          "id": "49309610-c0a2-4c77-9cd9-b48d9318a685",
-          "name": "Get airline (light)",
-          "request": {
-            "name": "Get airline (light)",
-            "description": {
-              "content": "Returns basic reference data for an airline by ICAO code, including airline name, IATA code, and ICAO code. Useful for resolving callsign prefixes and operator codes present in flight data into human-readable airline names.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "static",
-                "airlines",
-                ":icao",
-                "light"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "icao",
-                  "description": "(Required) Airline ICAO code (3-letter), e.g., \"SAS\", \"DLH\", \"BAW\"."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "airlines",
+          "item": [
             {
-              "id": "719b3806-46f7-4472-8cfd-c4acbff4fa35",
-              "name": "Successful response with basic airline data",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "static",
-                    "airlines",
-                    ":icao",
-                    "light"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "icao",
-                      "description": "(Required) Airline ICAO code (3-letter), e.g., \"SAS\", \"DLH\", \"BAW\"."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "name": "{icao}",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "name": "light",
+                  "item": [
+                    {
+                      "name": "Get airline (light)",
+                      "id": "589d1d24-444e-4f54-8128-665963acc7f7",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/static/airlines/:icao/light",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "static",
+                            "airlines",
+                            ":icao",
+                            "light"
+                          ],
+                          "variable": [
+                            {
+                              "id": "86eec056-211f-4a4f-975f-a1233141c082",
+                              "key": "icao",
+                              "value": "NBT",
+                              "description": "(Required) Airline ICAO code (3-letter), e.g., \"SAS\", \"DLH\", \"BAW\"."
+                            }
+                          ]
+                        },
+                        "description": "Returns basic reference data for an airline by ICAO code, including airline name, IATA code, and ICAO code. Useful for resolving callsign prefixes and operator codes present in flight data into human-readable airline names."
+                      },
+                      "response": [
+                        {
+                          "id": "ad9e1dbd-dba8-43d3-9c6c-44efed062459",
+                          "name": "Successful response with basic airline data",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/static/airlines/:icao/light",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "static",
+                                "airlines",
+                                ":icao",
+                                "light"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "icao"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"name\": \"<string>\",\n  \"icao\": \"<string>\",\n  \"iata\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:22:14.000Z",
+                          "updatedAt": "2026-10-21T20:22:14.000Z",
+                          "uid": "35240-ad9e1dbd-dba8-43d3-9c6c-44efed062459"
+                        },
+                        {
+                          "id": "570828d8-d0a7-41d6-b4aa-cbbffcb07204",
+                          "name": "Unauthorized \u2014 missing or invalid Bearer token.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/static/airlines/:icao/light",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "static",
+                                "airlines",
+                                ":icao",
+                                "light"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "icao"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:22:14.000Z",
+                          "updatedAt": "2026-10-21T20:22:14.000Z",
+                          "uid": "35240-570828d8-d0a7-41d6-b4aa-cbbffcb07204"
+                        },
+                        {
+                          "id": "21532e28-2e71-4adc-ad30-5d88a8a4ff38",
+                          "name": "Not found \u2014 the requested resource does not exist.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/static/airlines/:icao/light",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "static",
+                                "airlines",
+                                ":icao",
+                                "light"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "icao"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:22:14.000Z",
+                          "updatedAt": "2026-10-21T20:22:14.000Z",
+                          "uid": "35240-21532e28-2e71-4adc-ad30-5d88a8a4ff38"
+                        },
+                        {
+                          "id": "12bfc158-da00-4e93-9f98-cb4b46e857a1",
+                          "name": "Too many requests \u2014 rate limit or credit limit exceeded.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/static/airlines/:icao/light",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "static",
+                                "airlines",
+                                ":icao",
+                                "light"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "icao"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Too Many Requests",
+                          "code": 429,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:22:14.000Z",
+                          "updatedAt": "2026-10-21T20:22:14.000Z",
+                          "uid": "35240-12bfc158-da00-4e93-9f98-cb4b46e857a1"
+                        }
+                      ],
+                      "createdAt": "2026-10-21T20:22:14.000Z",
+                      "updatedAt": "2026-10-21T20:22:14.000Z",
+                      "uid": "35240-589d1d24-444e-4f54-8128-665963acc7f7"
+                    }
+                  ],
+                  "id": "d6feb240-d20f-4e55-8af0-b5e46695b6fa",
+                  "createdAt": "2026-10-21T20:22:14.000Z",
+                  "updatedAt": "2026-10-21T20:22:14.000Z",
+                  "uid": "35240-d6feb240-d20f-4e55-8af0-b5e46695b6fa"
                 }
               ],
-              "body": "{\n  \"name\": \"British Airways\",\n  \"icao\": \"BAW\",\n  \"iata\": \"BA\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "3969f60b-abd1-46ca-b390-52b38e328045",
-              "name": "Unauthorized — missing or invalid Bearer token.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "static",
-                    "airlines",
-                    ":icao",
-                    "light"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "icao",
-                      "description": "(Required) Airline ICAO code (3-letter), e.g., \"SAS\", \"DLH\", \"BAW\"."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "1d55aa2c-1fa9-4053-a1f2-4f9a2fd3542a",
-              "name": "Not found — the requested resource does not exist.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "static",
-                    "airlines",
-                    ":icao",
-                    "light"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "icao",
-                      "description": "(Required) Airline ICAO code (3-letter), e.g., \"SAS\", \"DLH\", \"BAW\"."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "5852c750-f10a-4533-875a-136f9e206b44",
-              "name": "Too many requests — rate limit or credit limit exceeded.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "static",
-                    "airlines",
-                    ":icao",
-                    "light"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "icao",
-                      "description": "(Required) Airline ICAO code (3-letter), e.g., \"SAS\", \"DLH\", \"BAW\"."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Too Many Requests",
-              "code": 429,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "7924e2b2-6ba3-4479-9b01-0913bc6e8007",
+              "createdAt": "2026-10-21T20:22:14.000Z",
+              "updatedAt": "2026-10-21T20:22:14.000Z",
+              "uid": "35240-7924e2b2-6ba3-4479-9b01-0913bc6e8007"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "6111ffaf-2f23-4ae5-b171-cf32090a45db",
+          "createdAt": "2026-10-21T20:22:14.000Z",
+          "updatedAt": "2026-10-21T20:22:14.000Z",
+          "uid": "35240-6111ffaf-2f23-4ae5-b171-cf32090a45db"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://fr24api.flightradar24.com/api",
-      "key": "baseUrl"
+      "id": "a7187083-06b0-44f8-9a38-b70f1233f48f",
+      "createdAt": "2026-10-21T20:22:14.000Z",
+      "updatedAt": "2026-10-21T20:22:14.000Z",
+      "uid": "35240-a7187083-06b0-44f8-9a38-b70f1233f48f"
     }
   ],
   "auth": {
@@ -287,17 +294,15 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "fcac4dda-c07b-4155-bdcc-2ab933ec63b8",
-    "name": "Flightradar24 Airlines API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "Flightradar24 is the world's most popular real-time flight tracking platform, monitoring over 250,000 daily flights using data from a global network of ADS-B, MLAT, and radar receivers. The FR24 API provides developers with programmatic access to live aircraft positions, historical flight data, flight summaries, and reference data for airports and airlines. The credit-based subscription API uses Bearer token authentication and is available at https://fr24api.flightradar24.com/api with three tiers — Explorer, Essential, and Advanced — covering hobby projects through high-volume commercial applications.",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://fr24api.flightradar24.com/api"
     }
-  }
+  ]
 }

@@ -1,555 +1,588 @@
 {
+  "info": {
+    "_postman_id": "71ca3b83-98b0-4d42-b46e-f376d9989a68",
+    "name": "Flightradar24 Historic Events API",
+    "description": "Flightradar24 is the world's most popular real-time flight tracking platform, monitoring over 250,000 daily flights using data from a global network of ADS-B, MLAT, and radar receivers.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:22:41.000Z",
+    "updatedAt": "2026-10-21T20:22:42.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-71ca3b83-98b0-4d42-b46e-f376d9989a68"
+  },
   "item": [
     {
-      "id": "87a1e05d-829a-4ac5-a09a-04bb55fe6039",
-      "name": "Historic Events",
-      "description": {
-        "content": "Historical flight event data (takeoff, landing, gate movements, airspace transitions)",
-        "type": "text/plain"
-      },
+      "name": "historic",
       "item": [
         {
-          "id": "95b5c0c1-c8cb-4452-b6bf-f964c5960ca0",
-          "name": "Get historical flight events (light)",
-          "request": {
-            "name": "Get historical flight events (light)",
-            "description": {
-              "content": "Returns comprehensive historical information on flight events including takeoff, landing, gate movements, and airspace transitions. Lightweight version includes fr24_id, callsign, hex, and events list.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "historic",
-                "flight-events",
-                "light"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "flight_ids",
-                  "value": "<string>",
-                  "description": "(Required) Comma-separated FR24 flight IDs (hexadecimal). Maximum 15 IDs. Example: \"391fdd79,35f2ffd9\""
-                },
-                {
-                  "disabled": false,
-                  "key": "event_types",
-                  "value": "<string>",
-                  "description": "(Required) Comma-separated event types to filter by. Use \"all\" to return all event types."
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "flight-events",
+          "item": [
             {
-              "id": "355f0e31-e37e-4bbb-9d9c-272acdb654b6",
-              "name": "Successful response with historical flight events (light)",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "historic",
-                    "flight-events",
-                    "light"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+              "name": "light",
+              "item": [
+                {
+                  "name": "Get historical flight events (light)",
+                  "id": "b3562b05-7e52-4626-a1f3-27b7abb38189",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/historic/flight-events/light?flight_ids=<string>&event_types=all",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "historic",
+                        "flight-events",
+                        "light"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Comma-separated FR24 flight IDs (hexadecimal). Maximum 15 IDs. Example: \"391fdd79,35f2ffd9\"",
+                          "key": "flight_ids",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) Comma-separated event types to filter by. Use \"all\" to return all event types.",
+                          "key": "event_types",
+                          "value": "all"
+                        }
+                      ]
+                    },
+                    "description": "Returns comprehensive historical information on flight events including takeoff, landing, gate movements, and airspace transitions. Lightweight version includes fr24_id, callsign, hex, and events list."
+                  },
+                  "response": [
                     {
-                      "key": "flight_ids",
-                      "value": "391fdd79,35f2ffd9"
+                      "id": "9236b122-8f81-4633-9222-cbacacef2779",
+                      "name": "Successful response with historical flight events (light)",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/historic/flight-events/light?flight_ids=<string>&event_types=all",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "historic",
+                            "flight-events",
+                            "light"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Comma-separated FR24 flight IDs (hexadecimal). Maximum 15 IDs. Example: \"391fdd79,35f2ffd9\"",
+                              "key": "flight_ids",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "(Required) Comma-separated event types to filter by. Use \"all\" to return all event types.",
+                              "key": "event_types",
+                              "value": "all"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": [\n    {\n      \"fr24_id\": \"<string>\",\n      \"callsign\": \"<string>\",\n      \"hex\": \"<string>\",\n      \"events\": [\n        {\n          \"type\": \"airspace_transition\",\n          \"timestamp\": \"<dateTime>\",\n          \"lat\": \"<float>\",\n          \"lon\": \"<float>\",\n          \"alt\": \"<integer>\",\n          \"gspeed\": \"<integer>\",\n          \"details\": {\n            \"gate_ident\": \"<string>\",\n            \"gate_lat\": \"<float>\",\n            \"gate_lon\": \"<float>\"\n          }\n        },\n        {\n          \"type\": \"gate_arrival\",\n          \"timestamp\": \"<dateTime>\",\n          \"lat\": \"<float>\",\n          \"lon\": \"<float>\",\n          \"alt\": \"<integer>\",\n          \"gspeed\": \"<integer>\",\n          \"details\": {\n            \"gate_ident\": \"<string>\",\n            \"gate_lat\": \"<float>\",\n            \"gate_lon\": \"<float>\"\n          }\n        }\n      ]\n    },\n    {\n      \"fr24_id\": \"<string>\",\n      \"callsign\": \"<string>\",\n      \"hex\": \"<string>\",\n      \"events\": [\n        {\n          \"type\": \"takeoff\",\n          \"timestamp\": \"<dateTime>\",\n          \"lat\": \"<float>\",\n          \"lon\": \"<float>\",\n          \"alt\": \"<integer>\",\n          \"gspeed\": \"<integer>\",\n          \"details\": {\n            \"gate_ident\": \"<string>\",\n            \"gate_lat\": \"<float>\",\n            \"gate_lon\": \"<float>\"\n          }\n        },\n        {\n          \"type\": \"gate_departure\",\n          \"timestamp\": \"<dateTime>\",\n          \"lat\": \"<float>\",\n          \"lon\": \"<float>\",\n          \"alt\": \"<integer>\",\n          \"gspeed\": \"<integer>\",\n          \"details\": {\n            \"gate_ident\": \"<string>\",\n            \"gate_lat\": \"<float>\",\n            \"gate_lon\": \"<float>\"\n          }\n        }\n      ]\n    }\n  ]\n}",
+                      "createdAt": "2026-10-21T20:22:42.000Z",
+                      "updatedAt": "2026-10-21T20:22:42.000Z",
+                      "uid": "35240-9236b122-8f81-4633-9222-cbacacef2779"
                     },
                     {
-                      "key": "event_types",
-                      "value": "<string>"
+                      "id": "482c25b7-1b15-4c61-9586-52a4e03d9358",
+                      "name": "Bad request \u2014 invalid or missing parameters.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/historic/flight-events/light?flight_ids=<string>&event_types=all",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "historic",
+                            "flight-events",
+                            "light"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Comma-separated FR24 flight IDs (hexadecimal). Maximum 15 IDs. Example: \"391fdd79,35f2ffd9\"",
+                              "key": "flight_ids",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "(Required) Comma-separated event types to filter by. Use \"all\" to return all event types.",
+                              "key": "event_types",
+                              "value": "all"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T20:22:42.000Z",
+                      "updatedAt": "2026-10-21T20:22:42.000Z",
+                      "uid": "35240-482c25b7-1b15-4c61-9586-52a4e03d9358"
+                    },
+                    {
+                      "id": "ad3c1412-af05-4edf-8e69-dfa554624bd6",
+                      "name": "Unauthorized \u2014 missing or invalid Bearer token.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/historic/flight-events/light?flight_ids=<string>&event_types=all",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "historic",
+                            "flight-events",
+                            "light"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Comma-separated FR24 flight IDs (hexadecimal). Maximum 15 IDs. Example: \"391fdd79,35f2ffd9\"",
+                              "key": "flight_ids",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "(Required) Comma-separated event types to filter by. Use \"all\" to return all event types.",
+                              "key": "event_types",
+                              "value": "all"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T20:22:42.000Z",
+                      "updatedAt": "2026-10-21T20:22:42.000Z",
+                      "uid": "35240-ad3c1412-af05-4edf-8e69-dfa554624bd6"
+                    },
+                    {
+                      "id": "f87aaf51-f2e8-4d1b-beab-3157daaf8909",
+                      "name": "Too many requests \u2014 rate limit or credit limit exceeded.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/historic/flight-events/light?flight_ids=<string>&event_types=all",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "historic",
+                            "flight-events",
+                            "light"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Comma-separated FR24 flight IDs (hexadecimal). Maximum 15 IDs. Example: \"391fdd79,35f2ffd9\"",
+                              "key": "flight_ids",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "(Required) Comma-separated event types to filter by. Use \"all\" to return all event types.",
+                              "key": "event_types",
+                              "value": "all"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T20:22:42.000Z",
+                      "updatedAt": "2026-10-21T20:22:42.000Z",
+                      "uid": "35240-f87aaf51-f2e8-4d1b-beab-3157daaf8909"
                     }
                   ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "createdAt": "2026-10-21T20:22:42.000Z",
+                  "updatedAt": "2026-10-21T20:22:42.000Z",
+                  "uid": "35240-b3562b05-7e52-4626-a1f3-27b7abb38189"
                 }
               ],
-              "body": "{\n  \"data\": [\n    {\n      \"fr24_id\": \"391fdd79\",\n      \"callsign\": \"BAW456\",\n      \"hex\": \"400A20\",\n      \"events\": [\n        {\n          \"type\": \"takeoff\",\n          \"timestamp\": \"2024-01-15T08:35:00Z\",\n          \"lat\": 8623.591139587208,\n          \"lon\": 46.05536787491427,\n          \"alt\": 7241,\n          \"gspeed\": 870,\n          \"details\": {\n            \"gate_ident\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"gate_lat\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"gate_lon\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"type\": \"takeoff\",\n          \"timestamp\": \"2024-01-15T08:35:00Z\",\n          \"lat\": 2140.8471865572255,\n          \"lon\": 2240.2842686438007,\n          \"alt\": 9570,\n          \"gspeed\": 6775,\n          \"details\": {\n            \"gate_ident\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"gate_lat\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"gate_lon\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ]\n    },\n    {\n      \"fr24_id\": \"391fdd79\",\n      \"callsign\": \"BAW456\",\n      \"hex\": \"400A20\",\n      \"events\": [\n        {\n          \"type\": \"takeoff\",\n          \"timestamp\": \"2024-01-15T08:35:00Z\",\n          \"lat\": 9094.383608915687,\n          \"lon\": 9207.805511805092,\n          \"alt\": 5868,\n          \"gspeed\": 865,\n          \"details\": {\n            \"gate_ident\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"gate_lat\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"gate_lon\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"type\": \"takeoff\",\n          \"timestamp\": \"2024-01-15T08:35:00Z\",\n          \"lat\": 3657.4137901274908,\n          \"lon\": 7805.42760415883,\n          \"alt\": 438,\n          \"gspeed\": 8654,\n          \"details\": {\n            \"gate_ident\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"gate_lat\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"gate_lon\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ]\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "548111e7-429a-46db-941c-64c3ac0b8c74",
+              "createdAt": "2026-10-21T20:22:42.000Z",
+              "updatedAt": "2026-10-21T20:22:42.000Z",
+              "uid": "35240-548111e7-429a-46db-941c-64c3ac0b8c74"
             },
             {
-              "id": "010bdc2a-59cf-41cd-9e69-623045c4f29c",
-              "name": "Bad request — invalid or missing parameters.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "historic",
-                    "flight-events",
-                    "light"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+              "name": "full",
+              "item": [
+                {
+                  "name": "Get historical flight events (full)",
+                  "id": "33ae9831-7575-4761-ad19-5549bf8b6912",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/historic/flight-events/full?flight_ids=<string>&event_types=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "historic",
+                        "flight-events",
+                        "full"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Comma-separated FR24 flight IDs (hexadecimal). Maximum 15 IDs.",
+                          "key": "flight_ids",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) Comma-separated event types to filter by. Use \"all\" to return all event types.",
+                          "key": "event_types",
+                          "value": "<string>"
+                        }
+                      ]
+                    },
+                    "description": "Returns comprehensive historical information on flight events including takeoff, landing, gate movements, and airspace transitions, with additional flight and aircraft details such as origin, destination, and aircraft type."
+                  },
+                  "response": [
                     {
-                      "key": "flight_ids",
-                      "value": "391fdd79,35f2ffd9"
+                      "id": "76cd9376-243a-4d94-bfe9-7f4e17afb544",
+                      "name": "Successful response with historical flight events (full)",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/historic/flight-events/full?flight_ids=<string>&event_types=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "historic",
+                            "flight-events",
+                            "full"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Comma-separated FR24 flight IDs (hexadecimal). Maximum 15 IDs.",
+                              "key": "flight_ids",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "(Required) Comma-separated event types to filter by. Use \"all\" to return all event types.",
+                              "key": "event_types",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": [\n    {\n      \"fr24_id\": \"<string>\",\n      \"callsign\": \"<string>\",\n      \"hex\": \"<string>\",\n      \"operating_as\": \"<string>\",\n      \"painted_as\": \"<string>\",\n      \"orig_iata\": \"<string>\",\n      \"orig_icao\": \"<string>\",\n      \"dest_iata\": \"<string>\",\n      \"dest_icao\": \"<string>\",\n      \"events\": [\n        {\n          \"type\": \"takeoff\",\n          \"timestamp\": \"<dateTime>\",\n          \"lat\": \"<float>\",\n          \"lon\": \"<float>\",\n          \"alt\": \"<integer>\",\n          \"gspeed\": \"<integer>\",\n          \"details\": {\n            \"gate_ident\": \"<string>\",\n            \"gate_lat\": \"<float>\",\n            \"gate_lon\": \"<float>\"\n          }\n        },\n        {\n          \"type\": \"diverted\",\n          \"timestamp\": \"<dateTime>\",\n          \"lat\": \"<float>\",\n          \"lon\": \"<float>\",\n          \"alt\": \"<integer>\",\n          \"gspeed\": \"<integer>\",\n          \"details\": {\n            \"gate_ident\": \"<string>\",\n            \"gate_lat\": \"<float>\",\n            \"gate_lon\": \"<float>\"\n          }\n        }\n      ]\n    },\n    {\n      \"fr24_id\": \"<string>\",\n      \"callsign\": \"<string>\",\n      \"hex\": \"<string>\",\n      \"operating_as\": \"<string>\",\n      \"painted_as\": \"<string>\",\n      \"orig_iata\": \"<string>\",\n      \"orig_icao\": \"<string>\",\n      \"dest_iata\": \"<string>\",\n      \"dest_icao\": \"<string>\",\n      \"events\": [\n        {\n          \"type\": \"diverted\",\n          \"timestamp\": \"<dateTime>\",\n          \"lat\": \"<float>\",\n          \"lon\": \"<float>\",\n          \"alt\": \"<integer>\",\n          \"gspeed\": \"<integer>\",\n          \"details\": {\n            \"gate_ident\": \"<string>\",\n            \"gate_lat\": \"<float>\",\n            \"gate_lon\": \"<float>\"\n          }\n        },\n        {\n          \"type\": \"airspace_transition\",\n          \"timestamp\": \"<dateTime>\",\n          \"lat\": \"<float>\",\n          \"lon\": \"<float>\",\n          \"alt\": \"<integer>\",\n          \"gspeed\": \"<integer>\",\n          \"details\": {\n            \"gate_ident\": \"<string>\",\n            \"gate_lat\": \"<float>\",\n            \"gate_lon\": \"<float>\"\n          }\n        }\n      ]\n    }\n  ]\n}",
+                      "createdAt": "2026-10-21T20:22:42.000Z",
+                      "updatedAt": "2026-10-21T20:22:42.000Z",
+                      "uid": "35240-76cd9376-243a-4d94-bfe9-7f4e17afb544"
                     },
                     {
-                      "key": "event_types",
-                      "value": "<string>"
+                      "id": "1b2ae676-4564-4649-8c5a-02143552f9f9",
+                      "name": "Bad request \u2014 invalid or missing parameters.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/historic/flight-events/full?flight_ids=<string>&event_types=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "historic",
+                            "flight-events",
+                            "full"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Comma-separated FR24 flight IDs (hexadecimal). Maximum 15 IDs.",
+                              "key": "flight_ids",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "(Required) Comma-separated event types to filter by. Use \"all\" to return all event types.",
+                              "key": "event_types",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T20:22:42.000Z",
+                      "updatedAt": "2026-10-21T20:22:42.000Z",
+                      "uid": "35240-1b2ae676-4564-4649-8c5a-02143552f9f9"
+                    },
+                    {
+                      "id": "7697459f-91e1-4f7b-9d3a-d83ee07e1ecf",
+                      "name": "Unauthorized \u2014 missing or invalid Bearer token.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/historic/flight-events/full?flight_ids=<string>&event_types=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "historic",
+                            "flight-events",
+                            "full"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Comma-separated FR24 flight IDs (hexadecimal). Maximum 15 IDs.",
+                              "key": "flight_ids",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "(Required) Comma-separated event types to filter by. Use \"all\" to return all event types.",
+                              "key": "event_types",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T20:22:42.000Z",
+                      "updatedAt": "2026-10-21T20:22:42.000Z",
+                      "uid": "35240-7697459f-91e1-4f7b-9d3a-d83ee07e1ecf"
+                    },
+                    {
+                      "id": "85373782-2459-4954-866b-14746729ed4b",
+                      "name": "Too many requests \u2014 rate limit or credit limit exceeded.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/historic/flight-events/full?flight_ids=<string>&event_types=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "historic",
+                            "flight-events",
+                            "full"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Comma-separated FR24 flight IDs (hexadecimal). Maximum 15 IDs.",
+                              "key": "flight_ids",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "(Required) Comma-separated event types to filter by. Use \"all\" to return all event types.",
+                              "key": "event_types",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T20:22:42.000Z",
+                      "updatedAt": "2026-10-21T20:22:42.000Z",
+                      "uid": "35240-85373782-2459-4954-866b-14746729ed4b"
                     }
                   ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "createdAt": "2026-10-21T20:22:42.000Z",
+                  "updatedAt": "2026-10-21T20:22:42.000Z",
+                  "uid": "35240-33ae9831-7575-4761-ad19-5549bf8b6912"
                 }
               ],
-              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "0d2c04ed-d3d5-4a91-bee5-440ee0932239",
-              "name": "Unauthorized — missing or invalid Bearer token.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "historic",
-                    "flight-events",
-                    "light"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "flight_ids",
-                      "value": "391fdd79,35f2ffd9"
-                    },
-                    {
-                      "key": "event_types",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "fe1bfc32-2692-49a8-9257-a291e8d5a59e",
-              "name": "Too many requests — rate limit or credit limit exceeded.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "historic",
-                    "flight-events",
-                    "light"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "flight_ids",
-                      "value": "391fdd79,35f2ffd9"
-                    },
-                    {
-                      "key": "event_types",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Too Many Requests",
-              "code": 429,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "a68df2dd-ca20-462c-8b66-c32cacd0bc4e",
+              "createdAt": "2026-10-21T20:22:42.000Z",
+              "updatedAt": "2026-10-21T20:22:42.000Z",
+              "uid": "35240-a68df2dd-ca20-462c-8b66-c32cacd0bc4e"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "62a4a0b8-765c-49ec-8486-ea7d1efadc28",
-          "name": "Get historical flight events (full)",
-          "request": {
-            "name": "Get historical flight events (full)",
-            "description": {
-              "content": "Returns comprehensive historical information on flight events including takeoff, landing, gate movements, and airspace transitions, with additional flight and aircraft details such as origin, destination, and aircraft type.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "historic",
-                "flight-events",
-                "full"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "flight_ids",
-                  "value": "<string>",
-                  "description": "(Required) Comma-separated FR24 flight IDs (hexadecimal). Maximum 15 IDs."
-                },
-                {
-                  "disabled": false,
-                  "key": "event_types",
-                  "value": "<string>",
-                  "description": "(Required) Comma-separated event types to filter by. Use \"all\" to return all event types."
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "3db13c85-fc7b-4df7-911f-e02d6c712d90",
-              "name": "Successful response with historical flight events (full)",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "historic",
-                    "flight-events",
-                    "full"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "flight_ids",
-                      "value": "391fdd79,35f2ffd9"
-                    },
-                    {
-                      "key": "event_types",
-                      "value": "all"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"data\": [\n    {\n      \"fr24_id\": \"391fdd79\",\n      \"callsign\": \"BAW456\",\n      \"hex\": \"400A20\",\n      \"operating_as\": \"BAW\",\n      \"painted_as\": \"BAW\",\n      \"orig_iata\": \"LHR\",\n      \"orig_icao\": \"EGLL\",\n      \"dest_iata\": \"JFK\",\n      \"dest_icao\": \"KJFK\",\n      \"events\": [\n        {\n          \"type\": \"takeoff\",\n          \"timestamp\": \"2024-01-15T08:35:00Z\",\n          \"lat\": 5989.384432701784,\n          \"lon\": 2872.015068168251,\n          \"alt\": 5804,\n          \"gspeed\": 9639,\n          \"details\": {\n            \"gate_ident\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"gate_lat\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"gate_lon\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"type\": \"takeoff\",\n          \"timestamp\": \"2024-01-15T08:35:00Z\",\n          \"lat\": 2766.9712469761275,\n          \"lon\": 9048.546485373197,\n          \"alt\": 4003,\n          \"gspeed\": 781,\n          \"details\": {\n            \"gate_ident\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"gate_lat\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"gate_lon\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ]\n    },\n    {\n      \"fr24_id\": \"391fdd79\",\n      \"callsign\": \"BAW456\",\n      \"hex\": \"400A20\",\n      \"operating_as\": \"BAW\",\n      \"painted_as\": \"BAW\",\n      \"orig_iata\": \"LHR\",\n      \"orig_icao\": \"EGLL\",\n      \"dest_iata\": \"JFK\",\n      \"dest_icao\": \"KJFK\",\n      \"events\": [\n        {\n          \"type\": \"takeoff\",\n          \"timestamp\": \"2024-01-15T08:35:00Z\",\n          \"lat\": 8227.872014974839,\n          \"lon\": 7750.642210809348,\n          \"alt\": 297,\n          \"gspeed\": 4461,\n          \"details\": {\n            \"gate_ident\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"gate_lat\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"gate_lon\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"type\": \"takeoff\",\n          \"timestamp\": \"2024-01-15T08:35:00Z\",\n          \"lat\": 16.233390238542533,\n          \"lon\": 8749.40199553743,\n          \"alt\": 752,\n          \"gspeed\": 975,\n          \"details\": {\n            \"gate_ident\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"gate_lat\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"gate_lon\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ]\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "cff10db9-3021-4646-a20f-8363de1d520e",
-              "name": "Bad request — invalid or missing parameters.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "historic",
-                    "flight-events",
-                    "full"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "flight_ids",
-                      "value": "391fdd79,35f2ffd9"
-                    },
-                    {
-                      "key": "event_types",
-                      "value": "all"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "91602638-21af-49e7-9f19-ca0aee57181a",
-              "name": "Unauthorized — missing or invalid Bearer token.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "historic",
-                    "flight-events",
-                    "full"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "flight_ids",
-                      "value": "391fdd79,35f2ffd9"
-                    },
-                    {
-                      "key": "event_types",
-                      "value": "all"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "549b654b-8f62-4d9d-9dd7-661a1760e107",
-              "name": "Too many requests — rate limit or credit limit exceeded.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "historic",
-                    "flight-events",
-                    "full"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "flight_ids",
-                      "value": "391fdd79,35f2ffd9"
-                    },
-                    {
-                      "key": "event_types",
-                      "value": "all"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Too Many Requests",
-              "code": 429,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "2262d3ea-9519-414e-b4a5-c5b081989d4d",
+          "createdAt": "2026-10-21T20:22:42.000Z",
+          "updatedAt": "2026-10-21T20:22:42.000Z",
+          "uid": "35240-2262d3ea-9519-414e-b4a5-c5b081989d4d"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://fr24api.flightradar24.com/api",
-      "key": "baseUrl"
+      "id": "b60e6e81-ce42-4388-b88f-136be40329ad",
+      "createdAt": "2026-10-21T20:22:42.000Z",
+      "updatedAt": "2026-10-21T20:22:42.000Z",
+      "uid": "35240-b60e6e81-ce42-4388-b88f-136be40329ad"
     }
   ],
   "auth": {
@@ -557,17 +590,15 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "4117d700-845e-4084-becc-4d9a9127459c",
-    "name": "Flightradar24 Airlines Historic Events API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "Flightradar24 is the world's most popular real-time flight tracking platform, monitoring over 250,000 daily flights using data from a global network of ADS-B, MLAT, and radar receivers. The FR24 API provides developers with programmatic access to live aircraft positions, historical flight data, flight summaries, and reference data for airports and airlines. The credit-based subscription API uses Bearer token authentication and is available at https://fr24api.flightradar24.com/api with three tiers — Explorer, Essential, and Advanced — covering hobby projects through high-volume commercial applications.",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://fr24api.flightradar24.com/api"
     }
-  }
+  ]
 }
